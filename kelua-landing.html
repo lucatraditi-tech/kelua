@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelua — Living Energy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===== DESIGN TOKENS ===== */
+  :root {
+    --sand: #F5EFE4;
+    --sand-dark: #EAE0CE;
+    --earth: #C8A97E;
+    --earth-deep: #8B6E4E;
+    --ocean: #3B6B6B;
+    --ocean-light: #5A8F8F;
+    --ocean-pale: #D4E8E8;
+    --foam: #FAFAF7;
+    --ink: #1A1A18;
+    --mist: #7A7A70;
+    --leaf: #5C7A55;
+
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'DM Sans', sans-serif;
+
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.87, 0, 0.13, 1);
+  }
+
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--foam);
+    color: var(--ink);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ===== CUSTOM CURSOR ===== */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--ocean);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.3s var(--ease-out), height 0.3s var(--ease-out), background 0.3s;
+    mix-blend-mode: multiply;
+  }
+  .cursor.hover {
+    width: 40px; height: 40px;
+    background: var(--earth);
+    opacity: 0.5;
+  }
+
+  /* ===== NOISE TEXTURE OVERLAY ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.4;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    mix-blend-mode: multiply;
+  }
+  .nav-logo {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    background: var(--sand);
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+  .hero-left {
+    padding: 140px 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ocean);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 1s var(--ease-out) 0.3s forwards;
+  }
+  .hero-headline {
+    font-family: var(--font-serif);
+    font-size: clamp(3.5rem, 6vw, 7rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 1s var(--ease-out) 0.5s forwards;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--earth-deep);
+  }
+  .hero-sub {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--mist);
+    max-width: 360px;
+    margin-bottom: 48px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 1s var(--ease-out) 0.7s forwards;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--ocean);
+    color: white;
+    padding: 16px 32px;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: none;
+    transition: background 0.4s, transform 0.3s var(--ease-out);
+    opacity: 0;
+    animation: fadeUp 1s var(--ease-out) 0.9s forwards;
+    width: fit-content;
+  }
+  .btn-primary:hover {
+    background: var(--earth-deep);
+    transform: translateY(-2px);
+  }
+  .btn-primary svg { transition: transform 0.3s; }
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  /* Hero right — abstract visual */
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    background: var(--ocean);
+  }
+  .hero-bottle-area {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Abstract bottle shape via CSS */
+  .bottle-shape {
+    width: 180px;
+    height: 420px;
+    background: linear-gradient(160deg, var(--ocean-light) 0%, var(--ocean) 40%, #2A5050 100%);
+    border-radius: 90px 90px 50px 50px;
+    position: relative;
+    box-shadow: inset -20px -40px 60px rgba(0,0,0,0.2), 0 40px 80px rgba(0,0,0,0.3);
+    opacity: 0;
+    animation: fadeScale 1.4s var(--ease-out) 0.4s forwards;
+  }
+  .bottle-shape::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: 50%; transform: translateX(-50%);
+    width: 60px; height: 50px;
+    background: linear-gradient(180deg, var(--ocean-light), var(--ocean));
+    border-radius: 10px 10px 0 0;
+  }
+  .bottle-shape::after {
+    content: 'KELUA';
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.5);
+    writing-mode: vertical-rl;
+  }
+  .hero-circle {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(90,143,143,0.3) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 6s ease-in-out infinite;
+  }
+  .hero-orb {
+    position: absolute;
+    bottom: 60px; right: 40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--earth);
+    opacity: 0.4;
+    filter: blur(20px);
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px; left: 60px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    z-index: 2;
+    opacity: 0;
+    animation: fadeUp 1s var(--ease-out) 1.4s forwards;
+  }
+  .scroll-line {
+    width: 40px; height: 1px;
+    background: rgba(255,255,255,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: white;
+    animation: scanLine 2s ease-in-out infinite;
+  }
+
+  /* ===== BRAND STORY ===== */
+  .story {
+    padding: 140px 60px;
+    background: var(--foam);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .story-text h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .story-text h2 em { font-style: italic; color: var(--earth-deep); }
+  .story-text p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--mist);
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+  .word-break {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 48px;
+  }
+  .word-card {
+    padding: 32px;
+    background: var(--sand);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .word-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--ocean);
+  }
+  .word-card .ke, .word-card .lua {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--ocean);
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .word-card .meaning {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--earth-deep);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .word-card p { font-size: 0.9rem; color: var(--mist); line-height: 1.6; }
+
+  /* Story visual */
+  .story-visual {
+    position: relative;
+  }
+  .story-img-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, var(--ocean-pale) 0%, var(--sand-dark) 50%, var(--ocean-pale) 100%);
+    border-radius: 200px 200px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .story-img-placeholder::after {
+    content: 'Brand\A Story';
+    white-space: pre;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    color: var(--ocean);
+    text-align: center;
+    opacity: 0.5;
+    text-transform: uppercase;
+  }
+  .story-badge {
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 120px; height: 120px;
+    background: var(--earth);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .story-badge span:first-child {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    color: white;
+    line-height: 1;
+  }
+  .story-badge span:last-child {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ===== BENEFITS ===== */
+  .benefits {
+    padding: 120px 60px;
+    background: var(--ink);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .benefits::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,107,107,0.3) 0%, transparent 70%);
+  }
+  .benefits-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--earth);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .benefits-header h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: white;
+  }
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(255,255,255,0.05);
+  }
+  .benefit-card {
+    padding: 60px 48px;
+    background: var(--ink);
+    transition: background 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .benefit-card:hover { background: #222220; }
+  .benefit-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--ocean);
+    transform: scaleX(0);
+    transition: transform 0.4s var(--ease-out);
+    transform-origin: left;
+  }
+  .benefit-card:hover::before { transform: scaleX(1); }
+  .benefit-num {
+    font-family: var(--font-serif);
+    font-size: 4rem;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    margin-bottom: 32px;
+    display: block;
+  }
+  .benefit-icon {
+    width: 48px; height: 48px;
+    margin-bottom: 28px;
+    color: var(--ocean-light);
+  }
+  .benefit-card h3 {
+    font-family: var(--font-serif);
+    font-size: 1.7rem;
+    font-weight: 300;
+    margin-bottom: 16px;
+    color: white;
+  }
+  .benefit-card p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+  }
+
+  /* ===== INGREDIENTS ===== */
+  .ingredients {
+    padding: 140px 60px;
+    background: var(--sand);
+    position: relative;
+    overflow: hidden;
+  }
+  .ingredients-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 80px;
+  }
+  .ingredients-header h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 4vw, 5rem);
+    font-weight: 300;
+    line-height: 1.05;
+  }
+  .ingredients-header h2 em { font-style: italic; color: var(--ocean); }
+  .ingredients-header p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--mist);
+    font-weight: 300;
+    align-self: end;
+  }
+  .ingredients-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .ingredient-item {
+    padding: 40px 32px;
+    background: var(--foam);
+    border-radius: 4px;
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+  }
+  .ingredient-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+  }
+  .ing-emoji {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .ingredient-item h4 {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .ingredient-item p {
+    font-size: 0.85rem;
+    color: var(--mist);
+    line-height: 1.6;
+  }
+  .origin-band {
+    margin-top: 80px;
+    padding: 48px 60px;
+    background: var(--ocean);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .origin-band h3 {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 300;
+    color: white;
+  }
+  .origin-band p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.6);
+    max-width: 400px;
+    line-height: 1.7;
+  }
+  .origin-flag {
+    font-size: 3rem;
+    flex-shrink: 0;
+  }
+
+  /* ===== SOCIAL PROOF ===== */
+  .social-proof {
+    padding: 120px 60px;
+    background: var(--foam);
+  }
+  .social-proof-inner {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .social-proof-inner h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 300;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+  .testimonial {
+    padding: 40px;
+    background: var(--sand);
+    border-radius: 4px;
+    text-align: left;
+  }
+  .testimonial-stars {
+    color: var(--earth);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+  }
+  .testimonial blockquote {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--ink);
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+  .testimonial cite {
+    font-style: normal;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+  .trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .trust-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.6;
+  }
+  .trust-badge svg { color: var(--ocean); }
+  .trust-badge span {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+
+  /* ===== FINAL CTA ===== */
+  .final-cta {
+    min-height: 60vh;
+    background: var(--sand-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta::before {
+    content: 'KELUA';
+    position: absolute;
+    font-family: var(--font-serif);
+    font-size: 25vw;
+    font-weight: 300;
+    color: rgba(0,0,0,0.04);
+    white-space: nowrap;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .cta-content { position: relative; z-index: 1; }
+  .cta-content h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .cta-content h2 em { font-style: italic; color: var(--earth-deep); }
+  .cta-content p {
+    font-size: 1rem;
+    color: var(--mist);
+    margin-bottom: 48px;
+    font-weight: 300;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+  .cta-pair {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--ink);
+    padding: 16px 32px;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1.5px solid var(--ink);
+    cursor: none;
+    transition: background 0.4s, color 0.4s, transform 0.3s var(--ease-out);
+  }
+  .btn-secondary:hover {
+    background: var(--ink);
+    color: var(--foam);
+    transform: translateY(-2px);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 48px 60px;
+    background: var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  footer .logo {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.8);
+  }
+  footer p {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.08em;
+  }
+  footer nav {
+    position: static;
+    padding: 0;
+    mix-blend-mode: normal;
+  }
+  footer nav a {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    margin-left: 24px;
+    letter-spacing: 0.1em;
+    transition: color 0.3s;
+  }
+  footer nav a:hover { color: rgba(255,255,255,0.8); }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeScale {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+    50%       { transform: translate(-50%, -50%) scale(1.15); opacity: 0.3; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-20px); }
+  }
+  @keyframes scanLine {
+    0%   { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  /* Scroll-reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+  .reveal-delay-4 { transition-delay: 0.6s; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 120px 32px 60px; }
+    .hero-right { height: 400px; }
+    .story { grid-template-columns: 1fr; padding: 80px 32px; gap: 60px; }
+    .story-visual { display: none; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .benefit-card { padding: 48px 32px; }
+    .ingredients { padding: 80px 32px; }
+    .ingredients-header { grid-template-columns: 1fr; gap: 24px; }
+    .ingredients-list { grid-template-columns: 1fr 1fr; }
+    .origin-band { flex-direction: column; text-align: center; padding: 40px 32px; }
+    .testimonials { grid-template-columns: 1fr; }
+    .social-proof { padding: 80px 32px; }
+    .final-cta { padding: 80px 32px; }
+    footer { padding: 40px 24px; }
+    footer nav a { margin-left: 16px; }
+  }
+  @media (max-width: 600px) {
+    .ingredients-list { grid-template-columns: 1fr; }
+    .word-break { grid-template-columns: 1fr; }
+    .hero-headline { font-size: 3rem; }
+    .trust-badges { gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Kelua</a>
+  <ul class="nav-links">
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#benefits">Benefits</a></li>
+    <li><a href="#ingredients">Ingredients</a></li>
+    <li><a href="#shop">Shop</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Premium Living Kombucha · From Brazil</p>
+    <h1 class="hero-headline">
+      Energy<br>that<br><em>flows.</em>
+    </h1>
+    <p class="hero-sub">
+      Born from nature. Crafted with intention. 
+      Kelua is fermented kombucha made with 100% natural, exotic ingredients — a living drink for those who move with the world.
+    </p>
+    <a href="#shop" class="btn-primary">
+      Discover Kelua
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-circle"></div>
+    <div class="hero-bottle-area">
+      <div class="bottle-shape"></div>
+    </div>
+    <div class="hero-orb"></div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </div>
+</section>
+
+<!-- BRAND STORY -->
+<section class="story" id="story">
+  <div class="story-text reveal">
+    <span class="section-label">The Name</span>
+    <h2>Two words.<br><em>One feeling.</em></h2>
+    <p>Kelua was born from a search for balance — between nature and modernity, between energy and stillness.</p>
+    <p>We took two Hawaiian words and let them become something new. Not a metaphor. A direction.</p>
+    <div class="word-break">
+      <div class="word-card reveal reveal-delay-1">
+        <span class="ke">Ke</span>
+        <span class="meaning">The / Vital</span>
+        <p>The definite article. The energy that exists before it has a name.</p>
+      </div>
+      <div class="word-card reveal reveal-delay-2">
+        <span class="lua">Lua</span>
+        <span class="meaning">Hole / Cycle</span>
+        <p>The passage. Transformation through depth. Nature's own rhythm.</p>
+      </div>
+    </div>
+  </div>
+  <div class="story-visual reveal reveal-delay-1">
+    <div class="story-img-placeholder"></div>
+    <div class="story-badge">
+      <span>🌿</span>
+      <span>Living</span>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div class="benefits-header reveal">
+    <span class="section-label">Why Kelua</span>
+    <h2>Feel the<br><em>difference</em></h2>
+  </div>
+  <div class="benefits-grid">
+    <div class="benefit-card reveal">
+      <span class="benefit-num">01</span>
+      <svg class="benefit-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M24 4 C24 4 14 14 14 26 C14 32 18 38 24 38 C30 38 34 32 34 26 C34 14 24 4 24 4Z"/>
+        <path d="M24 38 L24 44" stroke-dasharray="3 3"/>
+      </svg>
+      <h3>Natural Fermentation</h3>
+      <p>Slow-fermented using a live SCOBY culture. No shortcuts. No shortcuts. The process is the point — time transforms tea into something alive.</p>
+    </div>
+    <div class="benefit-card reveal reveal-delay-1">
+      <span class="benefit-num">02</span>
+      <svg class="benefit-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="24" cy="24" r="18"/>
+        <path d="M24 10 L26 18 L34 18 L28 23 L30 31 L24 26 L18 31 L20 23 L14 18 L22 18Z"/>
+      </svg>
+      <h3>Clean Energy</h3>
+      <p>Natural caffeine from real ingredients. No sugar spikes. No crash. Just a steady, clean lift — the kind your body actually wants.</p>
+    </div>
+    <div class="benefit-card reveal reveal-delay-2">
+      <span class="benefit-num">03</span>
+      <svg class="benefit-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M8 24 C8 24 16 16 24 24 C32 32 40 24 40 24"/>
+        <path d="M8 32 C8 32 16 24 24 32 C32 40 40 32 40 32" opacity="0.5"/>
+        <path d="M8 16 C8 16 16 8 24 16 C32 24 40 16 40 16" opacity="0.3"/>
+      </svg>
+      <h3>Gut Balance</h3>
+      <p>Rich in probiotics and organic acids. Kelua works with your body — supporting digestion, immunity, and the inner balance that shows on the outside.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INGREDIENTS & ORIGIN -->
+<section class="ingredients" id="ingredients">
+  <div class="ingredients-header">
+    <h2 class="reveal">Crafted from<br>the <em>earth.</em></h2>
+    <p class="reveal reveal-delay-1">Every bottle of Kelua begins with an ingredient chosen for what it does — not just what it looks like on a label. Exotic, natural, and sourced with care from Brazil's extraordinary biodiversity.</p>
+  </div>
+  <div class="ingredients-list">
+    <div class="ingredient-item reveal">
+      <span class="ing-emoji">🫚</span>
+      <h4>Raw Green Tea</h4>
+      <p>The base of everything. Antioxidant-rich, lightly caffeinated, and alive with subtle flavour.</p>
+    </div>
+    <div class="ingredient-item reveal reveal-delay-1">
+      <span class="ing-emoji">🍋</span>
+      <h4>Native Citrus</h4>
+      <p>Brazilian varieties chosen for their brightness and depth. Zest without bitterness.</p>
+    </div>
+    <div class="ingredient-item reveal reveal-delay-2">
+      <span class="ing-emoji">🌺</span>
+      <h4>Hibiscus & Botanicals</h4>
+      <p>Flowers and plants that bring colour, complexity, and grounding warmth.</p>
+    </div>
+    <div class="ingredient-item reveal reveal-delay-3">
+      <span class="ing-emoji">🍯</span>
+      <h4>Pure Cane Honey</h4>
+      <p>Unprocessed. Local. Just enough to feed the culture and round the finish.</p>
+    </div>
+  </div>
+  <div class="origin-band reveal">
+    <div>
+      <h3>Made in Brazil.<br>Felt everywhere.</h3>
+      <p style="margin-top:16px">Produced in partnership with an experienced Brazilian fermentation house, Kelua carries the warmth and life of a country that knows how to work with nature.</p>
+    </div>
+    <div class="origin-flag">🇧🇷</div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social-proof">
+  <div class="social-proof-inner reveal">
+    <span class="section-label">Trusted by</span>
+    <h2>People who<br><em>feel the difference.</em></h2>
+  </div>
+  <div class="testimonials">
+    <div class="testimonial reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <blockquote>"I've tried every kombucha on the market. Kelua is the only one that actually makes me feel something different — not just taste good."</blockquote>
+      <cite>— Sofia M., São Paulo</cite>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars">★★★★★</div>
+      <blockquote>"The fermentation depth is unlike anything I've had. You can taste that it's real. Alive. Not manufactured."</blockquote>
+      <cite>— James T., London</cite>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars">★★★★★</div>
+      <blockquote>"My morning ritual changed. Kelua replaced my second coffee — and I don't miss it at all."</blockquote>
+      <cite>— Ana L., Lisbon</cite>
+    </div>
+  </div>
+  <div class="trust-badges reveal">
+    <div class="trust-badge">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>100% Natural</span>
+    </div>
+    <div class="trust-badge">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+      <span>Live Culture</span>
+    </div>
+    <div class="trust-badge">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Small-Batch</span>
+    </div>
+    <div class="trust-badge">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      <span>No Additives</span>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="shop">
+  <div class="cta-content reveal">
+    <span class="section-label">Begin your ritual</span>
+    <h2>Your energy,<br><em>in balance.</em></h2>
+    <p>Find Kelua. Taste the transformation. Feel what it means to be alive.</p>
+    <div class="cta-pair">
+      <a href="#" class="btn-primary">
+        Shop Now
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#" class="btn-secondary">
+        B2B Wholesale
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="logo">Kelua</span>
+  <p>© 2025 Kelua. Premium Living Kombucha. Made in Brazil.</p>
+  <nav>
+    <a href="#">Instagram</a>
+    <a href="#">Privacy</a>
+    <a href="#">Contact</a>
+  </nav>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .ingredient-item, .benefit-card, .testimonial').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
