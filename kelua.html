@@ -75,23 +75,15 @@
 
     /* Logo */
     .nav__logo {
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      color: var(--text);
-      text-transform: uppercase;
+      display: flex;
+      align-items: center;
       line-height: 1;
     }
 
-    .nav__logo span {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      background: var(--cta);
-      border-radius: 50%;
-      margin-left: 3px;
-      vertical-align: super;
+    .nav__logo img {
+      height: 36px;
+      width: auto;
+      display: block;
     }
 
     /* Links */
@@ -117,6 +109,25 @@
     .nav__links a:hover {
       opacity: 1;
       color: var(--accent);
+    }
+
+    /* Soon badge */
+    .nav__links li {
+      position: relative;
+    }
+
+    .nav__badge {
+      position: absolute;
+      bottom: -1px;
+      right: 0;
+      font-family: var(--font-body);
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cta);
+      line-height: 1;
+      pointer-events: none;
     }
 
     /* Hamburger (mobile) */
@@ -179,6 +190,39 @@
       text-align: center;
       padding-left: clamp(1.5rem, 6vw, 6rem);
       padding-right: clamp(1.5rem, 6vw, 6rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 28%;
+    }
+
+    @media (max-width: 768px) {
+      .hero__bg img {
+        object-position: center 20%;
+      }
+    }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(30, 28, 22, 0.54) 0%,
+        rgba(30, 28, 22, 0.36) 50%,
+        rgba(30, 28, 22, 0.60) 100%
+      );
     }
 
     .hero__inner {
@@ -188,6 +232,16 @@
       flex-direction: column;
       align-items: center;
       gap: 2.2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero__logo img {
+      height: clamp(90px, 14vw, 140px);
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);
+      opacity: 0.92;
     }
 
     /* Eyebrow line */
@@ -203,7 +257,7 @@
       display: block;
       width: 32px;
       height: 1px;
-      background: var(--muted);
+      background: rgba(247, 243, 238, 0.4);
     }
 
     .hero__eyebrow-text {
@@ -212,7 +266,7 @@
       font-weight: 400;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: rgba(247, 243, 238, 0.6);
     }
 
     /* Headline */
@@ -222,30 +276,31 @@
       font-weight: 300;
       line-height: 1.15;
       letter-spacing: -0.01em;
-      color: var(--text);
+      color: #F7F3EE;
     }
 
     .hero__headline em {
       font-style: italic;
       font-weight: 300;
-      color: var(--accent);
+      color: var(--cta);
     }
 
     /* Divider */
     .hero__divider {
       width: 1px;
       height: 40px;
-      background: linear-gradient(to bottom, transparent, var(--muted), transparent);
+      background: linear-gradient(to bottom, transparent, rgba(247, 243, 238, 0.35), transparent);
     }
 
     /* Subheadline */
     .hero__sub {
-      font-family: var(--font-body);
-      font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.2vw, 1.4rem);
       font-weight: 300;
-      line-height: 1.8;
-      color: var(--text);
-      opacity: 0.7;
+      font-style: italic;
+      line-height: 1.65;
+      color: #F7F3EE;
+      opacity: 0.82;
       max-width: 560px;
     }
 
@@ -290,7 +345,11 @@
     .hero__scroll-line {
       width: 1px;
       height: 36px;
-      background: var(--text);
+      background: rgba(247, 243, 238, 0.55);
+    }
+
+    .hero__scroll {
+      color: #F7F3EE;
     }
 
     /* ─── Responsive ──────────────────────────────────────────── */
@@ -313,18 +372,37 @@
       max-width: 960px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: clamp(3rem, 6vw, 7rem);
-      align-items: start;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: stretch;
     }
 
-    /* Left column — label */
-    .about__label-col {
-      padding-top: 0.3rem;
+    /* Left column — image */
+    .about__img-col {
+      overflow: hidden;
+      min-height: 520px;
+    }
+
+    .about__img-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: brightness(1.12) contrast(0.88) saturate(0.92);
+    }
+
+    /* Right column — text */
+    .about__text-col {
+      padding: clamp(3rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.8rem;
     }
 
     .about__section-tag {
-      font-size: 0.62rem;
+      font-size: 0.78rem;
       font-weight: 400;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -362,9 +440,11 @@
     }
 
     .about__body p {
-      font-size: clamp(0.9rem, 1.6vw, 1.02rem);
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      font-style: italic;
       font-weight: 300;
-      line-height: 1.85;
+      line-height: 1.75;
       color: var(--text);
       opacity: 0.82;
     }
@@ -400,14 +480,43 @@
     @media (max-width: 680px) {
       .about__inner {
         grid-template-columns: 1fr;
-        gap: 2.4rem;
+      }
+
+      .about__img-col {
+        min-height: 320px;
+      }
+
+      .about__text-col {
+        padding: 2.4rem clamp(1.5rem, 6vw, 3rem);
       }
     }
 
     /* ─── Community ───────────────────────────────────────────── */
     .community {
-      background: #E8EDE3;
+      position: relative;
       padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 6vw, 6rem);
+      overflow: hidden;
+    }
+
+    .community__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .community__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 50%;
+      display: block;
+    }
+
+    .community__overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(232, 227, 214, 0.82);
     }
 
     .community__inner {
@@ -418,10 +527,12 @@
       align-items: center;
       text-align: center;
       gap: 2.4rem;
+      position: relative;
+      z-index: 2;
     }
 
     .community__tag {
-      font-size: 0.62rem;
+      font-size: 0.78rem;
       font-weight: 400;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -446,7 +557,7 @@
       font-size: clamp(2.2rem, 5vw, 3.8rem);
       font-weight: 300;
       line-height: 1.1;
-      color: var(--text);
+      color: var(--accent);
     }
 
     .community__divider {
@@ -464,11 +575,13 @@
     }
 
     .community__body p {
-      font-size: clamp(0.92rem, 1.7vw, 1.05rem);
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.9vw, 1.15rem);
+      font-style: italic;
       font-weight: 300;
-      line-height: 1.85;
+      line-height: 1.75;
       color: var(--text);
-      opacity: 0.78;
+      opacity: 1;
     }
 
     .community__body p:first-child {
@@ -481,14 +594,22 @@
       line-height: 1.4;
     }
 
-    .community__instagram {
+    .community__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .community__instagram,
+    .community__whatsapp {
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      margin-top: 0.6rem;
-      padding: 0.75rem 1.8rem;
-      border: 1px solid rgba(127, 138, 117, 0.45);
-      color: var(--accent);
+      padding: 0.8rem 2rem;
+      border: 1.5px solid rgba(58, 60, 55, 0.65);
+      color: rgba(58, 60, 55, 0.75);
       font-size: 0.72rem;
       font-weight: 400;
       letter-spacing: 0.14em;
@@ -496,13 +617,15 @@
       transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
     }
 
-    .community__instagram:hover {
-      border-color: var(--accent);
-      background: rgba(127, 138, 117, 0.07);
+    .community__instagram:hover,
+    .community__whatsapp:hover {
+      background: rgba(58, 60, 55, 0.08);
       color: var(--text);
+      border-color: var(--text);
     }
 
-    .community__instagram svg {
+    .community__instagram svg,
+    .community__whatsapp svg {
       width: 14px;
       height: 14px;
       stroke: currentColor;
@@ -530,7 +653,7 @@
     }
 
     .products__tag {
-      font-size: 0.62rem;
+      font-size: 0.78rem;
       font-weight: 400;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -557,12 +680,14 @@
     }
 
     .products__intro {
-      font-size: clamp(0.88rem, 1.5vw, 0.98rem);
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.7vw, 1.12rem);
+      font-style: italic;
       font-weight: 300;
       color: var(--text);
-      opacity: 0.6;
+      opacity: 0.65;
       max-width: 480px;
-      line-height: 1.75;
+      line-height: 1.65;
       margin-top: 0.25rem;
     }
 
@@ -642,9 +767,11 @@
     }
 
     .product-card__desc {
-      font-size: clamp(0.9rem, 1.6vw, 1rem);
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.7vw, 1.12rem);
+      font-style: italic;
       font-weight: 300;
-      line-height: 1.8;
+      line-height: 1.7;
       color: var(--text);
       opacity: 0.72;
     }
@@ -790,7 +917,7 @@
     }
 
     .partnership__tag {
-      font-size: 0.62rem;
+      font-size: 0.78rem;
       font-weight: 400;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -817,9 +944,11 @@
     }
 
     .partnership__intro {
-      font-size: clamp(0.88rem, 1.5vw, 0.98rem);
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.7vw, 1.12rem);
+      font-style: italic;
       font-weight: 300;
-      line-height: 1.85;
+      line-height: 1.7;
       color: var(--text);
       opacity: 0.68;
     }
@@ -971,13 +1100,37 @@
 
     /* ─── Eventi ──────────────────────────────────────────────── */
     .events {
-      background: var(--bg);
+      position: relative;
+      overflow: hidden;
       padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 6vw, 6rem);
+    }
+
+    .events__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .events__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 52%;
+      display: block;
+    }
+
+    .events__overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(232, 227, 214, 0.80);
     }
 
     .events__inner {
       max-width: 1040px;
       margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
 
     .events__header {
@@ -989,7 +1142,7 @@
     }
 
     .events__tag {
-      font-size: 0.62rem;
+      font-size: 0.78rem;
       font-weight: 400;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -997,6 +1150,14 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
+    }
+
+    .events__tag .events__soon {
+      font-style: normal;
+      font-weight: 700;
+      color: var(--cta);
+      letter-spacing: 0.22em;
+      margin-left: 0.2rem;
     }
 
     .events__tag::before {
@@ -1016,11 +1177,13 @@
     }
 
     .events__intro {
-      font-size: clamp(0.88rem, 1.5vw, 0.98rem);
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.7vw, 1.12rem);
+      font-style: italic;
       font-weight: 300;
-      line-height: 1.8;
+      line-height: 1.7;
       color: var(--text);
-      opacity: 0.62;
+      opacity: 0.72;
     }
 
     /* Grid */
@@ -1034,11 +1197,30 @@
 
     /* Card */
     .event-card {
-      background: var(--bg);
+      background: rgba(247, 243, 238, 0.48);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
       padding: clamp(1.8rem, 3.5vw, 2.4rem);
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      pointer-events: none;
+      cursor: default;
+      user-select: none;
+    }
+
+    .event-card__coming {
+      display: inline-block;
+      align-self: flex-start;
+      margin-top: 0.4rem;
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cta);
+      border-bottom: 1px solid rgba(213, 169, 139, 0.45);
+      padding-bottom: 2px;
     }
 
     .event-card__top {
@@ -1089,9 +1271,11 @@
     }
 
     .event-card__desc {
-      font-size: 0.85rem;
+      font-family: var(--font-display);
+      font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+      font-style: italic;
       font-weight: 300;
-      line-height: 1.75;
+      line-height: 1.7;
       color: var(--text);
       opacity: 0.65;
       flex: 1;
@@ -1119,10 +1303,10 @@
     /* Footnote */
     .events__footnote {
       margin-top: clamp(2.5rem, 5vw, 3.5rem);
-      font-size: 0.8rem;
-      font-weight: 300;
+      font-size: 0.88rem;
+      font-weight: 400;
       color: var(--text);
-      opacity: 0.55;
+      opacity: 0.88;
       text-align: center;
     }
 
@@ -1165,9 +1349,9 @@
     }
 
     .newsletter__tag {
-      font-size: 0.6rem;
+      font-size: 0.78rem;
       font-weight: 400;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--muted);
       display: flex;
@@ -1200,7 +1384,9 @@
     }
 
     .newsletter__body p {
-      font-size: clamp(0.88rem, 1.5vw, 0.96rem);
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      font-style: italic;
       font-weight: 300;
       line-height: 1.8;
       color: #F7F3EE;
@@ -1414,13 +1600,12 @@
       gap: 0.4rem;
     }
 
-    .footer__logo {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 400;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(247,243,238,0.75);
+    .footer__logo img {
+      height: 38px;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);
+      opacity: 0.7;
     }
 
     .footer__tagline {
@@ -1506,15 +1691,21 @@
     <div class="nav__inner">
 
       <a href="#hero" class="nav__logo" aria-label="Kelua — torna in cima">
-        Kelua<span aria-hidden="true"></span>
+        <img src="logo/logo.svg" alt="Kelua" />
       </a>
 
       <ul class="nav__links">
         <li><a href="#chi-siamo">Chi siamo</a></li>
         <li><a href="#community">Community</a></li>
-        <li><a href="#prodotti">Prodotti Premium</a></li>
+        <li>
+          <a href="#prodotti">Kelūa Selection</a>
+          <span class="nav__badge">Soon</span>
+        </li>
+        <li>
+          <a href="#eventi">Eventi</a>
+          <span class="nav__badge">Soon</span>
+        </li>
         <li><a href="#partnership">Partnership</a></li>
-        <li><a href="#eventi">Eventi</a></li>
         <li><a href="#newsletter">Newsletter</a></li>
       </ul>
 
@@ -1532,16 +1723,38 @@
     <ul>
       <li><a href="#chi-siamo">Chi siamo</a></li>
       <li><a href="#community">Community</a></li>
-      <li><a href="#prodotti">Prodotti Premium</a></li>
+      <li>
+        <a href="#prodotti">Kelūa Selection</a>
+        <span class="nav__badge">Soon</span>
+      </li>
+      <li>
+        <a href="#eventi">Eventi</a>
+        <span class="nav__badge">Soon</span>
+      </li>
       <li><a href="#partnership">Partnership</a></li>
-      <li><a href="#eventi">Eventi</a></li>
       <li><a href="#newsletter">Newsletter</a></li>
     </ul>
   </div>
 
   <!-- ═══ HERO ══════════════════════════════════════════════════ -->
   <section class="hero" id="hero" aria-label="Hero">
+
+    <div class="hero__bg" aria-hidden="true">
+      <img
+        src="HERO/PHOTO-2026-05-25-21-28-59 3.jpg"
+        alt=""
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+
     <div class="hero__inner">
+
+      <div class="hero__logo">
+        <img src="logo/logo.svg" alt="Kelua" />
+      </div>
 
       <div class="hero__eyebrow">
         <span class="hero__eyebrow-text">Benessere Contemporaneo</span>
@@ -1559,12 +1772,7 @@
         concreti e vivibili ogni giorno.
       </p>
 
-      <a
-        href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf"
-        class="hero__cta"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="#community" class="hero__cta">
         Entra nella community
       </a>
 
@@ -1580,40 +1788,51 @@
   <section class="about" id="chi-siamo" aria-label="Chi siamo">
     <div class="about__inner">
 
-      <!-- Left: label + title -->
-      <div class="about__label-col">
-        <span class="about__section-tag">Chi siamo</span>
-        <h2 class="about__title">Una forma<br>al benessere.</h2>
+      <!-- Left: image -->
+      <div class="about__img-col">
+        <img src="CHI SIAMO/22-11.jpg" alt="Il team Kelūa" />
       </div>
 
-      <!-- Right: body copy -->
-      <div class="about__body">
+      <!-- Right: label + title + body -->
+      <div class="about__text-col">
 
-        <p>Kelua non nasce per vendere benessere.<br>Nasce per dargli una forma.</p>
+        <span class="about__section-tag">Chi siamo</span>
+        <h2 class="about__title">Una forma<br>al benessere.</h2>
 
-        <p>Viviamo in un tempo in cui tutto è disponibile, ma poco è davvero integrato.</p>
+        <div class="about__body">
 
-        <p>Kelua è pensata per chi vuole crescere senza perdersi.<br>
-           Per chi cerca equilibrio dentro una vita intensa.<br>
-           Per chi desidera più coerenza, più presenza, più direzione.</p>
+          <p>Kelūa non nasce per vendere benessere.<br>Nasce per dargli una forma.</p>
 
-        <p>Non un metodo.<br>Un sistema.</p>
+          <p>Viviamo in un tempo in cui tutto è disponibile, ma poco è davvero integrato.</p>
 
-        <div class="about__manifesto" aria-label="I pilastri di Kelua">
-          <p>Contenuti.</p>
-          <p>Rituali.</p>
-          <p>Comunità.</p>
-          <p>Scelte.</p>
+          <p>Kelūa è pensata per chi vuole crescere senza perdersi.<br>
+             Per chi cerca equilibrio dentro una vita intensa.<br>
+             Per chi desidera più coerenza, più presenza, più direzione.</p>
+
+          <p>Non un metodo.<br>Un sistema.</p>
+
+          <div class="about__manifesto" aria-label="I pilastri di Kelūa">
+            <p>Contenuti.</p>
+            <p>Rituali.</p>
+            <p>Comunità.</p>
+            <p>Scelte.</p>
+          </div>
+
+          <p class="about__closing">Tutto allineato.</p>
+
         </div>
-
-        <p class="about__closing">Tutto allineato.</p>
-
       </div>
     </div>
   </section>
 
   <!-- ═══ COMMUNITY ════════════════════════════════════════════ -->
   <section class="community" id="community" aria-label="Community">
+
+    <div class="community__bg" aria-hidden="true">
+      <img src="COMMUNITY/PHOTO-2026-05-25-21-28-59 2.jpg" alt="" loading="lazy" decoding="async" />
+    </div>
+    <div class="community__overlay" aria-hidden="true"></div>
+
     <div class="community__inner">
 
       <span class="community__tag">Community</span>
@@ -1624,25 +1843,40 @@
 
       <div class="community__body">
         <p>E non devi farlo da solo.</p>
-        <p>Kelua è uno spazio condiviso in cui ritrovare chiarezza, connessione e presenza.
-           Una community per chi vuole vivere con più intenzione, senza uscire dalla realtà.</p>
+        <p>Kelūa è uno spazio condiviso in cui ritrovare chiarezza, connessione e presenza.
+           Seguici su Instagram e unisciti alla nostra Community WhatsApp —
+           per chi vuole vivere con più intenzione, senza uscire dalla realtà.</p>
       </div>
 
-      <a
-        href="https://instagram.com/kelua_ritual"
-        class="community__instagram"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Seguici su Instagram @kelua_ritual"
-      >
-        <!-- Instagram icon (SVG inline, no external lib) -->
-        <svg viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <circle cx="12" cy="12" r="4.5"/>
-          <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
-        </svg>
-        Seguici su Instagram
-      </a>
+      <div class="community__buttons">
+        <a
+          href="https://instagram.com/kelua_ritual"
+          class="community__instagram"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Seguici su Instagram @kelua_ritual"
+        >
+          <svg viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+          </svg>
+          Instagram
+        </a>
+
+        <a
+          href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf"
+          class="community__whatsapp"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Entra nella Community WhatsApp Kelūa"
+        >
+          <svg viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+          Community WhatsApp
+        </a>
+      </div>
 
     </div>
   </section>
@@ -1830,10 +2064,16 @@
   </section>
   <!-- ═══ EVENTI ═══════════════════════════════════════════════ -->
   <section class="events" id="eventi" aria-label="Eventi">
+
+    <div class="events__bg" aria-hidden="true">
+      <img src="EVENTI/PHOTO-2026-05-25-21-28-59 4.jpg" alt="" loading="lazy" decoding="async" />
+    </div>
+    <div class="events__overlay" aria-hidden="true"></div>
+
     <div class="events__inner">
 
       <div class="events__header">
-        <span class="events__tag">Eventi</span>
+        <span class="events__tag">Eventi &nbsp;<em class="events__soon">— Soon</em></span>
         <h2 class="events__title">Momenti per<br>ritrovare presenza.</h2>
         <p class="events__intro">
           Momenti per rallentare, incontrarsi e ritrovare presenza.<br>
@@ -1858,7 +2098,7 @@
             Roma
           </p>
           <p class="event-card__desc">Una mattina guidata di pratiche semplici per iniziare la giornata con intenzione. Respiro, movimento, silenzio.</p>
-          <a href="#newsletter" class="event-card__btn" onclick="document.getElementById('newsletter').scrollIntoView({behavior:'smooth'}); return false;">Scopri</a>
+          <span class="event-card__coming">Prossimamente</span>
         </article>
 
         <!-- Card 2 -->
@@ -1876,7 +2116,7 @@
             Umbria
           </p>
           <p class="event-card__desc">Due giorni immersi nella natura, lontano dal rumore. In collaborazione con una realtà in linea con la visione Kelua.</p>
-          <a href="#newsletter" class="event-card__btn" onclick="document.getElementById('newsletter').scrollIntoView({behavior:'smooth'}); return false;">Scopri</a>
+          <span class="event-card__coming">Prossimamente</span>
         </article>
 
         <!-- Card 3 -->
@@ -1894,7 +2134,7 @@
             Milano
           </p>
           <p class="event-card__desc">Un incontro tra persone, prodotti e storie. Una serata per conoscersi, condividere e vivere il mondo Kelua da vicino.</p>
-          <a href="#newsletter" class="event-card__btn" onclick="document.getElementById('newsletter').scrollIntoView({behavior:'smooth'}); return false;">Scopri</a>
+          <span class="event-card__coming">Prossimamente</span>
         </article>
 
       </div>
@@ -2081,7 +2321,9 @@
     <div class="footer__inner">
 
       <div class="footer__brand">
-        <span class="footer__logo">Kelua</span>
+        <div class="footer__logo">
+          <img src="logo/logo.svg" alt="Kelūa" />
+        </div>
         <p class="footer__tagline">Rituali contemporanei per una vita più allineata.</p>
       </div>
 
