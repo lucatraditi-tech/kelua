@@ -36,6 +36,7 @@
       scroll-padding-top: var(--nav-h);
       font-size: 16px;
       -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
     }
 
     body {
@@ -487,6 +488,7 @@
     .philosophy {
       background: var(--bg);
       padding: clamp(6rem, 14vw, 10rem) clamp(1.5rem, 6vw, 6rem) clamp(3rem, 6vw, 5rem);
+      position: relative;
     }
 
     .philosophy__inner {
@@ -495,6 +497,8 @@
       display: flex;
       flex-direction: column;
       gap: 2.8rem;
+      position: relative;
+      z-index: 1;
     }
 
     .philosophy__tag {
@@ -615,6 +619,7 @@
     .about {
       background: #EFEBE4;
       padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 6vw, 6rem);
+      position: relative;
     }
 
     .about__inner {
@@ -624,6 +629,8 @@
       grid-template-columns: 1fr 1fr;
       gap: 0;
       align-items: stretch;
+      position: relative;
+      z-index: 1;
     }
 
     /* Left column — image */
@@ -777,7 +784,7 @@
       text-align: center;
       gap: 2.4rem;
       position: relative;
-      z-index: 2;
+      z-index: 3;
     }
 
     .community__tag {
@@ -886,11 +893,14 @@
     .products {
       background: var(--bg);
       padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 6vw, 6rem);
+      position: relative;
     }
 
     .products__inner {
       max-width: 1040px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     /* Header row */
@@ -1145,6 +1155,7 @@
     .partnership {
       background: #EFEBE4;
       padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 6vw, 6rem);
+      position: relative;
     }
 
     .partnership__inner {
@@ -1154,6 +1165,8 @@
       grid-template-columns: 1fr 1.4fr;
       gap: clamp(3rem, 7vw, 8rem);
       align-items: start;
+      position: relative;
+      z-index: 1;
     }
 
     /* Left column */
@@ -1379,7 +1392,7 @@
       max-width: 1040px;
       margin: 0 auto;
       position: relative;
-      z-index: 2;
+      z-index: 3;
     }
 
     .events__header {
@@ -1585,6 +1598,7 @@
     .newsletter {
       background: #3A3C37;
       padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 6vw, 6rem);
+      position: relative;
     }
 
     .newsletter__inner {
@@ -1595,6 +1609,8 @@
       align-items: center;
       text-align: center;
       gap: 2.4rem;
+      position: relative;
+      z-index: 1;
     }
 
     .newsletter__tag {
@@ -1736,6 +1752,7 @@
       background: var(--bg);
       padding: clamp(6rem, 14vw, 11rem) clamp(1.5rem, 6vw, 6rem);
       text-align: center;
+      position: relative;
     }
 
     .closing__inner {
@@ -1745,6 +1762,8 @@
       flex-direction: column;
       align-items: center;
       gap: 2.8rem;
+      position: relative;
+      z-index: 1;
     }
 
     .closing__mark {
@@ -1931,6 +1950,32 @@
       }
     }
 
+    /* ─── Geometric decorations ──────────────────────────────── */
+    .geo {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .geo-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(127, 138, 117, 0.20);
+    }
+
+    .geo--light .geo-circle {
+      border-color: rgba(247, 243, 238, 0.14);
+    }
+
+    .geo--photo {
+      z-index: 2;
+    }
+
+    .geo--photo .geo-circle {
+      border-color: rgba(127, 138, 117, 0.18);
+    }
+
   </style>
 </head>
 <body>
@@ -2053,6 +2098,11 @@
 
   <!-- ═══ FILOSOFIA / ESSENZA (parent) ════════════════════════ -->
   <section class="philosophy" id="filosofia" aria-label="Filosofia di Kelūa">
+    <div class="geo" aria-hidden="true">
+      <div class="geo-circle" style="width:700px;height:700px;top:50%;left:50%;transform:translate(-48%,-55%)"></div>
+      <div class="geo-circle" style="width:460px;height:460px;bottom:-80px;left:-100px"></div>
+      <div class="geo-circle" style="width:300px;height:300px;top:30px;right:-60px"></div>
+    </div>
     <div class="philosophy__inner">
 
       <span class="philosophy__tag">Filosofia Kelūa</span>
@@ -2090,6 +2140,10 @@
 
   <!-- ═══ CHI SIAMO ═══════════════════════════════════════════ -->
   <section class="about" id="chi-siamo" aria-label="Chi siamo">
+    <div class="geo" aria-hidden="true">
+      <div class="geo-circle" style="width:520px;height:520px;top:-80px;right:-120px"></div>
+      <div class="geo-circle" style="width:340px;height:340px;bottom:-60px;left:8%"></div>
+    </div>
     <div class="about__inner">
 
       <!-- Left: image -->
@@ -2138,6 +2192,10 @@
       <img src="COMMUNITY/PHOTO-2026-05-25-21-28-59 2.jpg" alt="" loading="lazy" decoding="async" />
     </div>
     <div class="community__overlay" aria-hidden="true"></div>
+    <div class="geo geo--photo" aria-hidden="true">
+      <div class="geo-circle" style="width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+      <div class="geo-circle" style="width:300px;height:300px;bottom:-40px;right:-60px"></div>
+    </div>
 
     <div class="community__inner">
 
@@ -2188,6 +2246,11 @@
   </section>
   <!-- ═══ PRODOTTI PREMIUM ══════════════════════════════════════ -->
   <section class="products" id="prodotti" aria-label="Prodotti Premium">
+    <div class="geo" aria-hidden="true">
+      <div class="geo-circle" style="width:500px;height:500px;top:-250px;left:calc(60% - 250px)"></div>
+      <div class="geo-circle" style="width:560px;height:560px;top:30%;left:-60px"></div>
+      <div class="geo-circle" style="width:500px;height:500px;bottom:-250px;left:calc(20% - 250px)"></div>
+    </div>
     <div class="products__inner">
 
       <div class="products__header">
@@ -2296,6 +2359,10 @@
       <img src="EVENTI/PHOTO-2026-05-25-21-28-59 4.jpg" alt="" loading="lazy" decoding="async" />
     </div>
     <div class="events__overlay" aria-hidden="true"></div>
+    <div class="geo geo--photo" aria-hidden="true">
+      <div class="geo-circle" style="width:580px;height:580px;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+      <div class="geo-circle" style="width:280px;height:280px;top:-40px;left:-60px"></div>
+    </div>
 
     <div class="events__inner">
 
@@ -2376,6 +2443,11 @@
 
   <!-- ═══ PARTNERSHIP ══════════════════════════════════════════ -->
   <section class="partnership" id="partnership" aria-label="Partnership e B2B">
+    <div class="geo" aria-hidden="true">
+      <div class="geo-circle" style="width:500px;height:500px;top:-250px;left:calc(72% - 250px)"></div>
+      <div class="geo-circle" style="width:550px;height:550px;top:25%;right:-80px"></div>
+      <div class="geo-circle" style="width:500px;height:500px;bottom:-250px;left:calc(45% - 250px)"></div>
+    </div>
     <div class="partnership__inner">
 
       <!-- Left: intro -->
@@ -2456,6 +2528,11 @@
 
   <!-- ═══ NEWSLETTER ═══════════════════════════════════════════ -->
   <section class="newsletter" id="newsletter" aria-label="Newsletter">
+    <div class="geo geo--light" aria-hidden="true">
+      <div class="geo-circle" style="width:500px;height:500px;top:-250px;left:calc(45% - 250px)"></div>
+      <div class="geo-circle" style="width:520px;height:520px;top:40%;left:calc(28% - 260px)"></div>
+      <div class="geo-circle" style="width:500px;height:500px;bottom:-250px;left:calc(62% - 250px)"></div>
+    </div>
     <div class="newsletter__inner">
 
       <span class="newsletter__tag">Newsletter</span>
@@ -2505,6 +2582,10 @@
 
   <!-- ═══ CLOSING ══════════════════════════════════════════════ -->
   <section class="closing" aria-label="Chiusura">
+    <div class="geo" aria-hidden="true">
+      <div class="geo-circle" style="width:500px;height:500px;top:-250px;left:calc(62% - 250px)"></div>
+      <div class="geo-circle" style="width:620px;height:620px;top:30%;left:50%;transform:translateX(-50%)"></div>
+    </div>
     <div class="closing__inner">
 
       <div class="closing__mark" aria-hidden="true"></div>
