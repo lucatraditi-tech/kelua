@@ -374,6 +374,243 @@
       .nav__mobile { display: none !important; }
     }
 
+    /* ─── Nav dropdown ───────────────────────────────────────── */
+    .nav__dropdown { position: relative; }
+
+    .nav__dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg);
+      border: 1px solid rgba(174, 183, 161, 0.22);
+      min-width: 188px;
+      display: none;
+      flex-direction: column;
+      padding: 0.5rem 0;
+      z-index: 200;
+      box-shadow: 0 8px 24px rgba(58, 60, 55, 0.07);
+    }
+
+    .nav__dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 8px;
+    }
+
+    .nav__dropdown:hover .nav__dropdown-menu,
+    .nav__dropdown:focus-within .nav__dropdown-menu {
+      display: flex;
+    }
+
+    .nav__dropdown-menu a {
+      display: block;
+      padding: 0.55rem 1.2rem;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      opacity: 0.6;
+      white-space: nowrap;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .nav__dropdown-menu a:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    .nav__mobile-sub > a {
+      padding-left: 1.2rem;
+      opacity: 0.45 !important;
+    }
+
+    /* ─── Filosofia overlay ──────────────────────────────────── */
+    .filosofia-area {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: var(--bg);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .filosofia-area.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .filosofia-close {
+      position: fixed;
+      top: 1.2rem;
+      right: clamp(1.5rem, 5vw, 4rem);
+      z-index: 600;
+      display: none;
+      align-items: center;
+      gap: 0.55rem;
+      background: rgba(247, 243, 238, 0.92);
+      border: 1px solid rgba(58, 60, 55, 0.18);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text);
+      opacity: 0.85;
+      transition: opacity 0.2s, background 0.2s;
+      padding: 0.55rem 1.1rem;
+    }
+
+    .filosofia-close.is-visible { display: flex; }
+    .filosofia-close:hover { opacity: 1; background: rgba(247, 243, 238, 1); }
+
+    .filosofia-close svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    /* ─── Philosophy ─────────────────────────────────────────── */
+    .philosophy {
+      background: var(--bg);
+      padding: clamp(6rem, 14vw, 10rem) clamp(1.5rem, 6vw, 6rem) clamp(3rem, 6vw, 5rem);
+    }
+
+    .philosophy__inner {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.8rem;
+    }
+
+    .philosophy__tag {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .philosophy__tag::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .philosophy__headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .philosophy__headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .philosophy__body {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .philosophy__body p {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text);
+      opacity: 0.72;
+    }
+
+    .philosophy__meaning {
+      border-left: 1px solid var(--muted);
+      padding-left: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .philosophy__meaning p {
+      font-family: var(--font-display);
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--accent);
+    }
+
+    .philosophy__meaning p:first-child {
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    .philosophy__invitation {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(174, 183, 161, 0.25);
+    }
+
+    .philosophy__invitation p {
+      font-family: var(--font-display);
+      font-size: clamp(0.95rem, 1.7vw, 1.1rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.65;
+      color: var(--text);
+      opacity: 0.55;
+    }
+
+    .philosophy__connector {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding-top: 0.5rem;
+    }
+
+    .philosophy__connector-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.55;
+    }
+
+    .philosophy__connector-line {
+      width: 1px;
+      height: 44px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      opacity: 0.35;
+      margin-left: 3px;
+    }
+
     /* ─── Chi siamo ───────────────────────────────────────────── */
     .about {
       background: #EFEBE4;
@@ -1707,7 +1944,13 @@
       </a>
 
       <ul class="nav__links">
-        <li><a href="#chi-siamo">Chi siamo</a></li>
+        <li class="nav__dropdown">
+          <a href="#filosofia" class="js-filosofia-link">Filosofia Kelūa</a>
+          <div class="nav__dropdown-menu">
+            <a href="#filosofia" class="js-filosofia-link">Filosofia Kelūa</a>
+            <a href="#chi-siamo" class="js-filosofia-link">Chi siamo</a>
+          </div>
+        </li>
         <li><a href="#community">Community</a></li>
         <li>
           <a href="#prodotti">Kelūa Selection</a>
@@ -1733,7 +1976,8 @@
   <!-- Mobile menu -->
   <div class="nav__mobile" id="mobileMenu" aria-hidden="true">
     <ul>
-      <li><a href="#chi-siamo">Chi siamo</a></li>
+      <li><a href="#filosofia" class="js-filosofia-link">Filosofia Kelūa</a></li>
+      <li class="nav__mobile-sub"><a href="#chi-siamo" class="js-filosofia-link">Chi siamo</a></li>
       <li><a href="#community">Community</a></li>
       <li>
         <a href="#prodotti">Kelūa Selection</a>
@@ -1796,6 +2040,54 @@
     </div>
   </section>
 
+  <!-- ═══ FILOSOFIA AREA (overlay — accessibile da nav) ══════ -->
+  <button class="filosofia-close" id="filosofiaClose" aria-label="Chiudi e torna al sito">
+    <svg viewBox="0 0 24 24" stroke-width="1.4" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18"/>
+      <line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+    Chiudi
+  </button>
+
+  <div class="filosofia-area" id="filosofia-area">
+
+  <!-- ═══ FILOSOFIA / ESSENZA (parent) ════════════════════════ -->
+  <section class="philosophy" id="filosofia" aria-label="Filosofia di Kelūa">
+    <div class="philosophy__inner">
+
+      <span class="philosophy__tag">Filosofia Kelūa</span>
+
+      <h2 class="philosophy__headline">
+        Per stare bene fuori,<br>
+        bisogna prima <em>tornare dentro.</em>
+      </h2>
+
+      <div class="philosophy__body">
+        <p>KELŪA nasce da un'intuizione semplice ma profonda. Viviamo in un tempo che ci spinge continuamente verso l'esterno — verso il rumore, la produzione, la distrazione. È facile perdere il contatto con ciò che sentiamo davvero.</p>
+        <p>Nasce da questo bisogno contemporaneo e umano: creare uno spazio, fisico e simbolico, in cui fermarsi, respirare, ascoltarsi e ritrovarsi.</p>
+      </div>
+
+      <div class="philosophy__meaning" aria-label="Il significato del nome">
+        <p>Il nome nasce dall'unione di <em>ke</em> e <em>lua</em> — e richiama l'idea del "buco": uno spazio da attraversare, una profondità interiore.</p>
+        <p>Non è assenza. È uno spazio interiore.</p>
+        <p>Il punto in cui il rumore si abbassa e torna visibile l'essenziale.</p>
+      </div>
+
+      <div class="philosophy__invitation" aria-label="Il nostro invito">
+        <p>Un invito a rallentare senza sentirsi in ritardo.</p>
+        <p>A stare nel presente senza dover sempre fuggire altrove.</p>
+        <p>A prendersi cura di sé, senza sensi di colpa.</p>
+        <p>A coltivare uno spazio interiore più quieto, più vero.</p>
+      </div>
+
+      <div class="philosophy__connector" aria-hidden="true">
+        <span class="philosophy__connector-label">Chi siamo</span>
+        <div class="philosophy__connector-line"></div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ═══ CHI SIAMO ═══════════════════════════════════════════ -->
   <section class="about" id="chi-siamo" aria-label="Chi siamo">
     <div class="about__inner">
@@ -1836,6 +2128,8 @@
       </div>
     </div>
   </section>
+
+  </div><!-- /filosofia-area -->
 
   <!-- ═══ COMMUNITY ════════════════════════════════════════════ -->
   <section class="community" id="community" aria-label="Community">
@@ -1995,85 +2289,6 @@
     </div>
   </section>
 
-  <!-- ═══ PARTNERSHIP ══════════════════════════════════════════ -->
-  <section class="partnership" id="partnership" aria-label="Partnership e B2B">
-    <div class="partnership__inner">
-
-      <!-- Left: intro -->
-      <div class="partnership__left">
-        <span class="partnership__tag">Partnership &amp; B2B</span>
-        <h2 class="partnership__title">Costruiamo<br>insieme.</h2>
-        <div class="partnership__intro">
-          <p>Non stiamo solo distribuendo prodotti.<br>Stiamo costruendo un ecosistema.</p>
-          <br>
-          <p>Collaboriamo con spazi, brand ed esperienze in linea con la nostra visione.</p>
-        </div>
-        <p class="partnership__contact-line">
-          Oppure scrivici direttamente a<br>
-          <a href="mailto:info@kelua.it">info@kelua.it</a>
-        </p>
-      </div>
-
-      <!-- Right: form -->
-      <form
-        class="partnership__form"
-        id="partnershipForm"
-        aria-label="Modulo di contatto Partnership"
-        novalidate
-      >
-        <div class="form-row">
-          <div class="form-field">
-            <label for="p-nome">Nome</label>
-            <input type="text" id="p-nome" name="nome" placeholder="Il tuo nome" required />
-          </div>
-          <div class="form-field">
-            <label for="p-azienda">Azienda</label>
-            <input type="text" id="p-azienda" name="azienda" placeholder="Nome azienda" />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-field">
-            <label for="p-email">Email</label>
-            <input type="email" id="p-email" name="email" placeholder="email@esempio.it" required />
-          </div>
-          <div class="form-field">
-            <label for="p-tel">Telefono</label>
-            <input type="tel" id="p-tel" name="telefono" placeholder="+39 000 000 0000" />
-          </div>
-        </div>
-
-        <div class="form-field form-field--select">
-          <label for="p-tipo">Tipo di richiesta</label>
-          <select id="p-tipo" name="tipo" required>
-            <option value="" disabled selected>Seleziona una categoria</option>
-            <option value="ordine-prodotti">Ordine prodotti premium</option>
-            <option value="partnership">Partnership</option>
-            <option value="eventi-retreat">Eventi / Retreat</option>
-            <option value="sponsorizzazione">Sponsorizzazione</option>
-            <option value="altro">Altro</option>
-          </select>
-        </div>
-
-        <div class="form-field">
-          <label for="p-messaggio">Messaggio</label>
-          <textarea
-            id="p-messaggio"
-            name="messaggio"
-            placeholder="Raccontaci la tua idea o la tua richiesta…"
-            rows="4"
-            required
-          ></textarea>
-        </div>
-
-        <div class="form-submit">
-          <button type="submit" class="btn--primary">Invia richiesta</button>
-          <span class="form-status" id="formStatus" role="status" aria-live="polite"></span>
-        </div>
-      </form>
-
-    </div>
-  </section>
   <!-- ═══ EVENTI ═══════════════════════════════════════════════ -->
   <section class="events" id="eventi" aria-label="Eventi">
 
@@ -2155,6 +2370,86 @@
         Vuoi proporre una collaborazione per un evento?&ensp;
         <a href="#partnership" onclick="document.getElementById('partnership').scrollIntoView({behavior:'smooth'}); return false;">Scrivici nella sezione Partnership.</a>
       </p>
+
+    </div>
+  </section>
+
+  <!-- ═══ PARTNERSHIP ══════════════════════════════════════════ -->
+  <section class="partnership" id="partnership" aria-label="Partnership e B2B">
+    <div class="partnership__inner">
+
+      <!-- Left: intro -->
+      <div class="partnership__left">
+        <span class="partnership__tag">Partnership &amp; B2B</span>
+        <h2 class="partnership__title">Costruiamo<br>insieme.</h2>
+        <div class="partnership__intro">
+          <p>Non stiamo solo distribuendo prodotti.<br>Stiamo costruendo un ecosistema.</p>
+          <br>
+          <p>Collaboriamo con spazi, brand ed esperienze in linea con la nostra visione.</p>
+        </div>
+        <p class="partnership__contact-line">
+          Oppure scrivici direttamente a<br>
+          <a href="mailto:info@kelua.it">info@kelua.it</a>
+        </p>
+      </div>
+
+      <!-- Right: form -->
+      <form
+        class="partnership__form"
+        id="partnershipForm"
+        aria-label="Modulo di contatto Partnership"
+        novalidate
+      >
+        <div class="form-row">
+          <div class="form-field">
+            <label for="p-nome">Nome</label>
+            <input type="text" id="p-nome" name="nome" placeholder="Il tuo nome" required />
+          </div>
+          <div class="form-field">
+            <label for="p-azienda">Azienda</label>
+            <input type="text" id="p-azienda" name="azienda" placeholder="Nome azienda" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="p-email">Email</label>
+            <input type="email" id="p-email" name="email" placeholder="email@esempio.it" required />
+          </div>
+          <div class="form-field">
+            <label for="p-tel">Telefono</label>
+            <input type="tel" id="p-tel" name="telefono" placeholder="+39 000 000 0000" />
+          </div>
+        </div>
+
+        <div class="form-field form-field--select">
+          <label for="p-tipo">Tipo di richiesta</label>
+          <select id="p-tipo" name="tipo" required>
+            <option value="" disabled selected>Seleziona una categoria</option>
+            <option value="ordine-prodotti">Ordine prodotti premium</option>
+            <option value="partnership">Partnership</option>
+            <option value="eventi-retreat">Eventi / Retreat</option>
+            <option value="sponsorizzazione">Sponsorizzazione</option>
+            <option value="altro">Altro</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="p-messaggio">Messaggio</label>
+          <textarea
+            id="p-messaggio"
+            name="messaggio"
+            placeholder="Raccontaci la tua idea o la tua richiesta…"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn--primary">Invia richiesta</button>
+          <span class="form-status" id="formStatus" role="status" aria-live="polite"></span>
+        </div>
+      </form>
 
     </div>
   </section>
@@ -2310,6 +2605,44 @@
       formStatus.classList.add('is-visible');
 
       setTimeout(() => formStatus.classList.remove('is-visible'), 4000);
+    });
+
+    // Filosofia overlay
+    const filosofiaArea  = document.getElementById('filosofia-area');
+    const filosofiaClose = document.getElementById('filosofiaClose');
+
+    function openFilosofia(targetSelector) {
+      filosofiaArea.classList.add('is-open');
+      filosofiaClose.classList.add('is-visible');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        const el = filosofiaArea.querySelector(targetSelector);
+        if (el) el.scrollIntoView({ block: 'start' });
+      }, 50);
+    }
+
+    function closeFilosofia() {
+      filosofiaArea.classList.remove('is-open');
+      filosofiaClose.classList.remove('is-visible');
+      document.body.style.overflow = '';
+      filosofiaArea.scrollTop = 0;
+    }
+
+    document.querySelectorAll('.js-filosofia-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = link.getAttribute('href');
+        mobileMenu.classList.remove('is-open');
+        hamburger.setAttribute('aria-expanded', false);
+        mobileMenu.setAttribute('aria-hidden', true);
+        openFilosofia(target);
+      });
+    });
+
+    filosofiaClose.addEventListener('click', closeFilosofia);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && filosofiaArea.classList.contains('is-open')) closeFilosofia();
     });
 
     // Newsletter form
