@@ -69,9 +69,38 @@
       width: 100%;
       max-width: 1280px;
       margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav__right {
+      justify-self: end;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .nav__social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      color: var(--text);
+      opacity: 0.55;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .nav__social:hover { opacity: 1; color: var(--accent); }
+
+    .nav__social svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
     }
 
     /* Logo */
@@ -1950,6 +1979,201 @@
       }
     }
 
+    /* ─── Reveal on scroll ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes revealSection {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .philosophy__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: none;
+      border: none;
+      border-bottom: 1px solid rgba(127,138,117,0.35);
+      padding: 0 0 3px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      margin-top: 1rem;
+    }
+
+    .philosophy__cta:hover {
+      color: var(--text);
+      border-color: rgba(58,60,55,0.4);
+    }
+
+    /* ─── Kelua Rituals (homepage) ────────────────────────────── */
+    .rituals {
+      background: #EDE9E2;
+      padding-top: clamp(5rem, 12vw, 9rem);
+      padding-bottom: clamp(5rem, 12vw, 9rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rituals__header-wrap {
+      padding: 0 clamp(1.5rem, 6vw, 6rem);
+      margin-bottom: clamp(3.5rem, 7vw, 5.5rem);
+      position: relative;
+      z-index: 1;
+    }
+
+    .rituals__header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 600px;
+    }
+
+    .rituals__tag {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .rituals__tag::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    .rituals__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .rituals__intro {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.7vw, 1.12rem);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text);
+      opacity: 0.65;
+      line-height: 1.65;
+      margin-top: 0.25rem;
+    }
+
+    .rituals__grid {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding: 0 clamp(1.5rem, 6vw, 6rem) 1rem;
+      cursor: grab;
+      position: relative;
+      z-index: 1;
+    }
+
+    .rituals__grid::-webkit-scrollbar { display: none; }
+    .rituals__grid.is-grabbing { cursor: grabbing; }
+
+    .ritual-card {
+      flex: 0 0 300px;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      padding: 2rem 1.75rem;
+      border: 1px solid rgba(127,138,117,0.2);
+      border-radius: 3px;
+      background: var(--bg);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .ritual-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--cta);
+      box-shadow: 0 8px 28px rgba(58,60,55,0.06);
+    }
+
+    .ritual-card__num {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1;
+      opacity: 0.35;
+    }
+
+    .ritual-card__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.2vw, 1.5rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--text);
+    }
+
+    .ritual-card__tagline {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .ritual-card__desc {
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--text);
+      opacity: 0.7;
+      flex: 1;
+    }
+
+    .ritual-card__link {
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cta);
+      margin-top: 0.4rem;
+      transition: letter-spacing 0.2s;
+    }
+
+    .ritual-card:hover .ritual-card__link { letter-spacing: 0.2em; }
+
+    /* ─── Desktop responsive ──────────────────────────────────── */
+    @media (min-width: 1100px) {
+      .philosophy__inner    { max-width: 860px; }
+      .community__inner     { max-width: 920px; }
+      .newsletter__inner    { max-width: 720px; }
+      .newsletter__form     { max-width: 500px; }
+      .closing__inner       { max-width: 800px; }
+    }
+
     /* ─── Geometric decorations ──────────────────────────────── */
     .geo {
       position: absolute;
@@ -1990,13 +2214,23 @@
 
       <ul class="nav__links">
         <li class="nav__dropdown">
-          <a href="#filosofia" class="js-filosofia-link">Filosofia Kelūa</a>
+          <a href="#filosofia">Filosofia Kelūa</a>
           <div class="nav__dropdown-menu">
-            <a href="#filosofia" class="js-filosofia-link">Filosofia Kelūa</a>
-            <a href="#chi-siamo" class="js-filosofia-link">Chi siamo</a>
+            <a href="#filosofia">Filosofia Kelūa</a>
+            <a href="chi-siamo.html">Chi siamo</a>
           </div>
         </li>
         <li><a href="#community">Community</a></li>
+        <li class="nav__dropdown">
+          <a href="pratiche/index.html">Kelua Rituals</a>
+          <div class="nav__dropdown-menu">
+            <a href="pratiche/breathwork.html">01 — Breathwork</a>
+            <a href="pratiche/sound-healing.html">02 — Sound Healing</a>
+            <a href="pratiche/movimento-consapevole.html">03 — Movimento Consapevole</a>
+            <a href="pratiche/slow-morning.html">04 — Slow Morning</a>
+            <a href="pratiche/mente-corpo.html">05 — Connessione Mente-Corpo</a>
+          </div>
+        </li>
         <li>
           <a href="#prodotti">Kelūa Selection</a>
           <span class="nav__badge">Soon</span>
@@ -2009,11 +2243,26 @@
         <li><a href="#newsletter">Newsletter</a></li>
       </ul>
 
-      <button class="nav__hamburger" aria-label="Apri menu" aria-expanded="false" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <div class="nav__right">
+        <a href="https://instagram.com/kelua_ritual" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelua">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelua">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.2-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/>
+            <path d="M17.47 14.83c-.28-.14-1.64-.81-1.9-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" fill="var(--bg)" stroke="none"/>
+          </svg>
+        </a>
+        <button class="nav__hamburger" aria-label="Apri menu" aria-expanded="false" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
 
     </div>
   </nav>
@@ -2021,9 +2270,15 @@
   <!-- Mobile menu -->
   <div class="nav__mobile" id="mobileMenu" aria-hidden="true">
     <ul>
-      <li><a href="#filosofia" class="js-filosofia-link">Filosofia Kelūa</a></li>
-      <li class="nav__mobile-sub"><a href="#chi-siamo" class="js-filosofia-link">Chi siamo</a></li>
+      <li><a href="#filosofia">Filosofia Kelūa</a></li>
+      <li class="nav__mobile-sub"><a href="chi-siamo.html">Chi siamo</a></li>
       <li><a href="#community">Community</a></li>
+      <li><a href="pratiche/index.html">Kelua Rituals</a></li>
+      <li class="nav__mobile-sub"><a href="pratiche/breathwork.html">01 Breathwork</a></li>
+      <li class="nav__mobile-sub"><a href="pratiche/sound-healing.html">02 Sound Healing</a></li>
+      <li class="nav__mobile-sub"><a href="pratiche/movimento-consapevole.html">03 Movimento Consapevole</a></li>
+      <li class="nav__mobile-sub"><a href="pratiche/slow-morning.html">04 Slow Morning</a></li>
+      <li class="nav__mobile-sub"><a href="pratiche/mente-corpo.html">05 Mente-Corpo</a></li>
       <li>
         <a href="#prodotti">Kelūa Selection</a>
         <span class="nav__badge">Soon</span>
@@ -2085,18 +2340,7 @@
     </div>
   </section>
 
-  <!-- ═══ FILOSOFIA AREA (overlay — accessibile da nav) ══════ -->
-  <button class="filosofia-close" id="filosofiaClose" aria-label="Chiudi e torna al sito">
-    <svg viewBox="0 0 24 24" stroke-width="1.4" aria-hidden="true">
-      <line x1="18" y1="6" x2="6" y2="18"/>
-      <line x1="6" y1="6" x2="18" y2="18"/>
-    </svg>
-    Chiudi
-  </button>
-
-  <div class="filosofia-area" id="filosofia-area">
-
-  <!-- ═══ FILOSOFIA / ESSENZA (parent) ════════════════════════ -->
+  <!-- ═══ FILOSOFIA / ESSENZA ════════════════════════════════ -->
   <section class="philosophy" id="filosofia" aria-label="Filosofia di Kelūa">
     <div class="geo" aria-hidden="true">
       <div class="geo-circle" style="width:700px;height:700px;top:50%;left:50%;transform:translate(-48%,-55%)"></div>
@@ -2130,60 +2374,12 @@
         <p>A coltivare uno spazio interiore più quieto, più vero.</p>
       </div>
 
-      <div class="philosophy__connector" aria-hidden="true">
-        <span class="philosophy__connector-label">Chi siamo</span>
-        <div class="philosophy__connector-line"></div>
-      </div>
+      <a href="chi-siamo.html" class="philosophy__cta" aria-label="Scopri chi siamo">
+        Scopri chi siamo →
+      </a>
 
     </div>
   </section>
-
-  <!-- ═══ CHI SIAMO ═══════════════════════════════════════════ -->
-  <section class="about" id="chi-siamo" aria-label="Chi siamo">
-    <div class="geo" aria-hidden="true">
-      <div class="geo-circle" style="width:520px;height:520px;top:-80px;right:-120px"></div>
-      <div class="geo-circle" style="width:340px;height:340px;bottom:-60px;left:8%"></div>
-    </div>
-    <div class="about__inner">
-
-      <!-- Left: image -->
-      <div class="about__img-col">
-        <img src="CHI SIAMO/22-11.jpg" alt="Il team Kelūa" />
-      </div>
-
-      <!-- Right: label + title + body -->
-      <div class="about__text-col">
-
-        <span class="about__section-tag">Chi siamo</span>
-        <h2 class="about__title">Una forma<br>al benessere.</h2>
-
-        <div class="about__body">
-
-          <p>Kelūa non nasce per vendere benessere.<br>Nasce per dargli una forma.</p>
-
-          <p>Viviamo in un tempo in cui tutto è disponibile, ma poco è davvero integrato.</p>
-
-          <p>Kelūa è pensata per chi vuole crescere senza perdersi.<br>
-             Per chi cerca equilibrio dentro una vita intensa.<br>
-             Per chi desidera più coerenza, più presenza, più direzione.</p>
-
-          <p>Non un metodo.<br>Un sistema.</p>
-
-          <div class="about__manifesto" aria-label="I pilastri di Kelūa">
-            <p>Contenuti.</p>
-            <p>Rituali.</p>
-            <p>Comunità.</p>
-            <p>Scelte.</p>
-          </div>
-
-          <p class="about__closing">Tutto allineato.</p>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  </div><!-- /filosofia-area -->
 
   <!-- ═══ COMMUNITY ════════════════════════════════════════════ -->
   <section class="community" id="community" aria-label="Community">
@@ -2244,6 +2440,67 @@
 
     </div>
   </section>
+  <!-- ═══ KELUA RITUALS ════════════════════════════════════════ -->
+  <section class="rituals" id="rituals" aria-label="Kelua Rituals">
+    <div class="geo" aria-hidden="true">
+      <div class="geo-circle" style="width:480px;height:480px;top:-240px;right:-60px"></div>
+      <div class="geo-circle" style="width:360px;height:360px;bottom:-120px;left:-40px"></div>
+    </div>
+
+    <div class="rituals__header-wrap">
+      <div class="rituals__header">
+        <span class="rituals__tag">Kelua Rituals</span>
+        <h2 class="rituals__title">Cinque pratiche.<br>Una direzione.</h2>
+        <p class="rituals__intro">Strumenti concreti per chi vuole vivere con più presenza — dal respiro alla connessione mente-corpo.</p>
+      </div>
+    </div>
+
+    <div class="rituals__grid" id="ritualsCarousel">
+
+      <a href="pratiche/breathwork.html" class="ritual-card reveal" aria-label="Leggi Breathwork">
+        <span class="ritual-card__num" aria-hidden="true">01</span>
+        <h3 class="ritual-card__title">Breathwork</h3>
+        <p class="ritual-card__tagline">Il respiro è il telecomando del tuo sistema nervoso</p>
+        <p class="ritual-card__desc">Cambiare il respiro cambia la chimica del sangue, l'attivazione del sistema nervoso autonomo e il tono emotivo in meno di 3 minuti. Non è motivazione. È fisiologia.</p>
+        <span class="ritual-card__link">Leggi l'articolo →</span>
+      </a>
+
+      <a href="pratiche/sound-healing.html" class="ritual-card reveal" aria-label="Leggi Sound Healing">
+        <span class="ritual-card__num" aria-hidden="true">02</span>
+        <h3 class="ritual-card__title">Sound Healing</h3>
+        <p class="ritual-card__tagline">Il suono entra nel corpo prima che la mente lo elabori</p>
+        <p class="ritual-card__desc">Le frequenze sonore non si ascoltano soltanto — si percepiscono nella pelle, nelle ossa, nello stomaco. Il sistema nervoso risponde prima che la mente elabori.</p>
+        <span class="ritual-card__link">Leggi l'articolo →</span>
+      </a>
+
+      <a href="pratiche/movimento-consapevole.html" class="ritual-card reveal" aria-label="Leggi Movimento Consapevole">
+        <span class="ritual-card__num" aria-hidden="true">03</span>
+        <h3 class="ritual-card__title">Movimento Consapevole</h3>
+        <p class="ritual-card__tagline">C'è una differenza enorme tra fare yoga e sentire il corpo</p>
+        <p class="ritual-card__desc">Non si tratta di bruciare calorie o di flessibilità. Si tratta di usare il corpo come strumento di conoscenza — ogni sessione è un'opportunità di ascolto profondo.</p>
+        <span class="ritual-card__link">Leggi l'articolo →</span>
+      </a>
+
+      <a href="pratiche/slow-morning.html" class="ritual-card reveal" aria-label="Leggi Slow Morning">
+        <span class="ritual-card__num" aria-hidden="true">04</span>
+        <h3 class="ritual-card__title">Slow Morning</h3>
+        <p class="ritual-card__tagline">I primi 30 minuti della giornata decidono tutto il resto</p>
+        <p class="ritual-card__desc">I primi 30 minuti configurano il sistema nervoso per le ore successive. Un mattino intenzionale non si improvvisa: si costruisce gesto per gesto.</p>
+        <span class="ritual-card__link">Leggi l'articolo →</span>
+      </a>
+
+      <a href="pratiche/mente-corpo.html" class="ritual-card reveal" aria-label="Leggi Connessione Mente-Corpo">
+        <span class="ritual-card__num" aria-hidden="true">05</span>
+        <h3 class="ritual-card__title">Connessione Mente-Corpo</h3>
+        <p class="ritual-card__tagline">Il corpo decide prima. La mente interpreta dopo.</p>
+        <p class="ritual-card__desc">Imparare a leggere i segnali corporei prima che diventino sintomi è una competenza — e si può allenare. Il corpo non mente: bisogna imparare ad ascoltarlo.</p>
+        <span class="ritual-card__link">Leggi l'articolo →</span>
+      </a>
+
+    </div>
+
+  </section>
+
   <!-- ═══ PRODOTTI PREMIUM ══════════════════════════════════════ -->
   <section class="products" id="prodotti" aria-label="Prodotti Premium">
     <div class="geo" aria-hidden="true">
@@ -2688,42 +2945,43 @@
       setTimeout(() => formStatus.classList.remove('is-visible'), 4000);
     });
 
-    // Filosofia overlay
-    const filosofiaArea  = document.getElementById('filosofia-area');
-    const filosofiaClose = document.getElementById('filosofiaClose');
-
-    function openFilosofia(targetSelector) {
-      filosofiaArea.classList.add('is-open');
-      filosofiaClose.classList.add('is-visible');
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => {
-        const el = filosofiaArea.querySelector(targetSelector);
-        if (el) el.scrollIntoView({ block: 'start' });
-      }, 50);
-    }
-
-    function closeFilosofia() {
-      filosofiaArea.classList.remove('is-open');
-      filosofiaClose.classList.remove('is-visible');
-      document.body.style.overflow = '';
-      filosofiaArea.scrollTop = 0;
-    }
-
-    document.querySelectorAll('.js-filosofia-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = link.getAttribute('href');
-        mobileMenu.classList.remove('is-open');
-        hamburger.setAttribute('aria-expanded', false);
-        mobileMenu.setAttribute('aria-hidden', true);
-        openFilosofia(target);
+    // Rituals carousel drag-to-scroll
+    const ritualsCarousel = document.getElementById('ritualsCarousel');
+    if (ritualsCarousel) {
+      let isDown = false, startX, scrollLeft;
+      ritualsCarousel.addEventListener('mousedown', e => {
+        isDown = true;
+        ritualsCarousel.classList.add('is-grabbing');
+        startX = e.pageX - ritualsCarousel.offsetLeft;
+        scrollLeft = ritualsCarousel.scrollLeft;
       });
-    });
+      ['mouseleave', 'mouseup'].forEach(ev =>
+        ritualsCarousel.addEventListener(ev, () => {
+          isDown = false;
+          ritualsCarousel.classList.remove('is-grabbing');
+        })
+      );
+      ritualsCarousel.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - ritualsCarousel.offsetLeft;
+        ritualsCarousel.scrollLeft = scrollLeft - (x - startX) * 1.2;
+      });
+    }
 
-    filosofiaClose.addEventListener('click', closeFilosofia);
+    // Reveal on scroll (IntersectionObserver)
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && filosofiaArea.classList.contains('is-open')) closeFilosofia();
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 80}ms`;
+      revealObserver.observe(el);
     });
 
     // Newsletter form
