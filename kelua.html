@@ -148,16 +148,18 @@
 
     .nav__badge {
       position: absolute;
-      bottom: -1px;
-      right: 0;
+      bottom: -2px;
+      right: 50%;
+      transform: translateX(50%);
       font-family: var(--font-body);
-      font-size: 0.5rem;
+      font-size: 0.6rem;
       font-weight: 700;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--cta);
       line-height: 1;
       pointer-events: none;
+      white-space: nowrap;
     }
 
     /* Hamburger (mobile) */
@@ -839,7 +841,7 @@
 
     .community__title {
       font-family: var(--font-display);
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-size: clamp(3rem, 5.5vw, 5rem);
       font-weight: 300;
       line-height: 1.1;
       color: var(--accent);
@@ -961,7 +963,7 @@
 
     .products__title {
       font-family: var(--font-display);
-      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-size: clamp(3rem, 5.5vw, 5rem);
       font-weight: 300;
       line-height: 1.1;
       color: var(--text);
@@ -1228,7 +1230,7 @@
 
     .partnership__title {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: clamp(3rem, 5.5vw, 5rem);
       font-weight: 300;
       line-height: 1.1;
       color: var(--text);
@@ -1461,7 +1463,7 @@
 
     .events__title {
       font-family: var(--font-display);
-      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-size: clamp(3rem, 5.5vw, 5rem);
       font-weight: 300;
       line-height: 1.1;
       color: var(--text);
@@ -1625,7 +1627,7 @@
 
     /* ─── Newsletter ──────────────────────────────────────────── */
     .newsletter {
-      background: #3A3C37;
+      background: #1E160E;
       padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 6vw, 6rem);
       position: relative;
     }
@@ -1665,7 +1667,7 @@
 
     .newsletter__title {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-size: clamp(3rem, 5.5vw, 5rem);
       font-weight: 300;
       line-height: 1.12;
       color: #F7F3EE;
@@ -2061,9 +2063,23 @@
       background: var(--muted);
     }
 
+    .section__soon {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cta);
+      border: 1.5px solid rgba(213,169,139,0.5);
+      padding: 0.4rem 1.1rem;
+      border-radius: 2px;
+      margin-top: 0.5rem;
+    }
+
     .rituals__title {
       font-family: var(--font-display);
-      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-size: clamp(3rem, 5.5vw, 5rem);
       font-weight: 300;
       line-height: 1.1;
       color: var(--text);
@@ -2222,13 +2238,13 @@
         </li>
         <li><a href="#community">Community</a></li>
         <li class="nav__dropdown">
-          <a href="pratiche/index.html">Kelua Rituals</a>
+          <a href="pratiche/index.html">Kelūa Rituals</a>
           <div class="nav__dropdown-menu">
-            <a href="pratiche/breathwork.html">01 — Breathwork</a>
-            <a href="pratiche/sound-healing.html">02 — Sound Healing</a>
-            <a href="pratiche/movimento-consapevole.html">03 — Movimento Consapevole</a>
-            <a href="pratiche/slow-morning.html">04 — Slow Morning</a>
-            <a href="pratiche/mente-corpo.html">05 — Connessione Mente-Corpo</a>
+            <a href="pratiche/breathwork.html">Breathwork</a>
+            <a href="pratiche/sound-healing.html">Sound Healing</a>
+            <a href="pratiche/movimento-consapevole.html">Movimento Consapevole</a>
+            <a href="pratiche/slow-morning.html">Slow Morning</a>
+            <a href="pratiche/mente-corpo.html">Connessione Mente-Corpo</a>
           </div>
         </li>
         <li>
@@ -2236,10 +2252,10 @@
           <span class="nav__badge">Soon</span>
         </li>
         <li>
-          <a href="#eventi">Eventi</a>
+          <a href="#eventi">Kelūa Events</a>
           <span class="nav__badge">Soon</span>
         </li>
-        <li><a href="#partnership">Partnership</a></li>
+        <li><a href="#partnership">Partnerships</a></li>
         <li><a href="#newsletter">Newsletter</a></li>
       </ul>
 
@@ -2273,21 +2289,21 @@
       <li><a href="#filosofia">Filosofia Kelūa</a></li>
       <li class="nav__mobile-sub"><a href="chi-siamo.html">Chi siamo</a></li>
       <li><a href="#community">Community</a></li>
-      <li><a href="pratiche/index.html">Kelua Rituals</a></li>
-      <li class="nav__mobile-sub"><a href="pratiche/breathwork.html">01 Breathwork</a></li>
-      <li class="nav__mobile-sub"><a href="pratiche/sound-healing.html">02 Sound Healing</a></li>
-      <li class="nav__mobile-sub"><a href="pratiche/movimento-consapevole.html">03 Movimento Consapevole</a></li>
-      <li class="nav__mobile-sub"><a href="pratiche/slow-morning.html">04 Slow Morning</a></li>
-      <li class="nav__mobile-sub"><a href="pratiche/mente-corpo.html">05 Mente-Corpo</a></li>
+      <li><a href="pratiche/index.html">Kelūa Rituals</a></li>
+      <li class="nav__mobile-sub"><a href="pratiche/breathwork.html">Breathwork</a></li>
+      <li class="nav__mobile-sub"><a href="pratiche/sound-healing.html">Sound Healing</a></li>
+      <li class="nav__mobile-sub"><a href="pratiche/movimento-consapevole.html">Movimento Consapevole</a></li>
+      <li class="nav__mobile-sub"><a href="pratiche/slow-morning.html">Slow Morning</a></li>
+      <li class="nav__mobile-sub"><a href="pratiche/mente-corpo.html">Mente-Corpo</a></li>
       <li>
         <a href="#prodotti">Kelūa Selection</a>
         <span class="nav__badge">Soon</span>
       </li>
       <li>
-        <a href="#eventi">Eventi</a>
+        <a href="#eventi">Kelūa Events</a>
         <span class="nav__badge">Soon</span>
       </li>
-      <li><a href="#partnership">Partnership</a></li>
+      <li><a href="#partnership">Partnerships</a></li>
       <li><a href="#newsletter">Newsletter</a></li>
     </ul>
   </div>
@@ -2458,7 +2474,6 @@
     <div class="rituals__grid" id="ritualsCarousel">
 
       <a href="pratiche/breathwork.html" class="ritual-card reveal" aria-label="Leggi Breathwork">
-        <span class="ritual-card__num" aria-hidden="true">01</span>
         <h3 class="ritual-card__title">Breathwork</h3>
         <p class="ritual-card__tagline">Il respiro è il telecomando del tuo sistema nervoso</p>
         <p class="ritual-card__desc">Cambiare il respiro cambia la chimica del sangue, l'attivazione del sistema nervoso autonomo e il tono emotivo in meno di 3 minuti. Non è motivazione. È fisiologia.</p>
@@ -2466,7 +2481,6 @@
       </a>
 
       <a href="pratiche/sound-healing.html" class="ritual-card reveal" aria-label="Leggi Sound Healing">
-        <span class="ritual-card__num" aria-hidden="true">02</span>
         <h3 class="ritual-card__title">Sound Healing</h3>
         <p class="ritual-card__tagline">Il suono entra nel corpo prima che la mente lo elabori</p>
         <p class="ritual-card__desc">Le frequenze sonore non si ascoltano soltanto — si percepiscono nella pelle, nelle ossa, nello stomaco. Il sistema nervoso risponde prima che la mente elabori.</p>
@@ -2474,7 +2488,6 @@
       </a>
 
       <a href="pratiche/movimento-consapevole.html" class="ritual-card reveal" aria-label="Leggi Movimento Consapevole">
-        <span class="ritual-card__num" aria-hidden="true">03</span>
         <h3 class="ritual-card__title">Movimento Consapevole</h3>
         <p class="ritual-card__tagline">C'è una differenza enorme tra fare yoga e sentire il corpo</p>
         <p class="ritual-card__desc">Non si tratta di bruciare calorie o di flessibilità. Si tratta di usare il corpo come strumento di conoscenza — ogni sessione è un'opportunità di ascolto profondo.</p>
@@ -2482,7 +2495,6 @@
       </a>
 
       <a href="pratiche/slow-morning.html" class="ritual-card reveal" aria-label="Leggi Slow Morning">
-        <span class="ritual-card__num" aria-hidden="true">04</span>
         <h3 class="ritual-card__title">Slow Morning</h3>
         <p class="ritual-card__tagline">I primi 30 minuti della giornata decidono tutto il resto</p>
         <p class="ritual-card__desc">I primi 30 minuti configurano il sistema nervoso per le ore successive. Un mattino intenzionale non si improvvisa: si costruisce gesto per gesto.</p>
@@ -2490,7 +2502,6 @@
       </a>
 
       <a href="pratiche/mente-corpo.html" class="ritual-card reveal" aria-label="Leggi Connessione Mente-Corpo">
-        <span class="ritual-card__num" aria-hidden="true">05</span>
         <h3 class="ritual-card__title">Connessione Mente-Corpo</h3>
         <p class="ritual-card__tagline">Il corpo decide prima. La mente interpreta dopo.</p>
         <p class="ritual-card__desc">Imparare a leggere i segnali corporei prima che diventino sintomi è una competenza — e si può allenare. Il corpo non mente: bisogna imparare ad ascoltarlo.</p>
@@ -2511,9 +2522,10 @@
     <div class="products__inner">
 
       <div class="products__header">
-        <span class="products__tag">Prodotti Premium</span>
+        <span class="products__tag">Kelūa Selection</span>
         <h2 class="products__title">Una selezione<br>essenziale.</h2>
-        <p class="products__intro">Una selezione essenziale di prodotti coerenti con il mondo Kelua.</p>
+        <span class="section__soon">Soon</span>
+        <p class="products__intro">Una selezione essenziale di prodotti coerenti con il mondo Kelūa.</p>
       </div>
 
       <!-- ── Kombucha card ── -->
@@ -2624,8 +2636,9 @@
     <div class="events__inner">
 
       <div class="events__header">
-        <span class="events__tag">Eventi &nbsp;<em class="events__soon">— Soon</em></span>
+        <span class="events__tag">Kelūa Events</span>
         <h2 class="events__title">Momenti per<br>ritrovare presenza.</h2>
+        <span class="section__soon">Soon</span>
         <p class="events__intro">
           Momenti per rallentare, incontrarsi e ritrovare presenza.<br>
           Eventi nostri e realtà in sintonia con il mondo Kelua.
@@ -2709,7 +2722,7 @@
 
       <!-- Left: intro -->
       <div class="partnership__left">
-        <span class="partnership__tag">Partnership &amp; B2B</span>
+        <span class="partnership__tag">Partnerships &amp; B2B</span>
         <h2 class="partnership__title">Costruiamo<br>insieme.</h2>
         <div class="partnership__intro">
           <p>Non stiamo solo distribuendo prodotti.<br>Stiamo costruendo un ecosistema.</p>
