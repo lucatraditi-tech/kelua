@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connessione Mente-Corpo — KELŪA Pratiche</title>
+  <meta name="description" content="Il corpo elabora quantità enormi di informazioni al di sotto della soglia della coscienza. Imparare ad ascoltarlo non è un esercizio spirituale. È una competenza neurologica." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root{--bg:#F7F3EE;--bg-alt:#EFEBE4;--text:#3A3C37;--muted:#AEB7A1;--accent:#7F8A75;--cta:#D5A98B;--cta-hover:#c8976e;--nav-h:68px;--font-display:'Cormorant Garamond',Georgia,serif;--font-body:'DM Sans',sans-serif}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:clip}
+    body{background-color:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;line-height:1.7}
+    img{display:block;max-width:100%} a{text-decoration:none;color:inherit}
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background-color:var(--bg);border-bottom:1px solid rgba(174,183,161,.25);display:flex;align-items:center;padding:0 clamp(1.5rem,5vw,4rem)}
+    .nav__inner{width:100%;max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .nav__logo{display:flex;align-items:center;line-height:1} .nav__logo img{height:36px;width:auto;display:block}
+    .nav__links{display:flex;align-items:center;gap:clamp(1.2rem,2.5vw,2.8rem);list-style:none}
+    .nav__links a{font-family:var(--font-body);font-size:.72rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--text);opacity:.75;transition:opacity .2s,color .2s;white-space:nowrap}
+    .nav__links a:hover,.nav__links a.is-active{opacity:1;color:var(--accent)}
+    .nav__links li{position:relative}
+    .nav__badge{position:absolute;bottom:-1px;right:0;font-size:.5rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cta);line-height:1;pointer-events:none}
+    .nav__hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+    .nav__hamburger span{display:block;width:24px;height:1.5px;background:var(--text);transition:transform .3s,opacity .3s}
+    .nav__mobile{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--bg);border-bottom:1px solid rgba(174,183,161,.25);padding:1.5rem clamp(1.5rem,5vw,4rem) 2rem;z-index:99}
+    .nav__mobile.is-open{display:block}
+    .nav__mobile ul{list-style:none;display:flex;flex-direction:column;gap:1.2rem}
+    .nav__mobile a{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+    .nav__mobile li{display:flex;align-items:center;gap:.5rem}
+    .nav__mobile .nav__badge{position:static;font-size:.48rem;letter-spacing:.18em}
+    @media(max-width:768px){.nav__links{display:none}.nav__hamburger{display:flex}}
+    @media(min-width:769px){.nav__mobile{display:none!important}}
+    .article-hero{padding:calc(var(--nav-h) + clamp(3.5rem,8vw,6rem)) clamp(1.5rem,6vw,6rem) clamp(3rem,6vw,5rem);background:var(--bg)}
+    .article-hero__inner{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:1.4rem}
+    .article-breadcrumb{font-family:var(--font-body);font-size:.7rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.5rem}
+    .article-breadcrumb a{transition:color .2s} .article-breadcrumb a:hover{color:var(--accent)} .article-breadcrumb span{opacity:.4}
+    .article-num{font-family:var(--font-display);font-size:5rem;font-weight:300;line-height:1;color:#EDE8E0;margin-bottom:-.5rem}
+    .article-hero h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.2rem);font-weight:300;line-height:1.1;letter-spacing:-.01em;color:var(--text)}
+    .article-sub{font-family:var(--font-display);font-size:clamp(1.05rem,2vw,1.25rem);font-style:italic;font-weight:300;line-height:1.55;color:var(--accent)}
+    .article-tags{display:flex;flex-wrap:wrap;gap:.5rem;padding-top:.4rem}
+    .tag-pill{font-size:.58rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(127,138,117,.28);padding:.22rem .6rem;border-radius:2px}
+    .article-body{max-width:720px;margin:0 auto;padding:clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,6rem) clamp(4rem,8vw,6rem)}
+    .article-body p{font-family:var(--font-body);font-size:clamp(.92rem,1.5vw,1rem);font-weight:300;line-height:1.85;color:var(--text);margin-bottom:1.4rem}
+    .article-body p:last-child{margin-bottom:0}
+    .article-body h2{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:300;line-height:1.2;color:var(--text);margin-top:3rem;margin-bottom:1.2rem;padding-top:1rem;border-top:1px solid rgba(174,183,161,.25)}
+    .article-body h3{font-family:var(--font-body);font-size:.82rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-top:2rem;margin-bottom:.75rem}
+    .stub-card{background:var(--bg-alt);border-left:2px solid var(--cta);border-radius:0 2px 2px 0;padding:.9rem 1.4rem;margin:1.25rem 0}
+    .stub-label{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cta);display:block;margin-bottom:.3rem}
+    .stub-text{font-size:.82rem;color:var(--muted);font-style:italic}
+    .article-cta{background:#3A3C37;padding:clamp(3.5rem,8vw,6rem) clamp(1.5rem,6vw,6rem);text-align:center}
+    .article-cta__inner{max-width:560px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:1.8rem}
+    .article-cta p{font-family:var(--font-display);font-size:clamp(1.1rem,2.2vw,1.4rem);font-style:italic;font-weight:300;line-height:1.65;color:rgba(247,243,238,.72)}
+    .article-cta__btn{display:inline-block;padding:.95rem 2.4rem;background:var(--cta);color:#fff;font-family:var(--font-body);font-size:.72rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;transition:background .25s,transform .2s}
+    .article-cta__btn:hover{background:var(--cta-hover);transform:translateY(-1px)}
+    .article-nav{border-top:1px solid rgba(174,183,161,.25);padding:clamp(2rem,5vw,3.5rem) clamp(1.5rem,6vw,6rem)}
+    .article-nav__inner{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:2rem}
+    .article-nav__link{display:flex;flex-direction:column;gap:.3rem}
+    .article-nav__link--next{text-align:right}
+    .article-nav__label{font-size:.6rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+    .article-nav__title{font-family:var(--font-display);font-size:1.05rem;font-weight:300;color:var(--text);opacity:.75;transition:opacity .2s,color .2s}
+    .article-nav__link:hover .article-nav__title{opacity:1;color:var(--accent)}
+    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.is-visible{opacity:1;transform:translateY(0)}
+    .newsletter{background:#3A3C37;padding:clamp(5rem,12vw,9rem) clamp(1.5rem,6vw,6rem)}
+    .newsletter__inner{max-width:560px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2.4rem}
+    .newsletter__tag{font-size:.78rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.6rem}
+    .newsletter__tag::before,.newsletter__tag::after{content:'';display:block;width:20px;height:1px;background:var(--muted);opacity:.4}
+    .newsletter__title{font-family:var(--font-display);font-size:clamp(2rem,4.5vw,3.2rem);font-weight:300;line-height:1.12;color:#F7F3EE}
+    .newsletter__body{display:flex;flex-direction:column;gap:.5rem}
+    .newsletter__body p{font-family:var(--font-display);font-size:clamp(1rem,1.8vw,1.15rem);font-style:italic;font-weight:300;line-height:1.8;color:#F7F3EE;opacity:.45}
+    .newsletter__body p:first-child{opacity:.65}
+    .newsletter__form{width:100%;display:flex;border-bottom:1px solid rgba(247,243,238,.2);max-width:400px}
+    .newsletter__form input{flex:1;background:transparent;border:none;outline:none;padding:.75rem 0;font-family:var(--font-body);font-size:.88rem;font-weight:300;color:#F7F3EE}
+    .newsletter__form input::placeholder{color:rgba(247,243,238,.3)}
+    .newsletter__form button{background:transparent;border:none;padding:.75rem 0 .75rem 1rem;font-family:var(--font-body);font-size:.65rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--cta);cursor:pointer;white-space:nowrap;transition:color .2s}
+    .newsletter__form button:hover{color:#e8c0a2}
+    .newsletter__confirm{font-size:.72rem;color:var(--cta);opacity:0;transition:opacity .4s;min-height:1rem}
+    .newsletter__confirm.is-visible{opacity:1}
+    .newsletter__footer{margin-top:1rem;display:flex;align-items:center;gap:1.5rem}
+    .newsletter__footer a{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,243,238,.25);transition:color .2s}
+    .newsletter__footer a:hover{color:rgba(247,243,238,.55)}
+    .newsletter__footer span{width:1px;height:12px;background:rgba(247,243,238,.12)}
+    .footer{background:#2E3029;padding:2.4rem clamp(1.5rem,5vw,4rem)}
+    .footer__inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+    .footer__brand{display:flex;flex-direction:column;gap:.4rem}
+    .footer__logo img{height:38px;width:auto;display:block;filter:brightness(0) invert(1);opacity:.7}
+    .footer__tagline{font-size:.62rem;font-weight:300;letter-spacing:.06em;color:rgba(247,243,238,.25);max-width:280px;line-height:1.5}
+    .footer__links{display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+    .footer__link{display:flex;align-items:center;gap:.45rem;font-size:.65rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,243,238,.35);transition:color .2s}
+    .footer__link:hover{color:rgba(247,243,238,.75)}
+    .footer__link svg{width:12px;height:12px;stroke:currentColor;fill:none;flex-shrink:0}
+    .footer__divider{width:1px;height:14px;background:rgba(247,243,238,.1)}
+    .footer__copy{width:100%;padding-top:1.6rem;margin-top:1.6rem;border-top:1px solid rgba(247,243,238,.06);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(247,243,238,.15);text-align:center}
+    @media(max-width:600px){.footer__inner{flex-direction:column;align-items:flex-start;gap:1.6rem}.footer__links{gap:1.2rem}.footer__divider{display:none}}
+    @media (min-width: 1100px) {
+      .article-hero { padding-left: clamp(3rem, 8vw, 9rem); padding-right: clamp(3rem, 8vw, 9rem); }
+      .article-hero__inner { max-width: 1100px; }
+      .article-body { max-width: 1100px; padding-left: clamp(3rem, 8vw, 9rem); padding-right: clamp(3rem, 8vw, 9rem); }
+      .article-body h2 { font-size: clamp(1.9rem, 3vw, 2.6rem); }
+      .article-nav { padding-left: clamp(3rem, 8vw, 9rem); padding-right: clamp(3rem, 8vw, 9rem); }
+      .article-nav__inner { max-width: 1100px; }
+      .article-cta__inner { max-width: 720px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" role="navigation" aria-label="Navigazione principale">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo" aria-label="Kelua — home"><img src="../logo/logo.svg" alt="Kelua" /></a>
+      <ul class="nav__links">
+        <li><a href="../index.html#filosofia">Filosofia Kelūa</a></li>
+        <li><a href="../index.html#community">Community</a></li>
+        <li><a href="index.html" class="is-active">Kelua Rituals</a></li>
+        <li><a href="../index.html#prodotti">Kelūa Selection</a><span class="nav__badge">Soon</span></li>
+        <li><a href="../index.html#eventi">Eventi</a><span class="nav__badge">Soon</span></li>
+        <li><a href="../index.html#partnership">Partnership</a></li>
+        <li><a href="../index.html#newsletter">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" aria-label="Apri menu" aria-expanded="false" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav__mobile" id="mobileMenu" aria-hidden="true">
+    <ul>
+      <li><a href="../index.html#filosofia">Filosofia Kelūa</a></li>
+      <li><a href="../index.html#community">Community</a></li>
+      <li><a href="index.html">Kelua Rituals</a></li>
+      <li><a href="../index.html#prodotti">Kelūa Selection</a><span class="nav__badge">Soon</span></li>
+      <li><a href="../index.html#eventi">Eventi</a><span class="nav__badge">Soon</span></li>
+      <li><a href="../index.html#partnership">Partnership</a></li>
+      <li><a href="../index.html#newsletter">Newsletter</a></li>
+    </ul>
+  </div>
+
+  <header class="article-hero" aria-label="Connessione Mente-Corpo">
+    <div class="article-hero__inner">
+      <nav class="article-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Kelua Rituals</a>
+        <span aria-hidden="true">→</span>
+        <span>Connessione Mente-Corpo</span>
+      </nav>
+      <p class="article-num" aria-hidden="true">05</p>
+      <h1>Connessione Mente-Corpo</h1>
+      <p class="article-sub">Il corpo decide prima. La mente interpreta dopo.</p>
+      <div class="article-tags" aria-label="Argomenti">
+        <span class="tag-pill">neuroscienze</span>
+        <span class="tag-pill">sistema nervoso</span>
+        <span class="tag-pill">polyvagal</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+  <article class="article-body" aria-label="Contenuto articolo">
+
+    <p>Hai mai preso una decisione "di pancia" che si è rivelata giusta, anche se non riuscivi a spiegarla razionalmente? O sentito qualcosa stringersi nello stomaco prima ancora di capire cosa stava succedendo?</p>
+    <p>Non era istinto vago. Era intelligenza somatica.</p>
+    <p>Il corpo elabora enormi quantità di informazioni al di sotto della soglia della coscienza. Imparare ad ascoltarlo non è un esercizio spirituale. È una competenza neurologica.</p>
+
+    <h2 class="reveal">Il corpo parla al cervello più di quanto il cervello parli al corpo</h2>
+
+    <p>C'è un dato che molte persone trovano sorprendente: le fibre nervose che vanno dal corpo al cervello superano numericamente quelle che vanno dal cervello al corpo.</p>
+    <p>Il flusso di informazioni è prevalentemente ascendente. Quello che senti nel corpo in questo momento sta attivamente influenzando i tuoi pensieri e le tue emozioni. Non solo il contrario.</p>
+    <p>Mente e corpo non sono in una relazione di comando e obbedienza. Sono in conversazione costante. E spesso è il corpo a fare la prima mossa.</p>
+
+    <h2 class="reveal">La Polyvagal Theory</h2>
+
+    <p>Nel 1994 il neuroscienziato Stephen Porges ha ridisegnato la mappa del sistema nervoso autonomo con la Polyvagal Theory — oggi tra le teorie più influenti in neuroscienze e psicologia clinica.</p>
+    <p>Non due stati (stress / riposo) — ma tre:</p>
+    <p><strong style="font-weight:400;color:var(--accent)">Stato ventrale vagale:</strong> sicurezza, connessione, calma vigile. Sei pienamente presente e puoi pensare con chiarezza.</p>
+    <p><strong style="font-weight:400;color:var(--accent)">Stato simpatico:</strong> il sistema rileva una minaccia e ti prepara a combattere o fuggire. Utile in situazioni di pericolo reale. Logorante se cronico.</p>
+    <p><strong style="font-weight:400;color:var(--accent)">Stato dorsale vagale:</strong> quando la minaccia sembra insormontabile, il sistema si spegne. Dissociazione, intorpidimento. Una risposta di sopravvivenza — non una scelta.</p>
+    <p>Il passaggio tra questi stati avviene automaticamente, al di sotto della coscienza. Il corpo decide. La mente trova la spiegazione dopo.</p>
+
+    <h2 class="reveal">Il corpo ricorda quello che la mente ha dimenticato</h2>
+
+    <p>Esperienze di stress intenso o trauma non completamente elaborato lasciano tracce nel sistema nervoso — non solo come ricordi, ma come pattern fisici.</p>
+    <p>Tensione cronica nelle spalle. Difficoltà a respirare profondamente. Reattività sproporzionata in certe situazioni. Sensazione di non riuscire mai a rilassarsi davvero.</p>
+    <p>Non sono segnali di debolezza. Sono il corpo che cerca di proteggerti — usando strategie imparate in momenti difficili che magari non esistono più.</p>
+
+    <h2 class="reveal">Come ascoltare l'intelligenza somatica</h2>
+
+    <p>L'interocezione si allena come un muscolo.</p>
+    <p>Un esercizio semplice: tre volte al giorno, fermati trenta secondi. Chiudi gli occhi. Fatti una domanda: cosa sento nel corpo adesso? Non interpretare. Non giudicare. Solo osserva.</p>
+    <p>Con il tempo, il segnale diventa più chiaro.</p>
+
+    <h2 class="reveal">Pratiche che lavorano sulla connessione</h2>
+
+    <h3>Grounding</h3>
+    <p>Tecniche per portare l'attenzione al presente attraverso sensazioni fisiche — i piedi sul pavimento, le mani che tengono qualcosa. Attivano il sistema nervoso ventrale e interrompono la spirale della ruminazione.</p>
+    <div class="stub-card">
+      <span class="stub-label">Prossimamente</span>
+      <span class="stub-text">Tecniche di grounding: come tornare nel corpo in 60 secondi</span>
+    </div>
+
+    <h3>Body Scan</h3>
+    <p>Una meditazione che porta l'attenzione sistematicamente attraverso ogni parte del corpo. Non per cambiare quello che c'è — per ascoltarlo.</p>
+    <div class="stub-card">
+      <span class="stub-label">Prossimamente</span>
+      <span class="stub-text">Body scan guidato: istruzioni per principianti</span>
+    </div>
+
+    <h3>Somatic Experiencing</h3>
+    <p>Approccio terapeutico per lavorare con il trauma attraverso la consapevolezza corporea. Insegna al sistema nervoso a completare i cicli di risposta allo stress rimasti incompleti.</p>
+    <div class="stub-card">
+      <span class="stub-label">Prossimamente</span>
+      <span class="stub-text">Somatic Experiencing: quando il corpo ha bisogno di un professionista</span>
+    </div>
+
+    <h2 class="reveal">Il punto profondo</h2>
+
+    <p>Ci hanno insegnato a fidarci della mente. A ragionare, analizzare, trovare la risposta giusta.</p>
+    <p>Nessuno ci ha insegnato a fidarci del corpo. A sentire prima di pensare. A stare nella sensazione senza doverla immediatamente trasformare in parole.</p>
+    <p>Eppure il corpo è rimasto lì, tutto il tempo, a fare il suo lavoro. A proteggerti. A segnalarti. A sapere cose.</p>
+    <p>La connessione mente-corpo non si costruisce. Si recupera.</p>
+
+  </article>
+
+  <div class="article-cta" aria-label="Entra nella community">
+    <div class="article-cta__inner">
+      <p>Tutte le pratiche che proponiamo — breathwork, sound healing, movimento, meditazione — hanno un punto in comune: lavorano sul sistema nervoso attraverso il corpo. Non per migliorare la performance. Per creare spazio.</p>
+      <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="article-cta__btn" target="_blank" rel="noopener noreferrer">Entra nella community</a>
+    </div>
+  </div>
+
+  <nav class="article-nav" aria-label="Articoli correlati">
+    <div class="article-nav__inner">
+      <a href="slow-morning.html" class="article-nav__link" aria-label="Precedente: Slow Morning">
+        <span class="article-nav__label">← Precedente</span>
+        <span class="article-nav__title">Slow Morning</span>
+      </a>
+      <a href="index.html" class="article-nav__link article-nav__link--next" aria-label="Tutte le pratiche">
+        <span class="article-nav__label">Tutte le pratiche →</span>
+        <span class="article-nav__title">Kelua Rituals</span>
+      </a>
+    </div>
+  </nav>
+
+  <section class="newsletter" aria-label="Newsletter">
+    <div class="newsletter__inner">
+      <span class="newsletter__tag">Newsletter</span>
+      <h2 class="newsletter__title">Meno rumore.<br>Più <em style="font-style:italic;color:var(--cta);font-weight:300;">direzione.</em></h2>
+      <div class="newsletter__body"><p>Poche email.</p><p>Solo quando conta davvero.</p></div>
+      <form class="newsletter__form" id="newsletterForm" novalidate aria-label="Iscrizione newsletter">
+        <input type="email" name="email" placeholder="La tua email" required autocomplete="email" aria-label="Il tuo indirizzo email" />
+        <button type="submit">Iscriviti</button>
+      </form>
+      <span class="newsletter__confirm" id="nlConfirm" role="status" aria-live="polite">Grazie — ci vediamo in inbox.</span>
+      <nav class="newsletter__footer" aria-label="Link di servizio">
+        <a href="mailto:info@kelua.it">info@kelua.it</a><span aria-hidden="true"></span>
+        <a href="https://instagram.com/kelua_ritual" target="_blank" rel="noopener noreferrer">Instagram</a><span aria-hidden="true"></span>
+        <a href="#">Privacy</a>
+      </nav>
+    </div>
+  </section>
+  </main>
+
+  <footer class="footer" aria-label="Footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo"><img src="../logo/logo.svg" alt="Kelūa" /></div>
+        <p class="footer__tagline">Rituali contemporanei per una vita più allineata.</p>
+      </div>
+      <nav class="footer__links" aria-label="Link footer">
+        <a href="https://instagram.com/kelua_ritual" class="footer__link" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" stroke-width="1.4" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="0.7" fill="currentColor" stroke="none"/></svg>Instagram
+        </a>
+        <div class="footer__divider" aria-hidden="true"></div>
+        <a href="mailto:info@kelua.it" class="footer__link">
+          <svg viewBox="0 0 24 24" stroke-width="1.4" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>info@kelua.it
+        </a>
+        <div class="footer__divider" aria-hidden="true"></div>
+        <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="footer__link" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" stroke-width="1.4" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>Community
+        </a>
+      </nav>
+      <p class="footer__copy">© 2025 Kelua — Tutti i diritti riservati</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+    hamburger.addEventListener('click',()=>{const o=mobileMenu.classList.toggle('is-open');hamburger.setAttribute('aria-expanded',o);mobileMenu.setAttribute('aria-hidden',!o)});
+    mobileMenu.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{mobileMenu.classList.remove('is-open');hamburger.setAttribute('aria-expanded',false);mobileMenu.setAttribute('aria-hidden',true)}));
+    const nav=document.querySelector('.nav');
+    window.addEventListener('scroll',()=>{nav.style.boxShadow=window.scrollY>10?'0 1px 24px rgba(58,60,55,.06)':'none'},{passive:true});
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');obs.unobserve(e.target)}}),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    const nlForm=document.getElementById('newsletterForm'),nlConfirm=document.getElementById('nlConfirm');
+    nlForm.addEventListener('submit',e=>{e.preventDefault();const em=nlForm.email.value.trim();if(!em||!em.includes('@'))return;nlForm.style.opacity='.3';nlForm.style.pointerEvents='none';nlConfirm.classList.add('is-visible')});
+  </script>
+
+</body>
+</html>
