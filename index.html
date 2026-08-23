@@ -19,6 +19,8 @@
       --cta:        #D5A98B;
       --cta-hover:  #c8976e;
       --nav-h:      68px;
+      --marquee-h:  38px;
+      --header-offset: calc(var(--marquee-h) + var(--nav-h));
 
       --font-display: 'Cormorant Garamond', Georgia, serif;
       --font-body:    'DM Sans', sans-serif;
@@ -33,7 +35,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: var(--nav-h);
+      scroll-padding-top: var(--header-offset);
       font-size: 16px;
       -webkit-font-smoothing: antialiased;
       overflow-x: clip;
@@ -50,10 +52,97 @@
     img { display: block; max-width: 100%; }
     a   { text-decoration: none; color: inherit; }
 
+    /* ─── Marquee banner ──────────────────────────────────────── */
+    .marquee {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 101;
+      background: #3A3C37;
+      overflow: hidden;
+      height: var(--marquee-h);
+      display: flex;
+      align-items: center;
+    }
+
+    .marquee__link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .marquee__link:hover {
+      background: rgba(247, 243, 238, 0.06);
+    }
+
+    .marquee__link:hover .marquee__track {
+      animation-play-state: paused;
+    }
+
+    .marquee__track {
+      display: flex;
+      width: max-content;
+      height: 100%;
+      align-items: center;
+      animation: marquee-scroll 48s linear infinite;
+      will-change: transform;
+    }
+
+    .marquee__group {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: #F7F3EE;
+      padding-right: 2.5rem;
+    }
+
+    .marquee__group svg {
+      width: 12px;
+      height: 12px;
+      margin: 0 0.5rem 0 0.7rem;
+      flex-shrink: 0;
+      stroke: #D5A98B;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .marquee__group span {
+      opacity: 0.5;
+      margin: 0 0.9rem;
+    }
+
+    .marquee__group span.marquee__cta {
+      opacity: 1;
+      color: var(--cta);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    @keyframes marquee-scroll {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee__track {
+        animation: none;
+      }
+    }
+
     /* ─── Navigation ──────────────────────────────────────────── */
     .nav {
       position: fixed;
-      top: 0;
+      top: var(--marquee-h);
       left: 0;
       right: 0;
       z-index: 100;
@@ -224,7 +313,7 @@
     .nav__mobile {
       display: none;
       position: fixed;
-      top: var(--nav-h);
+      top: var(--header-offset);
       left: 0;
       right: 0;
       background: var(--bg);
@@ -266,7 +355,7 @@
     /* ─── Hero ────────────────────────────────────────────────── */
     .hero {
       min-height: 100svh;
-      padding-top: var(--nav-h);
+      padding-top: var(--header-offset);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -991,7 +1080,7 @@
       flex-direction: column;
       gap: 1.6rem;
       position: sticky;
-      top: calc(var(--nav-h) + 2rem);
+      top: calc(var(--header-offset) + 2rem);
     }
 
     .partnership__tag {
@@ -1848,18 +1937,17 @@
 
     .dimensions__image {
       aspect-ratio: 5 / 4;
-      background: repeating-linear-gradient(135deg, #E7DFD2, #E7DFD2 11px, #F1ECE2 11px, #F1ECE2 22px);
+      background: #EFEBE4;
       border: 1px solid rgba(58, 60, 55, 0.1);
       border-radius: 4px;
-      display: flex;
-      align-items: flex-end;
-      padding: 1rem;
+      overflow: hidden;
     }
 
-    .dimensions__image span {
-      font-family: monospace;
-      font-size: 0.68rem;
-      color: rgba(58, 60, 55, 0.4);
+    .dimensions__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     /* ─── Desktop responsive ──────────────────────────────────── */
@@ -1870,6 +1958,16 @@
   </style>
 </head>
 <body>
+
+  <!-- ═══ MARQUEE ═══════════════════════════════════════════════ -->
+  <div class="marquee" aria-hidden="false">
+    <a href="selezione.html" class="marquee__link" aria-label="La nostra Kombucha sta arrivando — preordina ora, vai alla Selezione">
+      <div class="marquee__track">
+        <div class="marquee__group"><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span></div>
+        <div class="marquee__group" aria-hidden="true"><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span></div>
+      </div>
+    </a>
+  </div>
 
   <!-- ═══ NAV ══════════════════════════════════════════════════ -->
   <nav class="nav" role="navigation" aria-label="Navigazione principale">
@@ -1996,7 +2094,7 @@
             <a href="rituals.html" class="dimensions__link">Scopri →</a>
           </div>
           <div class="dimensions__image" aria-hidden="true">
-            <span>[ immagine — rituals ]</span>
+            <img src="images/site/rituals-hero.jpg" alt="" loading="lazy">
           </div>
         </div>
 
@@ -2008,7 +2106,7 @@
             <a href="flow.html" class="dimensions__link">Scopri →</a>
           </div>
           <div class="dimensions__image" aria-hidden="true">
-            <span>[ immagine — flow ]</span>
+            <img src="images/site/flow-hero.jpg" alt="" loading="lazy" style="object-position:center 85%">
           </div>
         </div>
 
@@ -2020,7 +2118,7 @@
             <a href="essence.html" class="dimensions__link">Scopri →</a>
           </div>
           <div class="dimensions__image" aria-hidden="true">
-            <span>[ immagine — essence ]</span>
+            <img src="images/site/essence-hero.jpg" alt="" loading="lazy">
           </div>
         </div>
 
