@@ -1,3 +1,5 @@
 .DS_Store
 FOTO/
 ~$*.docx
+.import_photos/
+.claude/

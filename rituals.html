@@ -563,6 +563,21 @@
     @media (max-width: 768px) {
       .nav__links       { display: none; }
       .nav__hamburger   { display: flex; }
+
+      /* Mobile nav: logo a sinistra · icone social al centro · burger a destra */
+      .nav__inner {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      .nav__right {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        gap: 1.4rem;
+      }
+      .nav__hamburger { margin-left: auto; }
     }
 
     @media (min-width: 769px) {
@@ -1628,6 +1643,13 @@
     .gallery-block__inner {
       max-width: 1180px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Selezione per prima: upselling dei prodotti in cima */
+    .gallery-block__inner > #selezione {
+      order: -1;
     }
 
     .gallery-group {
@@ -3531,6 +3553,188 @@
 
   </style>
 
+
+    <style>
+  /* ═══ Accessibilità — contrasto WCAG AA · SOLO colori palette Kelūa ═══
+     Crema #F7F3EE · Terracotta #D5A98B · Salvia #7F8A75 ·
+     Inchiostro #3A3C37 / #23211D · Sabbia #EFEBE4/#EFE7D9
+     Terracotta e Salvia non sono leggibili come TESTO su fondo chiaro
+     (1.9:1 e 3.0:1): qui diventano Inchiostro. Restano invariate come
+     sfondo, bordo e decoro. Aggiunto in coda per vincere la cascata. */
+
+  /* 1 — micro-etichette / occhielli / tag: Terracotta|Salvia → Inchiostro */
+  .section-eyebrow,
+  .dimensions__label,
+  .gallery-card__cat,
+  .gallery-card__origin,
+  .gallery-group__more,
+  .gallery-soon__tag,
+  .article-pill,
+  .article-cta__label,
+  .article-next__label,
+  .product-next__label,
+  .mission-grid__label,
+  .enso-block__label,
+  .nav__badge,
+  .legal__eyebrow,
+  .legal__body h3,
+  .article-subtitle,
+  .product-claim,
+  .community__nl-confirm,
+  .form-status,
+  .cookie-modal__intro a,
+  .enso-block__body em,
+  .about__section-tag,
+  .partnership__contact-line,
+  .partnership__contact-line a {
+    color: var(--text);
+  }
+  .about__section-tag,
+  .partnership__contact-line { opacity: 1; }
+
+  /* 2 — testo bianco sui bottoni pieni Terracotta → Inchiostro scuro (7.6:1) */
+  .nav__join,
+  .hero__cta,
+  .btn--primary,
+  .partnership-banner__cta,
+  .invite-cta__primary,
+  .article-cta__button,
+  .community__newsletter-btn button,
+  .dark-cta__form button,
+  .cookie-modal__save {
+    color: #23211D;
+  }
+  /* badge PREORDINE: Crema su Salvia non passa (3.6:1) → pill Inchiostro */
+  .product-preorder { background: #23211D; color: #F7F3EE; }
+  .product-preorder__dot { background: var(--cta); }
+
+  /* 3 — corpo testo e sottotitoli: opacità alzate (stesso Inchiostro) */
+  .section-intro__body,
+  .dimensions__desc,
+  .gallery-group__desc,
+  .partnership-banner__body,
+  .format-block__intro,
+  .format-card__desc,
+  .value-row__story,
+  .community-split__body p,
+  .legal__subtitle,
+  .cookie-modal__intro,
+  .cookie-category__desc,
+  .article-hook,
+  .enso-block__body p,
+  .philosophy-final__body p,
+  .mission-grid__text {
+    color: rgba(58, 60, 55, 0.86);
+  }
+  .partnership__intro { opacity: 1; }
+
+  /* 4 — meta / note piccole */
+  .gallery-card__dur,
+  .format-card__dur,
+  .legal__notes p,
+  .product-format,
+  .article-back a,
+  .product-back a {
+    color: rgba(58, 60, 55, 0.74);
+  }
+  /* footnote asterisco (stile inline sulle schede prodotto) */
+  [style*="rgba(58,60,55,0.55)"] { color: rgba(58, 60, 55, 0.78) !important; }
+  .form-field label { opacity: 0.78; }
+  .form-field input::placeholder,
+  .form-field textarea::placeholder,
+  .community__newsletter-btn input::placeholder {
+    color: rgba(58, 60, 55, 0.7);
+    opacity: 1;
+  }
+  .form-field--select::after { opacity: 0.8; }
+
+  /* 5 — navbar: link e icone erano troppo tenui */
+  .nav__links a,
+  .nav__collab { opacity: 0.9; }
+  .nav__links a:hover,
+  .nav__collab:hover { color: var(--text); opacity: 1; }
+  .nav__mobile a { opacity: 0.9; }
+  .nav__mobile-sub > a { opacity: 0.7 !important; }
+  .nav__social { opacity: 0.72; }
+  .cookie-modal__close { opacity: 0.75; }
+
+  /* 6 — marquee (link, non decorativo): voci non-CTA più leggibili */
+  .marquee__group span { opacity: 0.72; }
+
+  /* 7 — footer: testo chiaro su scuro, opacità alzate */
+  .footer__tagline { color: rgba(247, 243, 238, 0.72); }
+  .footer__col-title { color: rgba(247, 243, 238, 0.62); }
+  .footer__copy,
+  .footer__legalinfo,
+  .footer__legalinfo a { color: rgba(247, 243, 238, 0.62); }
+
+  /* 8 — emphasis dei titoli: Salvia ammessa solo ≥24px → forzo la size */
+  .about__closing { font-size: clamp(1.5rem, 2.6vw, 1.7rem) !important; }
+
+  /* 9 — testo sopra le foto: scrim Inchiostro più marcato + testo Crema */
+  .hero__overlay {
+    background:
+      radial-gradient(ellipse 120% 66% at 50% 44%,
+        rgba(35, 33, 29, 0.55) 0%,
+        rgba(35, 33, 29, 0.12) 68%,
+        rgba(35, 33, 29, 0) 100%),
+      linear-gradient(to bottom,
+        rgba(35, 33, 29, 0.55) 0%,
+        rgba(35, 33, 29, 0.44) 45%,
+        rgba(35, 33, 29, 0.66) 100%);
+  }
+  .hero__headline,
+  .hero__eyebrow-text,
+  .hero__sub { text-shadow: 0 1px 18px rgba(35, 33, 29, 0.45); }
+
+  /* CTA "ghost" dell'hero: illeggibile sul chiaro della foto → fondo scuro
+     semi-trasparente (Inchiostro palette) + bordo Crema pieno */
+  .hero__cta--secondary {
+    background: rgba(35, 33, 29, 0.62);
+    border-color: rgba(247, 243, 238, 0.85);
+    color: #F7F3EE;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+  .hero__cta--secondary:hover {
+    background: rgba(35, 33, 29, 0.76);
+    border-color: #F7F3EE;
+  }
+  .subhero::after {
+    background:
+      radial-gradient(ellipse 132% 92% at 50% 50%,
+        rgba(35, 33, 29, 0.68) 0%,
+        rgba(35, 33, 29, 0.38) 72%,
+        rgba(35, 33, 29, 0.24) 100%),
+      linear-gradient(180deg, rgba(35, 33, 29, 0.42), rgba(35, 33, 29, 0.60));
+  }
+  .subhero.subhero--essence::after {
+    background:
+      radial-gradient(ellipse 132% 92% at 50% 50%,
+        rgba(35, 33, 29, 0.56) 0%,
+        rgba(35, 33, 29, 0.28) 72%,
+        rgba(35, 33, 29, 0.16) 100%),
+      linear-gradient(180deg, rgba(35, 33, 29, 0.32), rgba(35, 33, 29, 0.48));
+  }
+  .subhero__title,
+  .subhero__eyebrow,
+  .subhero__tagline { text-shadow: 0 1px 14px rgba(35, 33, 29, 0.35); }
+  .subhero__title { color: #F7F3EE; }
+  .subhero__eyebrow { color: rgba(247, 243, 238, 0.92); }
+  .subhero__tagline { color: rgba(247, 243, 238, 0.92); }
+
+  /* 10 — sezione Community: overlay Sabbia più coprente + testo Inchiostro */
+  .community__overlay { background: rgba(239, 235, 228, 0.92); }
+  .community__tag,
+  .community__title { color: var(--text); }
+  .community__instagram,
+  .community__whatsapp,
+  .community__newsletter-btn {
+    color: var(--text);
+    border-color: rgba(58, 60, 55, 0.8);
+  }
+  .community__body p { color: var(--text); opacity: 1; }
+  </style>
 </head>
 <body>
 
@@ -3574,12 +3778,13 @@
           </svg>
         </a>
         <a href="index.html#community" class="nav__join">Entra nella Community</a>
-        <button class="nav__hamburger" aria-label="Apri menu" aria-expanded="false" id="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
       </div>
+
+      <button class="nav__hamburger" aria-label="Apri menu" aria-expanded="false" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
     </div>
   </nav>
@@ -3649,7 +3854,7 @@
             </div>
           </a>
           <a href="pratiche/slow-morning.html" class="gallery-card">
-            <div class="gallery-card__img gallery-card__img--photo"><img src="images/site/slow-morning.jpg" alt="Slow Morning" loading="lazy"></div>
+            <div class="gallery-card__img gallery-card__img--photo"><img src="images/site/mente-corpo.jpg" alt="Slow Morning" loading="lazy"></div>
             <div class="gallery-card__body">
               <div class="gallery-card__cat">Rituale</div>
               <h4 class="gallery-card__title">Slow Morning</h4>
@@ -3657,7 +3862,7 @@
             </div>
           </a>
           <a href="pratiche/mente-corpo.html" class="gallery-card">
-            <div class="gallery-card__img gallery-card__img--photo"><img src="images/site/mente-corpo.jpg" alt="Connessione Mente-Corpo" loading="lazy"></div>
+            <div class="gallery-card__img gallery-card__img--photo"><img src="images/site/danilo.jpg" alt="Connessione Mente-Corpo" loading="lazy"></div>
             <div class="gallery-card__body">
               <div class="gallery-card__cat">Neuroscienze</div>
               <h4 class="gallery-card__title">Connessione Mente-Corpo</h4>
@@ -3972,7 +4177,7 @@
             moneyFormat: '%E2%82%AC%7B%7Bamount_with_comma_separator%7D%7D',
             options: {
               product: {
-                contents: { img: false, title: false, price: false, options: false, description: false, button: true },
+                contents: { img: false, title: false, price: true, options: false, description: false, button: true },
                 styles: {
                   product: {
                     'width': '100%',
@@ -3980,12 +4185,25 @@
                     'margin-left': '0px',
                     'margin-bottom': '0px'
                   },
+                  price: {
+                    'font-family': "'DM Sans', sans-serif",
+                    'font-size': '15px',
+                    'font-weight': '500',
+                    'color': '#3A3C37',
+                    'margin': '0 0 10px'
+                  },
+                  compareAt: {
+                    'font-family': "'DM Sans', sans-serif",
+                    'font-size': '12px',
+                    'color': 'rgba(58,60,55,0.75)'
+                  },
                   button: {
                     'font-family': "'DM Sans', sans-serif",
                     'font-size': '12px',
                     'font-weight': '500',
                     'letter-spacing': '0.06em',
                     'text-transform': 'uppercase',
+                    'color': '#23211D',
                     'background-color': '#D5A98B',
                     'border-radius': '2px',
                     'width': '100%',
@@ -4001,6 +4219,7 @@
                 styles: {
                   button: {
                     'font-family': "'DM Sans', sans-serif",
+                    'color': '#23211D',
                     'background-color': '#D5A98B',
                     ':hover': { 'background-color': '#c8976e' },
                     ':focus': { 'background-color': '#c8976e' }
