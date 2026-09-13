@@ -1,5 +1,6 @@
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="32" height="32" viewBox="0 0 1024 1024" enable-background="new 0 0 1024 1024" xml:space="preserve">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+<circle cx="512" cy="512" r="480" fill="#FFFFFF"/>
+<g transform="translate(-19.325,-46.434) scale(1.084337)">
 <path fill="#000000" opacity="1.000000" stroke="none" 
 	d="
 M681.753784,785.832275 
@@ -185,4 +186,5 @@ M715.158325,278.541595
 	C728.818298,283.790161 726.201294,287.108765 722.068115,287.323792 
 	C717.306519,287.571533 714.950439,284.763611 715.158325,278.541595 
 z"/>
+</g>
 </svg>
