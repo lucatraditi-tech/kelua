@@ -3785,6 +3785,22 @@
   }
   .nav__cart-empty a:hover { color: var(--accent); border-color: var(--accent); }
 
+  /* Su mobile l'icona è più centrale: ancorare il pannello alla sua
+     destra lo farebbe uscire dallo schermo a sinistra. Lo centriamo
+     invece rispetto al viewport, sotto la navbar. */
+  @media (max-width: 768px) {
+    .nav__cart-empty {
+      position: fixed;
+      top: var(--header-offset);
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      margin-top: 10px;
+      width: calc(100vw - 2.5rem);
+      max-width: 320px;
+    }
+  }
+
   /* Il drawer/toggle di Shopify resta la fonte di verità per conteggio e
      checkout: lo spostiamo fuori schermo (non display:none, altrimenti i
      click generati da JS smettono di funzionare) e lo guidiamo dalla
@@ -3797,6 +3813,130 @@
     height: 1px !important;
     overflow: hidden !important;
   }
+  </style>
+    <style>
+  /* ═══ Navbar — ricerca interna al sito ═══════════════════════════ */
+  .nav__search-wrap { position: relative; display: flex; align-items: center; }
+  .nav__search { position: relative; background: none; border: none; padding: 0; font: inherit; cursor: pointer; }
+  .nav__search.is-active { color: var(--accent); opacity: 1; }
+
+  .nav__search-panel {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: -8px;
+    z-index: 210;
+    width: min(360px, calc(100vw - 2.5rem));
+    background: var(--bg);
+    border: 1px solid rgba(174, 183, 161, 0.25);
+    box-shadow: 0 12px 32px rgba(58, 60, 55, 0.14);
+    border-radius: 2px;
+    padding: 0.9rem;
+  }
+  .nav__search-panel[hidden] { display: none; }
+
+  /* Su mobile l'icona è più centrale nella navbar: ancorare il pannello
+     alla sua destra lo farebbe uscire dallo schermo a sinistra (è largo
+     360px). Lo centriamo invece rispetto al viewport, sotto la navbar. */
+  @media (max-width: 768px) {
+    .nav__search-panel {
+      position: fixed;
+      top: var(--header-offset);
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      margin-top: 10px;
+      width: calc(100vw - 2.5rem);
+      max-width: 360px;
+    }
+  }
+
+  .nav__search-inputrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-bottom: 1px solid rgba(58, 60, 55, 0.2);
+    padding-bottom: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+  .nav__search-inputrow svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: var(--text);
+    stroke-width: 1.5;
+    opacity: 0.55;
+  }
+  .nav__search-inputrow input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--text);
+  }
+  .nav__search-inputrow input::placeholder { color: var(--muted); opacity: 0.9; }
+
+  .nav__search-results {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .nav__search-group + .nav__search-group { margin-top: 0.85rem; }
+  .nav__search-group__label {
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .nav__search-item {
+    display: block;
+    padding: 0.4rem 0.3rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    border-radius: 2px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .nav__search-item:hover,
+  .nav__search-item.is-focused {
+    background: rgba(174, 183, 161, 0.16);
+    color: var(--accent);
+  }
+
+  .nav__search-empty p {
+    font-size: 0.8rem;
+    color: var(--text);
+    opacity: 0.75;
+    margin-bottom: 0.7rem;
+  }
+  .nav__search-hint {
+    font-size: 0.8rem;
+    color: var(--text);
+    opacity: 0.6;
+    margin-bottom: 0.7rem;
+  }
+  .nav__search-quicklinks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .nav__search-quicklinks a {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text);
+    border: 1px solid rgba(58, 60, 55, 0.25);
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .nav__search-quicklinks a:hover { color: var(--accent); border-color: var(--accent); }
   </style>
 </head>
 <body>
@@ -3852,6 +3992,24 @@
           <div class="nav__cart-empty" id="navCartEmpty" hidden role="dialog" aria-label="Carrello vuoto">
             <p>Il tuo carrello è vuoto.</p>
             <a href="selezione.html">Scopri la nostra selezione →</a>
+          </div>
+        </div>
+        <div class="nav__search-wrap">
+          <button type="button" class="nav__social nav__search" id="navSearchToggle" aria-label="Cerca" aria-haspopup="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </button>
+          <div class="nav__search-panel" id="navSearchPanel" hidden role="dialog" aria-label="Cerca nel sito">
+            <div class="nav__search-inputrow">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"/>
+                <path d="M21 21l-4.35-4.35"/>
+              </svg>
+              <input type="text" id="navSearchInput" placeholder="Cerca prodotti, pratiche, eventi…" autocomplete="off">
+            </div>
+            <div class="nav__search-results" id="navSearchResults"></div>
           </div>
         </div>
         <a href="index.html#community" class="nav__join">Entra nella Community</a>
@@ -4272,6 +4430,105 @@
     } else {
       loadScript();
     }
+  })();
+  </script>
+  <script src="/search-index.js"></script>
+  <script>
+  (function () {
+    var toggle = document.getElementById('navSearchToggle');
+    var panel = document.getElementById('navSearchPanel');
+    var input = document.getElementById('navSearchInput');
+    var results = document.getElementById('navSearchResults');
+    if (!toggle || !panel || !input || !results) return;
+
+    var CATS = ['Prodotti', 'Pratiche & Risorse', 'Momenti & Eventi', 'Il mondo Kelūa', 'Community'];
+    var QUICK = [
+      { label: 'Prodotti', url: '/selezione.html' },
+      { label: 'Rituals', url: '/rituals.html' },
+      { label: 'Flow', url: '/flow.html' },
+      { label: 'Essence', url: '/essence.html' }
+    ];
+
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    function quickLinksHTML() {
+      return '<div class="nav__search-quicklinks">' + QUICK.map(function (q) {
+        return '<a href="' + q.url + '">' + q.label + '</a>';
+      }).join('') + '</div>';
+    }
+
+    function renderHint() {
+      results.innerHTML = '<p class="nav__search-hint">Cerca prodotti, pratiche, eventi…</p>' + quickLinksHTML();
+    }
+
+    function renderEmpty(q) {
+      results.innerHTML = '<div class="nav__search-empty"><p>Nessun risultato per «' + esc(q) + '».</p></div>' + quickLinksHTML();
+    }
+
+    function renderGrouped(matches) {
+      var byCat = {};
+      matches.forEach(function (m) {
+        (byCat[m.cat] = byCat[m.cat] || []).push(m);
+      });
+      var html = '';
+      CATS.forEach(function (cat) {
+        var items = byCat[cat];
+        if (!items || !items.length) return;
+        html += '<div class="nav__search-group"><div class="nav__search-group__label">' + esc(cat) + '</div>';
+        items.slice(0, 5).forEach(function (item) {
+          html += '<a class="nav__search-item" href="' + item.url + '">' + esc(item.title) + '</a>';
+        });
+        html += '</div>';
+      });
+      results.innerHTML = html;
+    }
+
+    function runSearch() {
+      var q = input.value.trim().toLowerCase();
+      if (q.length < 2) { renderHint(); return; }
+      var index = window.KELUA_SEARCH_INDEX || [];
+      var matches = index.filter(function (item) {
+        return (item.title + ' ' + item.kw + ' ' + item.cat).toLowerCase().indexOf(q) !== -1;
+      });
+      if (!matches.length) { renderEmpty(input.value.trim()); return; }
+      renderGrouped(matches);
+    }
+
+    function openPanel() {
+      panel.hidden = false;
+      toggle.classList.add('is-active');
+      if (!input.value) renderHint();
+      setTimeout(function () { input.focus(); }, 0);
+    }
+
+    function closePanel() {
+      panel.hidden = true;
+      toggle.classList.remove('is-active');
+    }
+
+    toggle.addEventListener('click', function () {
+      if (panel.hidden) { openPanel(); } else { closePanel(); }
+    });
+
+    input.addEventListener('input', runSearch);
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { closePanel(); toggle.focus(); }
+      if (e.key === 'Enter') {
+        var first = results.querySelector('.nav__search-item');
+        if (first) { window.location.href = first.getAttribute('href'); }
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!panel.hidden && !panel.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
+        closePanel();
+      }
+    });
   })();
   </script>
 </body>
