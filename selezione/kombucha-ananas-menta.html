@@ -3732,6 +3732,72 @@
   }
   .community__body p { color: var(--text); opacity: 1; }
   </style>
+    <style>
+  /* ═══ Navbar — icona carrello (Shopify) ═════════════════════════ */
+  .nav__cart-wrap { position: relative; display: flex; align-items: center; }
+  .nav__cart { position: relative; background: none; border: none; padding: 0; font: inherit; cursor: pointer; }
+  .nav__cart-count {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    min-width: 15px;
+    height: 15px;
+    padding: 0 3px;
+    border-radius: 999px;
+    background: var(--cta);
+    color: #23211D;
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    font-weight: 700;
+    line-height: 15px;
+    text-align: center;
+    pointer-events: none;
+  }
+  .nav__cart-count[hidden] { display: none; }
+  .nav__cart-empty {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: -8px;
+    z-index: 200;
+    width: max-content;
+    max-width: 220px;
+    background: var(--bg);
+    border: 1px solid rgba(174, 183, 161, 0.25);
+    box-shadow: 0 8px 24px rgba(58, 60, 55, 0.12);
+    padding: 0.9rem 1rem;
+    text-align: center;
+    border-radius: 2px;
+  }
+  .nav__cart-empty[hidden] { display: none; }
+  .nav__cart-empty p {
+    font-size: 0.75rem;
+    color: var(--text);
+    opacity: 0.85;
+    margin-bottom: 0.5rem;
+  }
+  .nav__cart-empty a {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    border-bottom: 1px solid rgba(58, 60, 55, 0.3);
+  }
+  .nav__cart-empty a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Il drawer/toggle di Shopify resta la fonte di verità per conteggio e
+     checkout: lo spostiamo fuori schermo (non display:none, altrimenti i
+     click generati da JS smettono di funzionare) e lo guidiamo dalla
+     nostra icona in navbar. */
+  .shopify-buy-frame--toggle {
+    position: fixed !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+  }
+  </style>
 </head>
 <body>
 
@@ -3774,6 +3840,20 @@
             <path d="M17.47 14.83c-.28-.14-1.64-.81-1.9-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" fill="var(--bg)" stroke="none"/>
           </svg>
         </a>
+        <div class="nav__cart-wrap">
+          <button type="button" class="nav__social nav__cart" id="navCartToggle" aria-label="Carrello" aria-haspopup="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            <span class="nav__cart-count" id="navCartCount" hidden>0</span>
+          </button>
+          <div class="nav__cart-empty" id="navCartEmpty" hidden role="dialog" aria-label="Carrello vuoto">
+            <p>Il tuo carrello è vuoto.</p>
+            <a href="../selezione.html">Scopri la nostra selezione →</a>
+          </div>
+        </div>
         <a href="../index.html#community" class="nav__join">Entra nella Community</a>
       </div>
 
@@ -3820,6 +3900,57 @@
 <div id='product-component-1787502139122'></div>
 <script type="text/javascript">
 (function () {
+  function keluaBindCartNav(ui) {
+      var toggleBtn = document.getElementById('navCartToggle');
+      var countEl = document.getElementById('navCartCount');
+      var emptyPanel = document.getElementById('navCartEmpty');
+      if (!toggleBtn) return;
+  
+      function getRealToggle() {
+        var frame = document.querySelector('.shopify-buy-frame--toggle iframe');
+        if (!frame) return null;
+        var doc;
+        try { doc = frame.contentDocument || frame.contentWindow.document; } catch (e) { return null; }
+        return {
+          countEl: doc.querySelector('[data-element="toggle.count"]'),
+          clickEl: doc.querySelector('.shopify-buy__cart-toggle')
+        };
+      }
+  
+      function syncCount() {
+        var real = getRealToggle();
+        if (!real || !real.countEl) return;
+        var n = parseInt(real.countEl.textContent, 10) || 0;
+        countEl.textContent = n;
+        countEl.hidden = n === 0;
+      }
+  
+      var pollId = setInterval(function () {
+        var real = getRealToggle();
+        if (real && real.countEl) {
+          syncCount();
+          new MutationObserver(syncCount).observe(real.countEl, { characterData: true, childList: true, subtree: true });
+          clearInterval(pollId);
+        }
+      }, 300);
+  
+      toggleBtn.addEventListener('click', function () {
+        var n = parseInt(countEl.textContent, 10) || 0;
+        if (n > 0) {
+          emptyPanel.hidden = true;
+          var real = getRealToggle();
+          if (real && real.clickEl) { var el = real.clickEl; setTimeout(function () { el.click(); }, 0); }
+        } else {
+          emptyPanel.hidden = !emptyPanel.hidden;
+        }
+      });
+  
+      document.addEventListener('click', function (e) {
+        if (!emptyPanel.hidden && !emptyPanel.contains(e.target) && e.target !== toggleBtn && !toggleBtn.contains(e.target)) {
+          emptyPanel.hidden = true;
+        }
+      });
+    }
   var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
   if (window.ShopifyBuy) {
     if (window.ShopifyBuy.UI) {
@@ -3843,7 +3974,26 @@
       storefrontAccessToken: '2d7451e82aee49e9e68c5a145fa7e919',
     });
     ShopifyBuy.UI.onReady(client).then(function (ui) {
-      ui.createComponent('product', {
+        ui.createComponent('cart', {
+          moneyFormat: '%E2%82%AC%7B%7Bamount_with_comma_separator%7D%7D',
+          options: {
+            cart: {
+              styles: {
+                button: {
+                  'font-family': "'DM Sans', sans-serif",
+                  'background-color': '#D5A98B',
+                  'color': '#23211D',
+                  ':hover': { 'background-color': '#c8976e' },
+                  ':focus': { 'background-color': '#c8976e' }
+                }
+              },
+              text: { total: 'Subtotale', button: 'Checkout', empty: 'Il tuo carrello è vuoto.' }
+            }
+          }
+        });
+        keluaBindCartNav(ui);
+
+              ui.createComponent('product', {
         id: '10221186580808',
         node: document.getElementById('product-component-1787502139122'),
         moneyFormat: '%E2%82%AC%7B%7Bamount_with_comma_separator%7D%7D',
