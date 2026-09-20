@@ -3948,8 +3948,237 @@
   }
   .nav__search-quicklinks a:hover { color: var(--accent); border-color: var(--accent); }
   </style>
+    <style>
+  /* ═══ Popup — preordine prelancio (PREKOMBUCHA10) ════════════════ */
+  .promo-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: rgba(35, 33, 29, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .promo-popup.is-open { display: flex; }
+  .promo-popup.is-visible { opacity: 1; }
+  .promo-popup__panel {
+    position: relative;
+    background: var(--bg);
+    width: 100%;
+    max-width: 780px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    box-shadow: 0 24px 64px rgba(35, 33, 29, 0.35);
+    transform: translateY(14px);
+    transition: transform 0.35s ease;
+  }
+  .promo-popup.is-visible .promo-popup__panel { transform: translateY(0); }
+  .promo-popup__media { position: relative; min-height: 260px; background: #EFEBE4; }
+  .promo-popup__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .promo-popup__close {
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+    z-index: 2;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(247, 243, 238, 0.88);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--text);
+    font-size: 1.15rem;
+    line-height: 1;
+    transition: background 0.2s ease;
+  }
+  .promo-popup__close:hover { background: #F7F3EE; }
+  .promo-popup__body {
+    padding: clamp(2rem, 4vw, 2.75rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .promo-popup__eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cta);
+  }
+  .promo-popup__title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    line-height: 1.2;
+    color: var(--text);
+  }
+  .promo-popup__text {
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(58, 60, 55, 0.75);
+  }
+  .promo-popup__code {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: #EFEBE4;
+    border: 1px dashed rgba(58, 60, 55, 0.3);
+    border-radius: 4px;
+    padding: 0.8rem 1rem;
+    margin-top: 0.3rem;
+  }
+  .promo-popup__code-value {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    flex: 1;
+  }
+  .promo-popup__code-copy {
+    flex-shrink: 0;
+    background: var(--cta);
+    color: #23211D;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.55rem 0.9rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+  }
+  .promo-popup__code-copy:hover { background: var(--cta-hover); }
+  .promo-popup__code-copy.is-copied { background: var(--accent); color: #fff; }
+  .promo-popup__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.4rem;
+    padding: 0.85rem 1.6rem;
+    background: #23211D;
+    color: #F7F3EE;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: background 0.2s ease;
+  }
+  .promo-popup__cta:hover { background: #33302a; }
+  .promo-popup__note { font-size: 0.7rem; color: rgba(58, 60, 55, 0.5); }
+  @media (max-width: 680px) {
+    .promo-popup__panel { grid-template-columns: 1fr; }
+    .promo-popup__media { min-height: 180px; }
+  }
+  </style>
 </head>
 <body>
+
+  <!-- ═══ POPUP — PREORDINE PRELANCIO ═══════════════════════════ -->
+  <div class="promo-popup" id="promoPopup" role="dialog" aria-modal="true" aria-label="Offerta di prelancio">
+    <div class="promo-popup__panel">
+      <button type="button" class="promo-popup__close" id="promoPopupClose" aria-label="Chiudi">&times;</button>
+      <div class="promo-popup__media">
+        <img src="/selezione/images/kombucha-mix-4-gusti/01.png" alt="Selezione Kombucha Kelūa">
+      </div>
+      <div class="promo-popup__body">
+        <span class="promo-popup__eyebrow">Prelancio Kelūa</span>
+        <h2 class="promo-popup__title">Sei arrivato al momento giusto.</h2>
+        <p class="promo-popup__text">La nostra Kombucha sta per arrivare. Preordinala in anteprima e ricevi il 10% di sconto: il nostro modo per dare il benvenuto a chi ci scopre adesso.</p>
+        <div class="promo-popup__code">
+          <span class="promo-popup__code-value" id="promoCodeValue">PREKOMBUCHA10</span>
+          <button type="button" class="promo-popup__code-copy" id="promoCodeCopy">Copia codice</button>
+        </div>
+        <a href="/selezione.html" class="promo-popup__cta" id="promoPopupCta">Preordina ora →</a>
+        <p class="promo-popup__note">Inserisci il codice al checkout per applicare lo sconto.</p>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    var STORAGE_KEY = 'keluaPromoSeen';
+    var popup = document.getElementById('promoPopup');
+    var closeBtn = document.getElementById('promoPopupClose');
+    var copyBtn = document.getElementById('promoCodeCopy');
+    var codeValue = document.getElementById('promoCodeValue');
+    var cta = document.getElementById('promoPopupCta');
+    if (!popup) return;
+
+    function markSeen() {
+      try { sessionStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
+    }
+
+    function openPopup() {
+      popup.classList.add('is-open');
+      requestAnimationFrame(function () { popup.classList.add('is-visible'); });
+    }
+
+    function closePopup() {
+      popup.classList.remove('is-visible');
+      setTimeout(function () { popup.classList.remove('is-open'); }, 350);
+      markSeen();
+    }
+
+    var alreadySeen = false;
+    try { alreadySeen = sessionStorage.getItem(STORAGE_KEY) === '1'; } catch (e) {}
+    if (!alreadySeen) { setTimeout(openPopup, 1000); }
+
+    closeBtn.addEventListener('click', closePopup);
+    popup.addEventListener('click', function (e) { if (e.target === popup) closePopup(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && popup.classList.contains('is-open')) closePopup();
+    });
+    if (cta) { cta.addEventListener('click', markSeen); }
+
+    function fallbackCopy(text, cb) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      cb();
+    }
+
+    copyBtn.addEventListener('click', function () {
+      var text = codeValue.textContent.trim();
+      function done() {
+        copyBtn.textContent = 'Copiato \u2713';
+        copyBtn.classList.add('is-copied');
+        setTimeout(function () {
+          copyBtn.textContent = 'Copia codice';
+          copyBtn.classList.remove('is-copied');
+        }, 1600);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, done); });
+      } else {
+        fallbackCopy(text, done);
+      }
+    });
+  })();
+  </script>
 
   <!-- ═══ MARQUEE ═══════════════════════════════════════════════ -->
   <div class="marquee" aria-hidden="false">
