@@ -7,6 +7,7 @@ window.KELUA_SEARCH_INDEX = [
   { title: 'Kombucha Pitaya e Maracujà', cat: 'Prodotti', url: '/selezione/kombucha-pitaya-maracuja.html', kw: 'kombucha pitaya maracuja gula fit bevanda fermentata brasile' },
   { title: 'Kombucha Mandarino e Ibisco', cat: 'Prodotti', url: '/selezione/kombucha-mandarino-ibisco.html', kw: 'kombucha mandarino ibisco gula fit bevanda fermentata brasile' },
   { title: 'Kombucha Fragola e Lime', cat: 'Prodotti', url: '/selezione/kombucha-fragola-lime.html', kw: 'kombucha fragola lime gula fit bevanda fermentata brasile' },
+  { title: 'Kombucha Mix 4 Gusti', cat: 'Prodotti', url: '/selezione/kombucha-mix-4-gusti.html', kw: 'kombucha mix cassa mista 4 gusti gula fit bevanda fermentata brasile' },
   { title: 'Selezione — tutti i prodotti', cat: 'Prodotti', url: '/selezione.html', kw: 'selezione prodotti negozio shop kombucha preordine' },
 
   // ── Pratiche & Risorse ────────────────────────────────────

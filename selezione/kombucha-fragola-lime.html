@@ -3400,6 +3400,19 @@
       width: 60%;
     }
 
+    .nutrition-table tr.nutrition-table__sub th {
+      padding-left: 1.8rem;
+      font-weight: 400;
+      font-style: italic;
+      background: transparent;
+      color: rgba(58,60,55,0.6);
+    }
+
+    .nutrition-table tr.nutrition-table__sub td {
+      font-style: italic;
+      color: rgba(58,60,55,0.6);
+    }
+
     .product-origin-card {
       background: #EFEBE4;
       border: 1px solid rgba(58,60,55,0.1);
@@ -4249,8 +4262,10 @@
     <h2>Valori nutrizionali medi (per 100 ml)</h2>
     <table class="nutrition-table">
         <tr><th>Energia</th><td>14 kJ / 3,3 kcal</td></tr>
-        <tr><th>Grassi</th><td>0 g (di cui saturi: 0 g)</td></tr>
-        <tr><th>Carboidrati</th><td>0,8 g (di cui zuccheri: 0,8 g)</td></tr>
+        <tr><th>Grassi</th><td>0 g</td></tr>
+        <tr class="nutrition-table__sub"><th>di cui saturi</th><td>0 g</td></tr>
+        <tr><th>Carboidrati</th><td>0,8 g</td></tr>
+        <tr class="nutrition-table__sub"><th>di cui zuccheri</th><td>0,8 g</td></tr>
         <tr><th>Proteine</th><td>0 g</td></tr>
         <tr><th>Sale</th><td>0,01 g</td></tr>
     </table>
@@ -4279,6 +4294,7 @@
         <a href="kombucha-ananas-menta.html">Kombucha Ananas e Menta</a>
         <a href="kombucha-pitaya-maracuja.html">Kombucha Pitaya e Maracujà</a>
         <a href="kombucha-mandarino-ibisco.html">Kombucha Mandarino e Ibisco</a>
+        <a href="kombucha-mix-4-gusti.html">Cassa Mista (4 gusti)</a>
     </div>
   </div>
 
@@ -4492,7 +4508,7 @@
   })();
   </script>
 
-  <script src="/search-index.js"></script>
+  <script src="/search-index.js?v=2"></script>
   <script>
   (function () {
     var toggle = document.getElementById('navSearchToggle');

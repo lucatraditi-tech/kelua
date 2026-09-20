@@ -4114,6 +4114,20 @@
               <div id="cart-toggle-kombucha-fragola-lime" class="cart-toggle-node"></div>
             </div>
           </div>
+          <div class="gallery-card">
+            <a href="selezione/kombucha-mix-4-gusti.html" class="gallery-card__linkarea">
+              <div class="gallery-card__img gallery-card__img--photo"><img src="selezione/images/kombucha-mix-4-gusti/01.png" alt="Kombucha Mix 4 Gusti" loading="lazy"></div>
+              <div class="gallery-card__body">
+                <div class="gallery-card__cat">Kombucha</div>
+                <h4 class="gallery-card__title">Kombucha Mix 4 Gusti</h4>
+                <div class="gallery-card__dur">Cassa mista da 12 · 269 ml</div>
+                <div class="gallery-card__origin">Origine: Brasile</div>
+              </div>
+            </a>
+            <div class="gallery-card__addtocart">
+              <div id="cart-toggle-kombucha-mix-4-gusti" class="cart-toggle-node"></div>
+            </div>
+          </div>
       </div>
     </div>
   </section>
@@ -4367,7 +4381,8 @@
       { productId: '10221186580808', nodeId: 'cart-toggle-kombucha-ananas-menta' },
       { productId: '10221187432776', nodeId: 'cart-toggle-kombucha-pitaya-maracuja' },
       { productId: '10221187662152', nodeId: 'cart-toggle-kombucha-mandarino-ibisco' },
-      { productId: '10221186842952', nodeId: 'cart-toggle-kombucha-fragola-lime' }
+      { productId: '10221186842952', nodeId: 'cart-toggle-kombucha-fragola-lime' },
+      { productId: '10290563711304', nodeId: 'cart-toggle-kombucha-mix-4-gusti' }
     ];
 
     function ShopifyBuyInit() {
@@ -4440,7 +4455,7 @@
                     ':focus': { 'background-color': '#c8976e' }
                   }
                 },
-                text: { button: 'Aggiungi al Carrello' }
+                text: { button: 'Aggiungi al Carrello', outOfStock: 'Esaurito', unavailable: 'Non disponibile' }
               },
               cart: {
                 styles: {
@@ -4565,7 +4580,7 @@
   })();
   </script>
 
-  <script src="/search-index.js"></script>
+  <script src="/search-index.js?v=2"></script>
   <script>
   (function () {
     var toggle = document.getElementById('navSearchToggle');
