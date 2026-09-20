@@ -360,6 +360,21 @@
 
     /* ─── Hero ────────────────────────────────────────────────── */
     .hero {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+    }
+
+    .hero-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .hero-slide {
+      flex: 0 0 100%;
+      width: 100%;
       min-height: 100svh;
       padding-top: var(--header-offset);
       display: flex;
@@ -369,7 +384,69 @@
       padding-left: clamp(1.5rem, 6vw, 6rem);
       padding-right: clamp(1.5rem, 6vw, 6rem);
       position: relative;
-      overflow: hidden;
+    }
+
+    .hero-slide[aria-hidden="true"] {
+      pointer-events: none;
+    }
+
+    .hero-slide--selection .hero__bg img {
+      object-position: center 38%;
+    }
+
+    /* Prodotti in miniatura — slide Selezione */
+    .hero-products {
+      display: flex;
+      justify-content: center;
+      gap: 0.7rem;
+      margin-top: -0.4rem;
+    }
+
+    .hero-products img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      background: rgba(247, 243, 238, 0.94);
+      border-radius: 50%;
+      padding: 7px;
+      box-shadow: 0 6px 16px rgba(35, 33, 29, 0.28);
+    }
+
+    @media (max-width: 480px) {
+      .hero-products img { width: 42px; height: 42px; padding: 5px; }
+    }
+
+    /* Dots di navigazione */
+    .hero-dots {
+      position: absolute;
+      left: 50%;
+      bottom: clamp(1.5rem, 5vh, 2.5rem);
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .hero-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(247, 243, 238, 0.45);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    .hero-dot:hover { background: rgba(247, 243, 238, 0.75); }
+
+    .hero-dot.is-active {
+      background: var(--cta);
+      transform: scale(1.25);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-track { transition: none; }
     }
 
     .hero__bg {
@@ -400,6 +477,15 @@
         rgba(30, 28, 22, 0.54) 0%,
         rgba(30, 28, 22, 0.36) 50%,
         rgba(30, 28, 22, 0.60) 100%
+      );
+    }
+
+    .hero-slide--selection .hero__overlay {
+      background: linear-gradient(
+        180deg,
+        rgba(20, 22, 26, 0.62) 0%,
+        rgba(20, 22, 26, 0.42) 45%,
+        rgba(20, 22, 26, 0.68) 100%
       );
     }
 
@@ -2720,58 +2806,117 @@
   </div>
 
   <!-- ═══ HERO ══════════════════════════════════════════════════ -->
-  <section class="hero" id="hero" aria-label="Hero">
+  <section class="hero" id="hero" aria-label="Hero" aria-roledescription="carousel">
+    <div class="hero-track" id="heroTrack">
 
-    <div class="hero__bg" aria-hidden="true">
-      <img
-        src="HERO/PHOTO-2026-05-25-21-28-59 3.jpg"
-        alt=""
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      />
+      <!-- Slide 1: Brand -->
+      <div class="hero-slide hero-slide--main" aria-roledescription="slide" aria-label="1 di 2">
+
+        <div class="hero__bg" aria-hidden="true">
+          <img
+            src="HERO/PHOTO-2026-05-25-21-28-59 3.jpg"
+            alt=""
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+        <div class="hero__overlay" aria-hidden="true"></div>
+
+        <div class="hero__inner">
+
+          <div class="hero__logo">
+            <img src="logo/logo.svg" alt="Kelūa" />
+          </div>
+
+          <div class="hero__eyebrow">
+            <span class="hero__eyebrow-text">Rituals&nbsp;•&nbsp;Flow&nbsp;•&nbsp;Essence</span>
+          </div>
+
+          <h1 class="hero__headline">
+            Kelūa trasforma il benessere contemporaneo in <em>rituali semplici</em>,
+            concreti e vivibili ogni giorno.
+          </h1>
+
+          <div class="hero__divider" aria-hidden="true"></div>
+
+          <p class="hero__sub">
+            Non hai bisogno di più stimoli. Hai bisogno di più <em>allineamento.</em>
+          </p>
+
+          <div class="hero__ctas">
+            <a href="#community" class="hero__cta">
+              Entra nella community
+            </a>
+
+            <a href="rituals.html" class="hero__cta hero__cta--secondary">
+              Scopri la nostra selezione
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="hero__scroll" aria-hidden="true">
+            <span class="hero__scroll-label">Scorri</span>
+            <div class="hero__scroll-line"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Slide 2: Selezione / Kombucha -->
+      <div class="hero-slide hero-slide--selection" aria-roledescription="slide" aria-label="2 di 2" aria-hidden="true">
+
+        <div class="hero__bg" aria-hidden="true">
+          <img
+            src="selezione/images/kombucha-pitaya-maracuja/04.jpg"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="hero__overlay" aria-hidden="true"></div>
+
+        <div class="hero__inner">
+
+          <div class="hero__eyebrow">
+            <span class="hero__eyebrow-text">Kelūa Selection</span>
+          </div>
+
+          <h2 class="hero__headline">
+            La tua Kombucha ti aspetta.
+          </h2>
+
+          <div class="hero__divider" aria-hidden="true"></div>
+
+          <p class="hero__sub">
+            Fermentata in Brasile, senza calorie, mai banale. Preordina ora con il
+            10% di sconto — codice <em>PREKOMBUCHA10</em>.
+          </p>
+
+          <div class="hero-products" aria-hidden="true">
+            <img src="selezione/images/kombucha-ananas-menta/01.png" alt="" loading="lazy">
+            <img src="selezione/images/kombucha-pitaya-maracuja/01.png" alt="" loading="lazy">
+            <img src="selezione/images/kombucha-mandarino-ibisco/01.png" alt="" loading="lazy">
+            <img src="selezione/images/kombucha-fragola-lime/01.png" alt="" loading="lazy">
+            <img src="selezione/images/kombucha-mix-4-gusti/01.png" alt="" loading="lazy">
+          </div>
+
+          <div class="hero__ctas">
+            <a href="selezione.html" class="hero__cta" tabindex="-1">
+              Scopri la Selezione
+            </a>
+          </div>
+
+        </div>
+      </div>
+
     </div>
-    <div class="hero__overlay" aria-hidden="true"></div>
 
-    <div class="hero__inner">
-
-      <div class="hero__logo">
-        <img src="logo/logo.svg" alt="Kelūa" />
-      </div>
-
-      <div class="hero__eyebrow">
-        <span class="hero__eyebrow-text">Rituals&nbsp;•&nbsp;Flow&nbsp;•&nbsp;Essence</span>
-      </div>
-
-      <h1 class="hero__headline">
-        Kelūa trasforma il benessere contemporaneo in <em>rituali semplici</em>,
-        concreti e vivibili ogni giorno.
-      </h1>
-
-      <div class="hero__divider" aria-hidden="true"></div>
-
-      <p class="hero__sub">
-        Non hai bisogno di più stimoli. Hai bisogno di più <em>allineamento.</em>
-      </p>
-
-      <div class="hero__ctas">
-        <a href="#community" class="hero__cta">
-          Entra nella community
-        </a>
-
-        <a href="rituals.html" class="hero__cta hero__cta--secondary">
-          Scopri la nostra selezione
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M5 12h14M13 6l6 6-6 6"/>
-          </svg>
-        </a>
-      </div>
-
-      <div class="hero__scroll" aria-hidden="true">
-        <span class="hero__scroll-label">Scorri</span>
-        <div class="hero__scroll-line"></div>
-      </div>
-
+    <div class="hero-dots" role="tablist" aria-label="Naviga la hero">
+      <button type="button" class="hero-dot is-active" data-index="0" role="tab" aria-selected="true" aria-label="Vai alla slide 1"></button>
+      <button type="button" class="hero-dot" data-index="1" role="tab" aria-selected="false" aria-label="Vai alla slide 2"></button>
     </div>
   </section>
 
@@ -2989,6 +3134,96 @@
 
   <!-- ═══ SCRIPTS ═══════════════════════════════════════════════ -->
   <script>
+    // Hero — carosello (autoplay + swipe + dots)
+    (function () {
+      const hero  = document.getElementById('hero');
+      const track = document.getElementById('heroTrack');
+      if (!hero || !track) return;
+
+      const slides = Array.from(track.querySelectorAll('.hero-slide'));
+      const dots   = Array.from(hero.querySelectorAll('.hero-dot'));
+      const AUTOPLAY_MS = 7000;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let index = 0;
+      let timer = null;
+
+      function goTo(newIndex) {
+        index = (newIndex + slides.length) % slides.length;
+        track.style.transform = `translateX(-${index * 100}%)`;
+
+        slides.forEach((slide, i) => {
+          const active = i === index;
+          slide.setAttribute('aria-hidden', String(!active));
+          slide.querySelectorAll('a, button').forEach((el) => {
+            el.tabIndex = active ? 0 : -1;
+          });
+        });
+
+        dots.forEach((dot, i) => {
+          const active = i === index;
+          dot.classList.toggle('is-active', active);
+          dot.setAttribute('aria-selected', String(active));
+        });
+      }
+
+      function startAutoplay() {
+        if (reduceMotion || slides.length < 2) return;
+        stopAutoplay();
+        timer = setInterval(() => goTo(index + 1), AUTOPLAY_MS);
+      }
+
+      function stopAutoplay() {
+        if (timer) clearInterval(timer);
+      }
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          goTo(i);
+          startAutoplay();
+        });
+      });
+
+      // Pausa al passaggio del mouse — solo su dispositivi con puntatore reale
+      // (su mobile un tap può generare un mouseenter "fantasma" senza mai un
+      // mouseleave, bloccando l'autoplay per sempre dopo il primo tocco)
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        hero.addEventListener('mouseenter', stopAutoplay);
+        hero.addEventListener('mouseleave', startAutoplay);
+      }
+
+      // Swipe touch (mobile)
+      let touchStartX = 0, touchStartY = 0, touchDeltaX = 0, touchDeltaY = 0, dragging = false;
+
+      track.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchDeltaX = 0;
+        touchDeltaY = 0;
+        dragging = true;
+        stopAutoplay();
+      }, { passive: true });
+
+      track.addEventListener('touchmove', (e) => {
+        if (!dragging) return;
+        touchDeltaX = e.touches[0].clientX - touchStartX;
+        touchDeltaY = e.touches[0].clientY - touchStartY;
+      }, { passive: true });
+
+      track.addEventListener('touchend', () => {
+        if (!dragging) return;
+        dragging = false;
+        const threshold = 40;
+        if (Math.abs(touchDeltaX) > threshold && Math.abs(touchDeltaX) > Math.abs(touchDeltaY)) {
+          goTo(touchDeltaX < 0 ? index + 1 : index - 1);
+        }
+        startAutoplay();
+      });
+
+      goTo(0);
+      startAutoplay();
+    })();
+
     const hamburger   = document.getElementById('hamburger');
     const mobileMenu  = document.getElementById('mobileMenu');
 
@@ -3018,6 +3253,7 @@
     // Partnership form — mailto fallback
     const partnershipForm = document.getElementById('partnershipForm');
     const formStatus      = document.getElementById('formStatus');
+    const FORMSPREE_FORM_ID = 'FORMSPREE_FORM_ID'; // TODO: incollare l'ID form reale da formspree.io
 
     partnershipForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -3037,18 +3273,33 @@
         return;
       }
 
-      const subject = encodeURIComponent(`[Kelūa] ${tipo} — ${nome}`);
-      const body    = encodeURIComponent(
-        `Nome: ${nome}\nAzienda: ${azienda || '—'}\nEmail: ${email}\nTelefono: ${telefono || '—'}\nTipo: ${tipo}\n\n${msg}`
-      );
+      const submitBtn = partnershipForm.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
 
-      window.location.href = `mailto:info@kelua.it?subject=${subject}&body=${body}`;
-
-      formStatus.textContent = 'Apertura client email…';
-      formStatus.style.color = '';
-      formStatus.classList.add('is-visible');
-
-      setTimeout(() => formStatus.classList.remove('is-visible'), 4000);
+      fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(partnershipForm)
+      })
+        .then((response) => {
+          if (response.ok) {
+            formStatus.textContent = 'Richiesta inviata — ti risponderemo presto.';
+            formStatus.style.color = '';
+            partnershipForm.reset();
+          } else {
+            formStatus.textContent = 'Errore nell\'invio. Riprova o scrivici a info@kelua.it.';
+            formStatus.style.color = '#c0776a';
+          }
+        })
+        .catch(() => {
+          formStatus.textContent = 'Errore nell\'invio. Riprova o scrivici a info@kelua.it.';
+          formStatus.style.color = '#c0776a';
+        })
+        .finally(() => {
+          if (submitBtn) submitBtn.disabled = false;
+          formStatus.classList.add('is-visible');
+          setTimeout(() => formStatus.classList.remove('is-visible'), 5000);
+        });
     });
 
     // Reveal on scroll (IntersectionObserver)
@@ -3066,16 +3317,33 @@
       revealObserver.observe(el);
     });
 
-    // Community newsletter form
+    // Community newsletter form — iscrive il profilo alla lista Klaviyo
     const communityNlForm    = document.getElementById('communityNewsletterForm');
     const communityNlConfirm = document.getElementById('communityNlConfirm');
+    const KLAVIYO_COMPANY_ID = 'UyfpEh';
+    const KLAVIYO_NEWSLETTER_LIST_ID = 'KLAVIYO_NEWSLETTER_LIST_ID'; // TODO: incollare l'ID lista reale
 
     communityNlForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const email = communityNlForm.email.value.trim();
       if (!email || !email.includes('@')) return;
 
-      // Replace with real integration (Mailchimp, Brevo, etc.) when ready
+      fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${KLAVIYO_COMPANY_ID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'revision': '2024-10-15' },
+        body: JSON.stringify({
+          data: {
+            type: 'subscription',
+            attributes: {
+              profile: { data: { type: 'profile', attributes: { email: email } } }
+            },
+            relationships: {
+              list: { data: { type: 'list', id: KLAVIYO_NEWSLETTER_LIST_ID } }
+            }
+          }
+        })
+      }).catch(() => {});
+
       communityNlForm.style.opacity = '0.3';
       communityNlForm.style.pointerEvents = 'none';
       communityNlConfirm.classList.add('is-visible');
