@@ -233,6 +233,49 @@
       transform: translateY(-1px);
     }
 
+    /* Language toggle (IT / EN) */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .lang-toggle button {
+      background: none;
+      border: none;
+      padding: 0.15rem 0.15rem;
+      cursor: pointer;
+      font-family: var(--font-body);
+      color: var(--text);
+      opacity: 0.5;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-toggle button:hover { opacity: 0.9; }
+
+    .lang-toggle button.is-active {
+      opacity: 1;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .lang-toggle__divider {
+      opacity: 0.3;
+      font-size: 0.7rem;
+    }
+
+    .nav__mobile-lang {
+      margin-bottom: 1.2rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid rgba(174, 183, 161, 0.25);
+    }
+
+    .nav__mobile-lang .lang-toggle button { font-size: 0.8rem; }
+
     @media (max-width: 900px) {
       .nav__collab, .nav__join { display: none; }
     }
@@ -569,6 +612,7 @@
     @media (max-width: 768px) {
       .nav__links       { display: none; }
       .nav__hamburger   { display: flex; }
+      .nav__lang        { display: none; }
 
       /* Mobile nav: logo a sinistra · icone social al centro · burger a destra */
       .nav__inner {
@@ -4106,22 +4150,22 @@
 <body>
 
   <!-- ═══ POPUP — PREORDINE PRELANCIO ═══════════════════════════ -->
-  <div class="promo-popup" id="promoPopup" role="dialog" aria-modal="true" aria-label="Offerta di prelancio">
+  <div class="promo-popup" id="promoPopup" role="dialog" aria-modal="true" data-i18n-aria-label="promo.aria" aria-label="Offerta di prelancio">
     <div class="promo-popup__panel">
-      <button type="button" class="promo-popup__close" id="promoPopupClose" aria-label="Chiudi">&times;</button>
+      <button type="button" class="promo-popup__close" id="promoPopupClose" data-i18n-aria-label="common.close" aria-label="Chiudi">&times;</button>
       <div class="promo-popup__media">
         <img src="/selezione/images/kombucha-mix-4-gusti/01.png" alt="Selezione Kombucha Kelūa">
       </div>
       <div class="promo-popup__body">
-        <span class="promo-popup__eyebrow">Prelancio Kelūa</span>
-        <h2 class="promo-popup__title">Sei arrivato al momento giusto.</h2>
-        <p class="promo-popup__text">La nostra Kombucha sta per arrivare. Preordinala in anteprima e ricevi il 10% di sconto: il nostro modo per dare il benvenuto a chi ci scopre adesso.</p>
+        <span class="promo-popup__eyebrow" data-i18n="promo.eyebrow">Prelancio Kelūa</span>
+        <h2 class="promo-popup__title" data-i18n="promo.title">Sei arrivato al momento giusto.</h2>
+        <p class="promo-popup__text" data-i18n="promo.text">La nostra Kombucha sta per arrivare. Preordinala in anteprima e ricevi il 10% di sconto: il nostro modo per dare il benvenuto a chi ci scopre adesso.</p>
         <div class="promo-popup__code">
           <span class="promo-popup__code-value" id="promoCodeValue">PREKOMBUCHA10</span>
-          <button type="button" class="promo-popup__code-copy" id="promoCodeCopy">Copia codice</button>
+          <button type="button" class="promo-popup__code-copy" id="promoCodeCopy" data-i18n="promo.copyCode">Copia codice</button>
         </div>
-        <a href="/selezione.html" class="promo-popup__cta" id="promoPopupCta">Preordina ora →</a>
-        <p class="promo-popup__note">Inserisci il codice al checkout per applicare lo sconto.</p>
+        <a href="/selezione.html" class="promo-popup__cta" id="promoPopupCta" data-i18n="promo.cta">Preordina ora →</a>
+        <p class="promo-popup__note" data-i18n="promo.note">Inserisci il codice al checkout per applicare lo sconto.</p>
       </div>
     </div>
   </div>
@@ -4176,10 +4220,10 @@
     copyBtn.addEventListener('click', function () {
       var text = codeValue.textContent.trim();
       function done() {
-        copyBtn.textContent = 'Copiato \u2713';
+        copyBtn.textContent = window.keluaT ? window.keluaT('promo.copied') : 'Copiato ✓';
         copyBtn.classList.add('is-copied');
         setTimeout(function () {
-          copyBtn.textContent = 'Copia codice';
+          copyBtn.textContent = window.keluaT ? window.keluaT('promo.copyCode') : 'Copia codice';
           copyBtn.classList.remove('is-copied');
         }, 1600);
       }
@@ -4194,10 +4238,10 @@
 
   <!-- ═══ MARQUEE ═══════════════════════════════════════════════ -->
   <div class="marquee" aria-hidden="false">
-    <a href="../selezione.html" class="marquee__link" aria-label="La nostra Kombucha sta arrivando — preordina ora, vai alla Selezione">
+    <a href="../selezione.html" class="marquee__link" data-i18n-aria-label="marquee.linkAria" aria-label="La nostra Kombucha sta arrivando — preordina ora, vai alla Selezione">
       <div class="marquee__track">
-        <div class="marquee__group"><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span></div>
-        <div class="marquee__group" aria-hidden="true"><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span></div>
+        <div class="marquee__group"><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span></div>
+        <div class="marquee__group" aria-hidden="true"><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span></div>
       </div>
     </a>
   </div>
@@ -4206,7 +4250,7 @@
   <nav class="nav" role="navigation" aria-label="Navigazione principale">
     <div class="nav__inner">
 
-      <a href="../index.html" class="nav__logo" aria-label="Kelūa — torna alla home">
+      <a href="../index.html" class="nav__logo" data-i18n-aria-label="kombuchaMandarino.nav.logoAria" aria-label="Kelūa — torna alla home">
         <img src="../logo/logo.svg" alt="Kelūa" />
       </a>
 
@@ -4217,22 +4261,9 @@
       </ul>
 
       <div class="nav__right">
-        <a href="../index.html#partnership" class="nav__collab">Vuoi Collaborare?</a>
-        <a href="https://instagram.com/kelua_ritual" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelūa">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <circle cx="12" cy="12" r="4.5"/>
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-          </svg>
-        </a>
-        <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelūa">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.2-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/>
-            <path d="M17.47 14.83c-.28-.14-1.64-.81-1.9-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" fill="var(--bg)" stroke="none"/>
-          </svg>
-        </a>
+        <a href="../index.html#partnership" class="nav__collab" data-i18n="nav.collab">Vuoi Collaborare?</a>
         <div class="nav__cart-wrap">
-          <button type="button" class="nav__social nav__cart" id="navCartToggle" aria-label="Carrello" aria-haspopup="true">
+          <button type="button" class="nav__social nav__cart" id="navCartToggle" data-i18n-aria-label="nav.cartAria" aria-label="Carrello" aria-haspopup="true">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="9" cy="21" r="1"/>
               <circle cx="20" cy="21" r="1"/>
@@ -4241,12 +4272,12 @@
             <span class="nav__cart-count" id="navCartCount" hidden>0</span>
           </button>
           <div class="nav__cart-empty" id="navCartEmpty" hidden role="dialog" aria-label="Carrello vuoto">
-            <p>Il tuo carrello è vuoto.</p>
-            <a href="../selezione.html">Scopri la nostra selezione →</a>
+            <p data-i18n="nav.cartEmpty">Il tuo carrello è vuoto.</p>
+            <a href="../selezione.html" data-i18n="nav.cartDiscover">Scopri la nostra selezione →</a>
           </div>
         </div>
         <div class="nav__search-wrap">
-          <button type="button" class="nav__social nav__search" id="navSearchToggle" aria-label="Cerca" aria-haspopup="true">
+          <button type="button" class="nav__social nav__search" id="navSearchToggle" data-i18n-aria-label="nav.searchAria" aria-label="Cerca" aria-haspopup="true">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="11" cy="11" r="7"/>
               <path d="M21 21l-4.35-4.35"/>
@@ -4258,15 +4289,33 @@
                 <circle cx="11" cy="11" r="7"/>
                 <path d="M21 21l-4.35-4.35"/>
               </svg>
-              <input type="text" id="navSearchInput" placeholder="Cerca prodotti, pratiche, eventi…" autocomplete="off">
+              <input type="text" id="navSearchInput" data-i18n-placeholder="nav.searchPlaceholder" placeholder="Cerca prodotti, pratiche, eventi…" autocomplete="off">
             </div>
             <div class="nav__search-results" id="navSearchResults"></div>
           </div>
         </div>
-        <a href="../index.html#community" class="nav__join">Entra nella Community</a>
+        <a href="https://instagram.com/kelua_ritual" class="nav__social" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.instagramAria" aria-label="Instagram Kelūa">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="nav__social" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.whatsappAria" aria-label="Community WhatsApp Kelūa">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.2-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/>
+            <path d="M17.47 14.83c-.28-.14-1.64-.81-1.9-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" fill="var(--bg)" stroke="none"/>
+          </svg>
+        </a>
+        <div class="lang-toggle nav__lang" role="group" aria-label="Cambia lingua / Change language">
+          <button type="button" data-lang-toggle="it">IT</button>
+          <span class="lang-toggle__divider">/</span>
+          <button type="button" data-lang-toggle="en">EN</button>
+        </div>
+        <a href="../index.html#community" class="nav__join" data-i18n="nav.join">Entra nella Community</a>
       </div>
 
-      <button class="nav__hamburger" aria-label="Apri menu" aria-expanded="false" id="hamburger">
+      <button class="nav__hamburger" aria-label="Apri menu" data-i18n-aria-label="nav.openMenuAria" aria-expanded="false" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
@@ -4277,17 +4326,22 @@
 
   <!-- Mobile menu -->
   <div class="nav__mobile" id="mobileMenu" aria-hidden="true">
+    <div class="nav__mobile-lang lang-toggle" role="group" aria-label="Cambia lingua / Change language">
+      <button type="button" data-lang-toggle="it">IT</button>
+      <span class="lang-toggle__divider">/</span>
+      <button type="button" data-lang-toggle="en">EN</button>
+    </div>
     <ul>
       <li><a href="../rituals.html">Rituals</a></li>
       <li><a href="../flow.html">Flow</a></li>
       <li><a href="../essence.html">Essence</a></li>
-      <li><a href="../index.html#partnership">Vuoi Collaborare?</a></li>
-      <li><a href="../index.html#community">Entra nella Community</a></li>
+      <li><a href="../index.html#partnership" data-i18n="nav.collab">Vuoi Collaborare?</a></li>
+      <li><a href="../index.html#community" data-i18n="nav.join">Entra nella Community</a></li>
     </ul>
   </div>
 
   <div class="product-back">
-    <a href="../rituals.html">← Torna a Kelūa Rituals</a>
+    <a href="../rituals.html" data-i18n="kombuchaMandarino.backLink">← Torna a Kelūa Rituals</a>
   </div>
 
   <section class="product-hero">
@@ -4297,13 +4351,13 @@
       </div>
       <div>
         <div class="product-tag-row">
-          <span class="article-pill">Kelūa Selection</span>
-          <span class="article-pill">Origine: Brasile</span>
+          <span class="article-pill" data-i18n="kombuchaMandarino.tag.selection">Kelūa Selection</span>
+          <span class="article-pill" data-i18n="kombuchaMandarino.tag.origin">Origine: Brasile</span>
         </div>
-        <h1 class="product-title">Kombucha Mandarino e Ibisco</h1>
+        <h1 class="product-title" data-i18n="kombuchaMandarino.title">Kombucha Mandarino e Ibisco</h1>
         <div class="product-preorder">
           <span class="product-preorder__dot"></span>
-          PREORDINE — spedizione prevista entro il 15 ottobre 2026
+          <span data-i18n="kombuchaMandarino.preorder">PREORDINE — spedizione prevista entro il 15 ottobre 2026</span>
         </div>
         <div class="product-buy-button">
 <div id='product-component-1787502384746'></div>
@@ -4396,7 +4450,7 @@
                   ':focus': { 'background-color': '#c8976e' }
                 }
               },
-              text: { total: 'Subtotale', button: 'Checkout', empty: 'Il tuo carrello è vuoto.' }
+              text: { total: (window.keluaT ? window.keluaT('kombuchaMandarino.shopify.subtotal') : 'Subtotale'), button: (window.keluaT ? window.keluaT('kombuchaMandarino.shopify.checkout') : 'Checkout'), empty: (window.keluaT ? window.keluaT('nav.cartEmpty') : 'Il tuo carrello è vuoto.') }
             }
           }
         });
@@ -4444,7 +4498,7 @@
                 ':focus': { 'background-color': '#c8976e' }
               }
             },
-            text: { button: 'Aggiungi al Carrello' }
+            text: { button: (window.keluaT ? window.keluaT('kombuchaMandarino.shopify.addToCart') : 'Aggiungi al Carrello') }
           },
           cart: {
             styles: {
@@ -4465,14 +4519,14 @@
 })();
 </script>
         </div>
-        <p class="product-format">Cassa da 12 lattine · 269 ml, gassata, non alcolica</p>
+        <p class="product-format" data-i18n="kombuchaMandarino.format1">Cassa da 12 lattine · 269 ml, gassata, non alcolica</p>
         <p class="product-format">SKU: mandarino-ibisco</p>
-        <p class="product-desc">Bevanda analcolica fermentata, gassata, non pastorizzata, a base di tè verde con zucchero. L'acidità vibrante e agrumata del mandarino incontra il tocco delicatamente floreale dell'ibisco, per una bevanda decisa, leggera e rinfrescante. Fermentata e imbottigliata in Brasile, per un gusto esotico per davvero.</p>
+        <p class="product-desc" data-i18n="kombuchaMandarino.desc">Bevanda analcolica fermentata, gassata, non pastorizzata, a base di tè verde con zucchero. L'acidità vibrante e agrumata del mandarino incontra il tocco delicatamente floreale dell'ibisco, per una bevanda decisa, leggera e rinfrescante. Fermentata e imbottigliata in Brasile, per un gusto esotico per davvero.</p>
         <div class="product-claims">
-        <span class="product-claim">Non pastorizzata</span>
-        <span class="product-claim">Senza calorie</span>
-        <span class="product-claim">Senza glutine</span>
-        <span class="product-claim">Vegano</span>
+        <span class="product-claim" data-i18n="kombuchaMandarino.claim.unpasteurized">Non pastorizzata</span>
+        <span class="product-claim" data-i18n="kombuchaMandarino.claim.noCalories">Senza calorie</span>
+        <span class="product-claim" data-i18n="kombuchaMandarino.claim.glutenFree">Senza glutine</span>
+        <span class="product-claim" data-i18n="kombuchaMandarino.claim.vegan">Vegano</span>
         </div>
       </div>
     </div>
@@ -4490,33 +4544,33 @@
   </div>
 
   <section class="product-section">
-    <h2>Ingredienti</h2>
-    <p>Acqua, zucchero di canna grezzo* (demerara), coltura di kombucha (lieviti e colture batteriche), polpa di mandarino (3%), carota, lime, infuso di tè verde (Camellia sinensis) (0,38%), infuso di ibisco (0,05%), infuso di foglie di stevia (acqua, Stevia rebaudiana), estratto naturale di arancia, estratto naturale di mandarino (0,03%), estratto naturale di menta, anidride carbonica (aggiunta)</p>
-    <p style="font-size:0.8rem;color:rgba(58,60,55,0.55)">*Lo zucchero viene consumato durante il processo di fermentazione, per questo il prodotto risulta senza calorie.</p>
+    <h2 data-i18n="kombuchaMandarino.ingredients.title">Ingredienti</h2>
+    <p data-i18n="kombuchaMandarino.ingredients.list">Acqua, zucchero di canna grezzo* (demerara), coltura di kombucha (lieviti e colture batteriche), polpa di mandarino (3%), carota, lime, infuso di tè verde (Camellia sinensis) (0,38%), infuso di ibisco (0,05%), infuso di foglie di stevia (acqua, Stevia rebaudiana), estratto naturale di arancia, estratto naturale di mandarino (0,03%), estratto naturale di menta, anidride carbonica (aggiunta)</p>
+    <p style="font-size:0.8rem;color:rgba(58,60,55,0.55)" data-i18n="kombuchaMandarino.ingredients.note">*Lo zucchero viene consumato durante il processo di fermentazione, per questo il prodotto risulta senza calorie.</p>
   </section>
 
   <section class="product-section">
-    <h2>Valori nutrizionali medi (per 100 ml)</h2>
+    <h2 data-i18n="kombuchaMandarino.nutrition.title">Valori nutrizionali medi (per 100 ml)</h2>
     <table class="nutrition-table">
-        <tr><th>Energia</th><td>14 kJ / 3,4 kcal</td></tr>
-        <tr><th>Grassi</th><td>0 g</td></tr>
-        <tr class="nutrition-table__sub"><th>di cui saturi</th><td>0 g</td></tr>
-        <tr><th>Carboidrati</th><td>0,8 g</td></tr>
-        <tr class="nutrition-table__sub"><th>di cui zuccheri</th><td>0,8 g</td></tr>
-        <tr><th>Proteine</th><td>0 g</td></tr>
-        <tr><th>Sale</th><td>0,01 g</td></tr>
+        <tr><th data-i18n="kombuchaMandarino.nutrition.energy">Energia</th><td>14 kJ / 3,4 kcal</td></tr>
+        <tr><th data-i18n="kombuchaMandarino.nutrition.fat">Grassi</th><td>0 g</td></tr>
+        <tr class="nutrition-table__sub"><th data-i18n="kombuchaMandarino.nutrition.ofWhichSaturates">di cui saturi</th><td>0 g</td></tr>
+        <tr><th data-i18n="kombuchaMandarino.nutrition.carbs">Carboidrati</th><td>0,8 g</td></tr>
+        <tr class="nutrition-table__sub"><th data-i18n="kombuchaMandarino.nutrition.ofWhichSugars">di cui zuccheri</th><td>0,8 g</td></tr>
+        <tr><th data-i18n="kombuchaMandarino.nutrition.protein">Proteine</th><td>0 g</td></tr>
+        <tr><th data-i18n="kombuchaMandarino.nutrition.salt">Sale</th><td>0,01 g</td></tr>
     </table>
   </section>
 
   <section class="product-section">
-    <h2>Allergeni</h2>
-    <p>Nessuno dichiarato in etichetta (senza glutine, senza lattosio, vegano).</p>
+    <h2 data-i18n="kombuchaMandarino.allergens.title">Allergeni</h2>
+    <p data-i18n="kombuchaMandarino.allergens.text">Nessuno dichiarato in etichetta (senza glutine, senza lattosio, vegano).</p>
   </section>
 
   <section class="product-section">
-    <h2>Origine e conservazione</h2>
-    <p style="margin-bottom:1rem">Una kombucha genuinamente brasiliana: fermentata e confezionata in Brasile, dove questo mestiere si tramanda con cura.</p>
-    <div class="product-origin-card">
+    <h2 data-i18n="kombuchaMandarino.origin.title">Origine e conservazione</h2>
+    <p style="margin-bottom:1rem" data-i18n="kombuchaMandarino.origin.intro">Una kombucha genuinamente brasiliana: fermentata e confezionata in Brasile, dove questo mestiere si tramanda con cura.</p>
+    <div class="product-origin-card" data-i18n-html="kombuchaMandarino.origin.card">
       <strong>Formato:</strong> 269 ml, gassata, non alcolica<br>
       <strong>Origine tè verde:</strong> Cina<br>
       <strong>Prodotto e confezionato da:</strong> Gula Fit Fabricação, Brasile<br>
@@ -4526,12 +4580,12 @@
   </section>
 
   <div class="product-next">
-    <div class="product-next__label">Altri gusti Gula Fit</div>
+    <div class="product-next__label" data-i18n="kombuchaMandarino.next.label">Altri gusti Gula Fit</div>
     <div class="product-next__grid">
-        <a href="kombucha-ananas-menta.html">Kombucha Ananas e Menta</a>
-        <a href="kombucha-pitaya-maracuja.html">Kombucha Pitaya e Maracujà</a>
-        <a href="kombucha-fragola-lime.html">Kombucha Fragola e Lime</a>
-        <a href="kombucha-mix-4-gusti.html">Cassa Mista (4 gusti)</a>
+        <a href="kombucha-ananas-menta.html" data-i18n="kombuchaMandarino.next.ananasMenta">Kombucha Ananas e Menta</a>
+        <a href="kombucha-pitaya-maracuja.html" data-i18n="kombuchaMandarino.next.pitayaMaracuja">Kombucha Pitaya e Maracujà</a>
+        <a href="kombucha-fragola-lime.html" data-i18n="kombuchaMandarino.next.fragolaLime">Kombucha Fragola e Lime</a>
+        <a href="kombucha-mix-4-gusti.html" data-i18n="kombuchaMandarino.next.mix">Cassa Mista (4 gusti)</a>
     </div>
   </div>
 
@@ -4543,11 +4597,11 @@
         <div class="footer__logo">
           <img src="../logo/logo.svg" alt="Kelūa" />
         </div>
-        <p class="footer__tagline">Uno spazio che evolve con chi lo attraversa.</p>
+        <p class="footer__tagline" data-i18n="footer.tagline">Uno spazio che evolve con chi lo attraversa.</p>
       </div>
 
-      <nav aria-label="Esplora">
-        <div class="footer__col-title">Esplora</div>
+      <nav data-i18n-aria-label="footer.exploreAria" aria-label="Esplora">
+        <div class="footer__col-title" data-i18n="footer.explore">Esplora</div>
         <div class="footer__col-links">
           <a href="../rituals.html">Rituals</a>
           <a href="../flow.html">Flow</a>
@@ -4555,25 +4609,25 @@
         </div>
       </nav>
 
-      <nav aria-label="Spazio">
-        <div class="footer__col-title">Spazio</div>
+      <nav data-i18n-aria-label="footer.spaceAria" aria-label="Spazio">
+        <div class="footer__col-title" data-i18n="footer.space">Spazio</div>
         <div class="footer__col-links">
-          <a href="../index.html#partnership">Contatti</a>
+          <a href="../index.html#partnership" data-i18n="footer.contact">Contatti</a>
           <a href="../index.html#community">Community</a>
         </div>
       </nav>
 
       <div>
-        <div class="footer__col-title">Seguici</div>
+        <div class="footer__col-title" data-i18n="footer.follow">Seguici</div>
         <div class="footer__social">
-          <a href="https://instagram.com/kelua_ritual" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelūa">
+          <a href="https://instagram.com/kelua_ritual" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.instagramAria" aria-label="Instagram Kelūa">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="5"/>
               <circle cx="12" cy="12" r="4"/>
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
             </svg>
           </a>
-          <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelūa">
+          <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.whatsappAria" aria-label="Community WhatsApp Kelūa">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 20l1.4-4.2A8 8 0 1 1 8.2 18.6L4 20z"/>
               <path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/>
@@ -4589,12 +4643,12 @@
         <a href="../privacy-policy/">Privacy Policy</a>
         <a href="../cookie-policy/">Cookie Policy</a>
         <a href="../termini-condizioni/">Terms &amp; Conditions</a>
-        <a href="../spedizioni-resi/">Spedizioni &amp; Resi</a>
-        <a href="../contatti/">Contatti</a>
-        <button type="button" data-open-cookie-preferences>Gestisci cookie</button>
+        <a href="../spedizioni-resi/" data-i18n="footer.shipping">Spedizioni &amp; Resi</a>
+        <a href="../contatti/" data-i18n="footer.contact">Contatti</a>
+        <button type="button" data-open-cookie-preferences data-i18n="footer.manageCookies">Gestisci cookie</button>
       </div>
       <div class="footer__copy">
-        <span>© 2026 KELUA S.R.L. · Tutti i diritti riservati</span>
+        <span data-i18n="footer.copyright">© 2026 KELUA S.R.L. · Tutti i diritti riservati</span>
         <span>info@kelua.it</span>
       </div>
       <p class="footer__legalinfo">KELUA S.R.L. · P. IVA 18458781004 · REA RM-1785846 · Via Nicola Ricciotti 11, 00195 Roma · <a href="mailto:info@kelua.it">info@kelua.it</a></p>
@@ -4602,29 +4656,29 @@
   </footer>
 
   <!-- ═══ COOKIE CONSENT ═══════════════════════════════════════ -->
-  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Preferenze cookie">
-    <p class="cookie-banner__text">
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" data-i18n-aria-label="cookie.bannerAria" aria-label="Preferenze cookie">
+    <p class="cookie-banner__text" data-i18n-html="cookie.bannerText">
       Usiamo cookie tecnici necessari al funzionamento del sito e, solo previo consenso, cookie analitici, di funzionalità e di profilazione. Puoi accettare, rifiutare o personalizzare le scelte in qualsiasi momento da "Gestisci cookie" in fondo alla pagina. Leggi la <a href="../cookie-policy/">Cookie Policy</a>.
     </p>
     <div class="cookie-banner__actions">
-      <button type="button" class="cookie-banner__reject" id="cookieRejectAll">Rifiuta</button>
-      <button type="button" class="cookie-banner__customize" id="cookieCustomize">Personalizza</button>
-      <button type="button" class="cookie-banner__accept" id="cookieAcceptAll">Accetta tutti</button>
+      <button type="button" class="cookie-banner__reject" id="cookieRejectAll" data-i18n="cookie.reject">Rifiuta</button>
+      <button type="button" class="cookie-banner__customize" id="cookieCustomize" data-i18n="cookie.customize">Personalizza</button>
+      <button type="button" class="cookie-banner__accept" id="cookieAcceptAll" data-i18n="cookie.acceptAll">Accetta tutti</button>
     </div>
   </div>
 
-  <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" aria-label="Gestisci preferenze cookie">
+  <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" data-i18n-aria-label="cookie.modalAria" aria-label="Gestisci preferenze cookie">
     <div class="cookie-modal__panel">
       <div class="cookie-modal__head">
-        <h2 class="cookie-modal__title">Preferenze cookie</h2>
-        <button type="button" class="cookie-modal__close" id="cookieModalClose" aria-label="Chiudi">×</button>
+        <h2 class="cookie-modal__title" data-i18n="cookie.modalTitle">Preferenze cookie</h2>
+        <button type="button" class="cookie-modal__close" id="cookieModalClose" data-i18n-aria-label="common.close" aria-label="Chiudi">×</button>
       </div>
-      <p class="cookie-modal__intro">Scegli quali categorie di cookie e strumenti di tracciamento autorizzare. I cookie strettamente necessari non possono essere disattivati. Dettagli nella <a href="../cookie-policy/">Cookie Policy</a>.</p>
+      <p class="cookie-modal__intro" data-i18n-html="cookie.modalIntro">Scegli quali categorie di cookie e strumenti di tracciamento autorizzare. I cookie strettamente necessari non possono essere disattivati. Dettagli nella <a href="../cookie-policy/">Cookie Policy</a>.</p>
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Strettamente necessari</div>
-          <p class="cookie-category__desc">Indispensabili per sicurezza, sessione, carrello, checkout e altre funzioni tecniche richieste. Sempre attivi.</p>
+          <div class="cookie-category__name" data-i18n="cookie.necessaryName">Strettamente necessari</div>
+          <p class="cookie-category__desc" data-i18n="cookie.necessaryDesc">Indispensabili per sicurezza, sessione, carrello, checkout e altre funzioni tecniche richieste. Sempre attivi.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" checked disabled>
@@ -4634,8 +4688,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Analitici</div>
-          <p class="cookie-category__desc">Misurano l'utilizzo del sito per migliorarne prestazioni e contenuti.</p>
+          <div class="cookie-category__name" data-i18n="cookie.analyticsName">Analitici</div>
+          <p class="cookie-category__desc" data-i18n="cookie.analyticsDesc">Misurano l'utilizzo del sito per migliorarne prestazioni e contenuti.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieAnalytics">
@@ -4645,8 +4699,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Funzionalità</div>
-          <p class="cookie-category__desc">Abilitano funzioni aggiuntive e personalizzazioni non indispensabili.</p>
+          <div class="cookie-category__name" data-i18n="cookie.functionalityName">Funzionalità</div>
+          <p class="cookie-category__desc" data-i18n="cookie.functionalityDesc">Abilitano funzioni aggiuntive e personalizzazioni non indispensabili.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieFunctionality">
@@ -4656,8 +4710,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Pubblicitari e di profilazione</div>
-          <p class="cookie-category__desc">Usati per misurare campagne o mostrare comunicazioni personalizzate.</p>
+          <div class="cookie-category__name" data-i18n="cookie.advertisingName">Pubblicitari e di profilazione</div>
+          <p class="cookie-category__desc" data-i18n="cookie.advertisingDesc">Usati per misurare campagne o mostrare comunicazioni personalizzate.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieAdvertising">
@@ -4666,9 +4720,9 @@
       </div>
 
       <div class="cookie-modal__actions">
-        <button type="button" class="cookie-modal__reject-all" id="cookieModalRejectAll">Rifiuta tutti</button>
-        <button type="button" class="cookie-modal__accept-all" id="cookieModalAcceptAll">Accetta tutti</button>
-        <button type="button" class="cookie-modal__save" id="cookieModalSave">Salva preferenze</button>
+        <button type="button" class="cookie-modal__reject-all" id="cookieModalRejectAll" data-i18n="cookie.rejectAll">Rifiuta tutti</button>
+        <button type="button" class="cookie-modal__accept-all" id="cookieModalAcceptAll" data-i18n="cookie.acceptAll">Accetta tutti</button>
+        <button type="button" class="cookie-modal__save" id="cookieModalSave" data-i18n="cookie.save">Salva preferenze</button>
       </div>
     </div>
   </div>
@@ -4775,11 +4829,13 @@
     }
 
     function renderHint() {
-      results.innerHTML = '<p class="nav__search-hint">Cerca prodotti, pratiche, eventi…</p>' + quickLinksHTML();
+      var hint = window.keluaT ? window.keluaT('nav.searchPlaceholder') : 'Cerca prodotti, pratiche, eventi…';
+      results.innerHTML = '<p class="nav__search-hint">' + esc(hint) + '</p>' + quickLinksHTML();
     }
 
     function renderEmpty(q) {
-      results.innerHTML = '<div class="nav__search-empty"><p>Nessun risultato per «' + esc(q) + '».</p></div>' + quickLinksHTML();
+      var noResults = window.keluaT ? window.keluaT('nav.searchNoResults') : 'Nessun risultato per «{q}».';
+      results.innerHTML = '<div class="nav__search-empty"><p>' + noResults.replace('{q}', esc(q)) + '</p></div>' + quickLinksHTML();
     }
 
     function renderGrouped(matches) {
@@ -4844,5 +4900,7 @@
     });
   })();
   </script>
+  <script src="../i18n.js?v=1"></script>
+  <script src="../i18n-kombucha-mandarino-ibisco.js?v=1"></script>
 </body>
 </html>

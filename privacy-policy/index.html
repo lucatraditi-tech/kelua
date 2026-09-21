@@ -233,6 +233,49 @@
       transform: translateY(-1px);
     }
 
+    /* Language toggle (IT / EN) */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .lang-toggle button {
+      background: none;
+      border: none;
+      padding: 0.15rem 0.15rem;
+      cursor: pointer;
+      font-family: var(--font-body);
+      color: var(--text);
+      opacity: 0.5;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-toggle button:hover { opacity: 0.9; }
+
+    .lang-toggle button.is-active {
+      opacity: 1;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .lang-toggle__divider {
+      opacity: 0.3;
+      font-size: 0.7rem;
+    }
+
+    .nav__mobile-lang {
+      margin-bottom: 1.2rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid rgba(174, 183, 161, 0.25);
+    }
+
+    .nav__mobile-lang .lang-toggle button { font-size: 0.8rem; }
+
     @media (max-width: 900px) {
       .nav__collab, .nav__join { display: none; }
     }
@@ -569,6 +612,7 @@
     @media (max-width: 768px) {
       .nav__links       { display: none; }
       .nav__hamburger   { display: flex; }
+      .nav__lang        { display: none; }
 
       /* Mobile nav: logo a sinistra · icone social al centro · burger a destra */
       .nav__inner {
@@ -4181,10 +4225,10 @@
 
   <!-- ═══ MARQUEE ═══════════════════════════════════════════════ -->
   <div class="marquee" aria-hidden="false">
-    <a href="../selezione.html" class="marquee__link" aria-label="La nostra Kombucha sta arrivando — preordina ora, vai alla Selezione">
+    <a href="../selezione.html" class="marquee__link" data-i18n-aria-label="marquee.linkAria" aria-label="La nostra Kombucha sta arrivando — preordina ora, vai alla Selezione">
       <div class="marquee__track">
-        <div class="marquee__group"><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span></div>
-        <div class="marquee__group" aria-hidden="true"><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span></div>
+        <div class="marquee__group"><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span></div>
+        <div class="marquee__group" aria-hidden="true"><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span></div>
       </div>
     </a>
   </div>
@@ -4193,7 +4237,7 @@
   <nav class="nav" role="navigation" aria-label="Navigazione principale">
     <div class="nav__inner">
 
-      <a href="../index.html" class="nav__logo" aria-label="Kelūa — torna alla home">
+      <a href="../index.html" class="nav__logo" data-i18n-aria-label="privacypolicy.nav.logoAria" aria-label="Kelūa — torna alla home">
         <img src="../logo/logo.svg" alt="Kelūa" />
       </a>
 
@@ -4204,22 +4248,9 @@
       </ul>
 
       <div class="nav__right">
-        <a href="../index.html#partnership" class="nav__collab">Vuoi Collaborare?</a>
-        <a href="https://instagram.com/kelua_ritual" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelūa">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <circle cx="12" cy="12" r="4.5"/>
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-          </svg>
-        </a>
-        <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelūa">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.2-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/>
-            <path d="M17.47 14.83c-.28-.14-1.64-.81-1.9-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" fill="var(--bg)" stroke="none"/>
-          </svg>
-        </a>
+        <a href="../index.html#partnership" class="nav__collab" data-i18n="nav.collab">Vuoi Collaborare?</a>
         <div class="nav__cart-wrap">
-          <button type="button" class="nav__social nav__cart" id="navCartToggle" aria-label="Carrello" aria-haspopup="true">
+          <button type="button" class="nav__social nav__cart" id="navCartToggle" data-i18n-aria-label="nav.cartAria" aria-label="Carrello" aria-haspopup="true">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="9" cy="21" r="1"/>
               <circle cx="20" cy="21" r="1"/>
@@ -4228,12 +4259,12 @@
             <span class="nav__cart-count" id="navCartCount" hidden>0</span>
           </button>
           <div class="nav__cart-empty" id="navCartEmpty" hidden role="dialog" aria-label="Carrello vuoto">
-            <p>Il tuo carrello è vuoto.</p>
-            <a href="../selezione.html">Scopri la nostra selezione →</a>
+            <p data-i18n="nav.cartEmpty">Il tuo carrello è vuoto.</p>
+            <a href="../selezione.html" data-i18n="nav.cartDiscover">Scopri la nostra selezione →</a>
           </div>
         </div>
         <div class="nav__search-wrap">
-          <button type="button" class="nav__social nav__search" id="navSearchToggle" aria-label="Cerca" aria-haspopup="true">
+          <button type="button" class="nav__social nav__search" id="navSearchToggle" data-i18n-aria-label="nav.searchAria" aria-label="Cerca" aria-haspopup="true">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="11" cy="11" r="7"/>
               <path d="M21 21l-4.35-4.35"/>
@@ -4245,15 +4276,33 @@
                 <circle cx="11" cy="11" r="7"/>
                 <path d="M21 21l-4.35-4.35"/>
               </svg>
-              <input type="text" id="navSearchInput" placeholder="Cerca prodotti, pratiche, eventi…" autocomplete="off">
+              <input type="text" id="navSearchInput" data-i18n-placeholder="nav.searchPlaceholder" placeholder="Cerca prodotti, pratiche, eventi…" autocomplete="off">
             </div>
             <div class="nav__search-results" id="navSearchResults"></div>
           </div>
         </div>
-        <a href="../index.html#community" class="nav__join">Entra nella Community</a>
+        <a href="https://instagram.com/kelua_ritual" class="nav__social" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.instagramAria" aria-label="Instagram Kelūa">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="nav__social" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.whatsappAria" aria-label="Community WhatsApp Kelūa">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.2-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/>
+            <path d="M17.47 14.83c-.28-.14-1.64-.81-1.9-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" fill="var(--bg)" stroke="none"/>
+          </svg>
+        </a>
+        <div class="lang-toggle nav__lang" role="group" aria-label="Cambia lingua / Change language">
+          <button type="button" data-lang-toggle="it">IT</button>
+          <span class="lang-toggle__divider">/</span>
+          <button type="button" data-lang-toggle="en">EN</button>
+        </div>
+        <a href="../index.html#community" class="nav__join" data-i18n="nav.join">Entra nella Community</a>
       </div>
 
-      <button class="nav__hamburger" aria-label="Apri menu" aria-expanded="false" id="hamburger">
+      <button class="nav__hamburger" aria-label="Apri menu" data-i18n-aria-label="nav.openMenuAria" aria-expanded="false" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
@@ -4264,21 +4313,26 @@
 
   <!-- Mobile menu -->
   <div class="nav__mobile" id="mobileMenu" aria-hidden="true">
+    <div class="nav__mobile-lang lang-toggle" role="group" aria-label="Cambia lingua / Change language">
+      <button type="button" data-lang-toggle="it">IT</button>
+      <span class="lang-toggle__divider">/</span>
+      <button type="button" data-lang-toggle="en">EN</button>
+    </div>
     <ul>
       <li><a href="../rituals.html">Rituals</a></li>
       <li><a href="../flow.html">Flow</a></li>
       <li><a href="../essence.html">Essence</a></li>
-      <li><a href="../index.html#partnership">Vuoi Collaborare?</a></li>
-      <li><a href="../index.html#community">Entra nella Community</a></li>
+      <li><a href="../index.html#partnership" data-i18n="nav.collab">Vuoi Collaborare?</a></li>
+      <li><a href="../index.html#community" data-i18n="nav.join">Entra nella Community</a></li>
     </ul>
   </div>
 
   <section class="legal">
     <div class="legal__inner">
-      <span class="legal__eyebrow">Documenti legali</span>
-      <h1 class="legal__title">Privacy Policy</h1>
-      <p class="legal__subtitle">Informativa sul trattamento dei dati personali ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679 (GDPR).</p>
-    <div class="legal__card">
+      <span class="legal__eyebrow" data-i18n="privacypolicy.eyebrow">Documenti legali</span>
+      <h1 class="legal__title" data-i18n="privacypolicy.title">Privacy Policy</h1>
+      <p class="legal__subtitle" data-i18n="privacypolicy.subtitle">Informativa sul trattamento dei dati personali ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679 (GDPR).</p>
+    <div class="legal__card" data-i18n-html="privacypolicy.card">
       KELUA S.R.L.<br>
       Via Nicola Ricciotti 11, 00195 Roma (RM), Italia<br>
       C.F. / P. IVA 18458781004 · REA RM - 1785846<br>
@@ -4286,67 +4340,67 @@
       Capitale sociale: € 10.000,00 sottoscritto
     </div>
     <div class="legal__body">
-      <h2>1. Titolare del trattamento</h2>
-      <p>Il Titolare del trattamento dei dati personali raccolti tramite www.kelua.it è KELUA S.R.L., con sede legale in Via Nicola Ricciotti 11, 00195 Roma (RM), Italia, C.F./P. IVA 18458781004, REA RM - 1785846, PEC kelua@legalmail.it. Per richieste relative alla privacy è possibile scrivere a info@kelua.it.</p>
-      <h2>2. A chi si applica questa informativa</h2>
-      <p>La presente informativa riguarda le persone che visitano il sito, acquistano prodotti o biglietti per eventi, inviano richieste tramite i moduli di contatto o B2B, si iscrivono alla newsletter o interagiscono con i servizi digitali di Kelūa.</p>
-      <h2>3. Dati personali trattati</h2>
-      <h3>Dati di navigazione e sicurezza</h3>
-      <p>I sistemi informatici possono trattare indirizzo IP, identificativi tecnici, log, tipo di dispositivo e browser, pagine richieste, data e ora di accesso e altri dati necessari al funzionamento e alla sicurezza del sito.</p>
-      <h3>Dati forniti dall'utente</h3>
-      <p>Quando l'utente compila un modulo possono essere trattati nome, cognome, e-mail, telefono, azienda, ruolo, contenuto della richiesta e ogni altra informazione volontariamente inserita.</p>
-      <h3>Dati relativi agli ordini</h3>
-      <p>Per gli acquisti possono essere trattati dati anagrafici e di contatto, indirizzo di fatturazione e consegna, prodotti acquistati, importi, dati fiscali richiesti, stato del pagamento, informazioni di spedizione, reso, rimborso e assistenza.</p>
-      <h3>Dati relativi a eventi e biglietti</h3>
-      <p>Per gli eventi possono essere trattati nome del partecipante, recapiti, evento, tipologia e numero di biglietto, importo, eventuale nominativo sostitutivo e le informazioni strettamente necessarie all'organizzazione e all'accesso.</p>
-      <h3>Dati di pagamento</h3>
-      <p>I dati completi delle carte o di altri strumenti di pagamento sono normalmente trattati direttamente dal provider di pagamento selezionato nel checkout. Kelūa riceve le informazioni necessarie a conoscere l'esito della transazione e a gestire l'ordine.</p>
-      <h3>Newsletter e comunicazioni</h3>
-      <p>Se l'utente si iscrive alla newsletter vengono trattati l'indirizzo e-mail e le eventuali preferenze o informazioni associate all'iscrizione.</p>
-      <h3>Cookie e strumenti di tracciamento</h3>
-      <p>Il sito può utilizzare cookie e tecnologie analoghe. Per categorie, finalità, durata e gestione delle preferenze si rinvia alla Cookie Policy e al pannello “Gestisci cookie”.</p>
-      <h2>4. Finalità e basi giuridiche</h2>
+      <h2 data-i18n="privacypolicy.s1.title">1. Titolare del trattamento</h2>
+      <p data-i18n="privacypolicy.s1.body">Il Titolare del trattamento dei dati personali raccolti tramite www.kelua.it è KELUA S.R.L., con sede legale in Via Nicola Ricciotti 11, 00195 Roma (RM), Italia, C.F./P. IVA 18458781004, REA RM - 1785846, PEC kelua@legalmail.it. Per richieste relative alla privacy è possibile scrivere a info@kelua.it.</p>
+      <h2 data-i18n="privacypolicy.s2.title">2. A chi si applica questa informativa</h2>
+      <p data-i18n="privacypolicy.s2.body">La presente informativa riguarda le persone che visitano il sito, acquistano prodotti o biglietti per eventi, inviano richieste tramite i moduli di contatto o B2B, si iscrivono alla newsletter o interagiscono con i servizi digitali di Kelūa.</p>
+      <h2 data-i18n="privacypolicy.s3.title">3. Dati personali trattati</h2>
+      <h3 data-i18n="privacypolicy.s3.nav.title">Dati di navigazione e sicurezza</h3>
+      <p data-i18n="privacypolicy.s3.nav.body">I sistemi informatici possono trattare indirizzo IP, identificativi tecnici, log, tipo di dispositivo e browser, pagine richieste, data e ora di accesso e altri dati necessari al funzionamento e alla sicurezza del sito.</p>
+      <h3 data-i18n="privacypolicy.s3.user.title">Dati forniti dall'utente</h3>
+      <p data-i18n="privacypolicy.s3.user.body">Quando l'utente compila un modulo possono essere trattati nome, cognome, e-mail, telefono, azienda, ruolo, contenuto della richiesta e ogni altra informazione volontariamente inserita.</p>
+      <h3 data-i18n="privacypolicy.s3.orders.title">Dati relativi agli ordini</h3>
+      <p data-i18n="privacypolicy.s3.orders.body">Per gli acquisti possono essere trattati dati anagrafici e di contatto, indirizzo di fatturazione e consegna, prodotti acquistati, importi, dati fiscali richiesti, stato del pagamento, informazioni di spedizione, reso, rimborso e assistenza.</p>
+      <h3 data-i18n="privacypolicy.s3.events.title">Dati relativi a eventi e biglietti</h3>
+      <p data-i18n="privacypolicy.s3.events.body">Per gli eventi possono essere trattati nome del partecipante, recapiti, evento, tipologia e numero di biglietto, importo, eventuale nominativo sostitutivo e le informazioni strettamente necessarie all'organizzazione e all'accesso.</p>
+      <h3 data-i18n="privacypolicy.s3.payment.title">Dati di pagamento</h3>
+      <p data-i18n="privacypolicy.s3.payment.body">I dati completi delle carte o di altri strumenti di pagamento sono normalmente trattati direttamente dal provider di pagamento selezionato nel checkout. Kelūa riceve le informazioni necessarie a conoscere l'esito della transazione e a gestire l'ordine.</p>
+      <h3 data-i18n="privacypolicy.s3.newsletter.title">Newsletter e comunicazioni</h3>
+      <p data-i18n="privacypolicy.s3.newsletter.body">Se l'utente si iscrive alla newsletter vengono trattati l'indirizzo e-mail e le eventuali preferenze o informazioni associate all'iscrizione.</p>
+      <h3 data-i18n="privacypolicy.s3.cookie.title">Cookie e strumenti di tracciamento</h3>
+      <p data-i18n-html="privacypolicy.s3.cookie.body">Il sito può utilizzare cookie e tecnologie analoghe. Per categorie, finalità, durata e gestione delle preferenze si rinvia alla Cookie Policy e al pannello “Gestisci cookie”.</p>
+      <h2 data-i18n="privacypolicy.s4.title">4. Finalità e basi giuridiche</h2>
       <table>
-        <tr><th>Finalità</th><th>Base giuridica</th><th>Dati principali</th></tr>
-        <tr><td>Fornire e proteggere il sito, prevenire abusi e frodi</td><td>Esecuzione del servizio richiesto; legittimo interesse alla sicurezza</td><td>Dati tecnici e log</td></tr>
-        <tr><td>Rispondere a richieste di contatto o B2B</td><td>Misure precontrattuali; legittimo interesse alla gestione delle richieste</td><td>Dati di contatto e contenuto del messaggio</td></tr>
-        <tr><td>Gestire ordini, pagamenti, consegne, resi e assistenza</td><td>Esecuzione del contratto</td><td>Dati anagrafici, ordine, consegna, pagamento</td></tr>
-        <tr><td>Adempiere a obblighi fiscali, amministrativi, alimentari e di legge</td><td>Obbligo legale</td><td>Dati contrattuali, fiscali e di tracciabilità ove richiesti</td></tr>
-        <tr><td>Vendere e gestire biglietti ed eventi</td><td>Esecuzione del contratto; obblighi di legge</td><td>Dati del partecipante e del biglietto</td></tr>
-        <tr><td>Inviare newsletter e marketing</td><td>Consenso, salvo i casi espressamente consentiti dalla legge</td><td>E-mail e preferenze</td></tr>
-        <tr><td>Difendere o esercitare diritti</td><td>Legittimo interesse alla tutela dei diritti</td><td>Dati pertinenti alla controversia o al reclamo</td></tr>
+        <tr><th data-i18n="privacypolicy.s4.th1">Finalità</th><th data-i18n="privacypolicy.s4.th2">Base giuridica</th><th data-i18n="privacypolicy.s4.th3">Dati principali</th></tr>
+        <tr><td data-i18n="privacypolicy.s4.r1.c1">Fornire e proteggere il sito, prevenire abusi e frodi</td><td data-i18n="privacypolicy.s4.r1.c2">Esecuzione del servizio richiesto; legittimo interesse alla sicurezza</td><td data-i18n="privacypolicy.s4.r1.c3">Dati tecnici e log</td></tr>
+        <tr><td data-i18n="privacypolicy.s4.r2.c1">Rispondere a richieste di contatto o B2B</td><td data-i18n="privacypolicy.s4.r2.c2">Misure precontrattuali; legittimo interesse alla gestione delle richieste</td><td data-i18n="privacypolicy.s4.r2.c3">Dati di contatto e contenuto del messaggio</td></tr>
+        <tr><td data-i18n="privacypolicy.s4.r3.c1">Gestire ordini, pagamenti, consegne, resi e assistenza</td><td data-i18n="privacypolicy.s4.r3.c2">Esecuzione del contratto</td><td data-i18n="privacypolicy.s4.r3.c3">Dati anagrafici, ordine, consegna, pagamento</td></tr>
+        <tr><td data-i18n="privacypolicy.s4.r4.c1">Adempiere a obblighi fiscali, amministrativi, alimentari e di legge</td><td data-i18n="privacypolicy.s4.r4.c2">Obbligo legale</td><td data-i18n="privacypolicy.s4.r4.c3">Dati contrattuali, fiscali e di tracciabilità ove richiesti</td></tr>
+        <tr><td data-i18n="privacypolicy.s4.r5.c1">Vendere e gestire biglietti ed eventi</td><td data-i18n="privacypolicy.s4.r5.c2">Esecuzione del contratto; obblighi di legge</td><td data-i18n="privacypolicy.s4.r5.c3">Dati del partecipante e del biglietto</td></tr>
+        <tr><td data-i18n="privacypolicy.s4.r6.c1">Inviare newsletter e marketing</td><td data-i18n="privacypolicy.s4.r6.c2">Consenso, salvo i casi espressamente consentiti dalla legge</td><td data-i18n="privacypolicy.s4.r6.c3">E-mail e preferenze</td></tr>
+        <tr><td data-i18n="privacypolicy.s4.r7.c1">Difendere o esercitare diritti</td><td data-i18n="privacypolicy.s4.r7.c2">Legittimo interesse alla tutela dei diritti</td><td data-i18n="privacypolicy.s4.r7.c3">Dati pertinenti alla controversia o al reclamo</td></tr>
       </table>
-      <h2>5. Natura del conferimento</h2>
-      <p>I dati contrassegnati come necessari sono indispensabili per erogare il servizio richiesto o concludere ed eseguire il contratto. Il conferimento per newsletter e marketing è facoltativo e non condiziona la possibilità di acquistare prodotti o biglietti.</p>
-      <h2>6. Destinatari e fornitori</h2>
-      <p>I dati possono essere trattati da personale autorizzato di Kelūa e comunicati, nei limiti necessari, a fornitori che supportano il sito, l'e-commerce, i pagamenti, la contabilità, la sicurezza informatica, la newsletter, l'organizzazione di eventi, il customer care e la logistica.</p>
-      <p>Per la preparazione e spedizione degli ordini, i dati necessari alla consegna possono essere comunicati a Elogy S.r.l., che opera dal magazzino di Via delle Albicocche 25, 00071 Pomezia (RM), Italia, nonché ai vettori incaricati. Tali soggetti operano, a seconda del ruolo effettivo, come responsabili del trattamento ai sensi dell'art. 28 GDPR o come autonomi titolari.</p>
-      <h2>7. Trasferimenti fuori dallo Spazio Economico Europeo</h2>
-      <p>Qualora un fornitore tecnologico tratti dati al di fuori dello Spazio Economico Europeo, Kelūa adotta o verifica l'esistenza di una base di trasferimento prevista dagli artt. 44 e seguenti GDPR, quali una decisione di adeguatezza, clausole contrattuali standard o altro strumento idoneo.</p>
-      <h2>8. Tempi di conservazione</h2>
+      <h2 data-i18n="privacypolicy.s5.title">5. Natura del conferimento</h2>
+      <p data-i18n="privacypolicy.s5.body">I dati contrassegnati come necessari sono indispensabili per erogare il servizio richiesto o concludere ed eseguire il contratto. Il conferimento per newsletter e marketing è facoltativo e non condiziona la possibilità di acquistare prodotti o biglietti.</p>
+      <h2 data-i18n="privacypolicy.s6.title">6. Destinatari e fornitori</h2>
+      <p data-i18n="privacypolicy.s6.body1">I dati possono essere trattati da personale autorizzato di Kelūa e comunicati, nei limiti necessari, a fornitori che supportano il sito, l'e-commerce, i pagamenti, la contabilità, la sicurezza informatica, la newsletter, l'organizzazione di eventi, il customer care e la logistica.</p>
+      <p data-i18n="privacypolicy.s6.body2">Per la preparazione e spedizione degli ordini, i dati necessari alla consegna possono essere comunicati a Elogy S.r.l., che opera dal magazzino di Via delle Albicocche 25, 00071 Pomezia (RM), Italia, nonché ai vettori incaricati. Tali soggetti operano, a seconda del ruolo effettivo, come responsabili del trattamento ai sensi dell'art. 28 GDPR o come autonomi titolari.</p>
+      <h2 data-i18n="privacypolicy.s7.title">7. Trasferimenti fuori dallo Spazio Economico Europeo</h2>
+      <p data-i18n="privacypolicy.s7.body">Qualora un fornitore tecnologico tratti dati al di fuori dello Spazio Economico Europeo, Kelūa adotta o verifica l'esistenza di una base di trasferimento prevista dagli artt. 44 e seguenti GDPR, quali una decisione di adeguatezza, clausole contrattuali standard o altro strumento idoneo.</p>
+      <h2 data-i18n="privacypolicy.s8.title">8. Tempi di conservazione</h2>
       <ul>
-        <li>dati contrattuali, fiscali e contabili: per i termini previsti dalla normativa applicabile, normalmente fino a 10 anni;</li>
-        <li>richieste di contatto: per il tempo necessario alla gestione della richiesta e, in assenza di un rapporto successivo, di regola non oltre 24 mesi;</li>
-        <li>dati relativi agli eventi: per il tempo necessario alla gestione dell'evento e per gli eventuali successivi obblighi amministrativi, fiscali o di tutela legale;</li>
-        <li>newsletter e marketing: fino alla revoca del consenso o disiscrizione, salva la conservazione minima necessaria a documentare la revoca;</li>
-        <li>cookie e strumenti analoghi: per i periodi indicati nella Cookie Policy o nel pannello delle preferenze.</li>
+        <li data-i18n="privacypolicy.s8.li1">dati contrattuali, fiscali e contabili: per i termini previsti dalla normativa applicabile, normalmente fino a 10 anni;</li>
+        <li data-i18n="privacypolicy.s8.li2">richieste di contatto: per il tempo necessario alla gestione della richiesta e, in assenza di un rapporto successivo, di regola non oltre 24 mesi;</li>
+        <li data-i18n="privacypolicy.s8.li3">dati relativi agli eventi: per il tempo necessario alla gestione dell'evento e per gli eventuali successivi obblighi amministrativi, fiscali o di tutela legale;</li>
+        <li data-i18n="privacypolicy.s8.li4">newsletter e marketing: fino alla revoca del consenso o disiscrizione, salva la conservazione minima necessaria a documentare la revoca;</li>
+        <li data-i18n="privacypolicy.s8.li5">cookie e strumenti analoghi: per i periodi indicati nella Cookie Policy o nel pannello delle preferenze.</li>
       </ul>
-      <h2>9. Social, WhatsApp e servizi esterni</h2>
-      <p>Il sito può contenere collegamenti a Instagram, WhatsApp o altri servizi di terzi. Se l'utente apre tali collegamenti, il trattamento effettuato dalla piattaforma esterna è disciplinato dalla relativa informativa privacy. L'eventuale adesione a community o gruppi può comportare la visibilità di alcune informazioni agli amministratori o agli altri partecipanti, secondo la configurazione del servizio.</p>
-      <h2>10. Diritti dell'interessato</h2>
-      <p>Nei casi previsti dagli artt. 15-22 GDPR, l'interessato può chiedere accesso, rettifica, cancellazione, limitazione, portabilità, opposizione e revoca del consenso scrivendo a info@kelua.it o alla PEC kelua@legalmail.it. La revoca non pregiudica la liceità dei trattamenti effettuati prima della revoca.</p>
-      <p>L'interessato può inoltre proporre reclamo al Garante per la protezione dei dati personali.</p>
-      <h2>11. Minori</h2>
-      <p>I servizi di vendita del sito non sono destinati a raccogliere consapevolmente dati di minori senza il coinvolgimento del titolare della responsabilità genitoriale quando richiesto dalla legge. Eventuali eventi destinati anche a minori possono prevedere condizioni e informative specifiche.</p>
-      <h2>12. Sicurezza</h2>
-      <p>Kelūa adotta misure tecniche e organizzative adeguate al rischio per proteggere i dati da accessi non autorizzati, perdita, alterazione o divulgazione indebita e applica i principi di minimizzazione e protezione dei dati fin dalla progettazione e per impostazione predefinita.</p>
-      <h2>13. Aggiornamenti</h2>
-      <p>La presente Privacy Policy può essere aggiornata in caso di modifiche normative, organizzative o tecnologiche. La versione vigente è quella pubblicata sul sito con la relativa data di aggiornamento.</p>
-      <h2>Riferimenti normativi principali</h2>
+      <h2 data-i18n="privacypolicy.s9.title">9. Social, WhatsApp e servizi esterni</h2>
+      <p data-i18n="privacypolicy.s9.body">Il sito può contenere collegamenti a Instagram, WhatsApp o altri servizi di terzi. Se l'utente apre tali collegamenti, il trattamento effettuato dalla piattaforma esterna è disciplinato dalla relativa informativa privacy. L'eventuale adesione a community o gruppi può comportare la visibilità di alcune informazioni agli amministratori o agli altri partecipanti, secondo la configurazione del servizio.</p>
+      <h2 data-i18n="privacypolicy.s10.title">10. Diritti dell'interessato</h2>
+      <p data-i18n="privacypolicy.s10.body1">Nei casi previsti dagli artt. 15-22 GDPR, l'interessato può chiedere accesso, rettifica, cancellazione, limitazione, portabilità, opposizione e revoca del consenso scrivendo a info@kelua.it o alla PEC kelua@legalmail.it. La revoca non pregiudica la liceità dei trattamenti effettuati prima della revoca.</p>
+      <p data-i18n="privacypolicy.s10.body2">L'interessato può inoltre proporre reclamo al Garante per la protezione dei dati personali.</p>
+      <h2 data-i18n="privacypolicy.s11.title">11. Minori</h2>
+      <p data-i18n="privacypolicy.s11.body">I servizi di vendita del sito non sono destinati a raccogliere consapevolmente dati di minori senza il coinvolgimento del titolare della responsabilità genitoriale quando richiesto dalla legge. Eventuali eventi destinati anche a minori possono prevedere condizioni e informative specifiche.</p>
+      <h2 data-i18n="privacypolicy.s12.title">12. Sicurezza</h2>
+      <p data-i18n="privacypolicy.s12.body">Kelūa adotta misure tecniche e organizzative adeguate al rischio per proteggere i dati da accessi non autorizzati, perdita, alterazione o divulgazione indebita e applica i principi di minimizzazione e protezione dei dati fin dalla progettazione e per impostazione predefinita.</p>
+      <h2 data-i18n="privacypolicy.s13.title">13. Aggiornamenti</h2>
+      <p data-i18n="privacypolicy.s13.body">La presente Privacy Policy può essere aggiornata in caso di modifiche normative, organizzative o tecnologiche. La versione vigente è quella pubblicata sul sito con la relativa data di aggiornamento.</p>
+      <h2 data-i18n="privacypolicy.refs.title">Riferimenti normativi principali</h2>
     </div>    <div class="legal__notes">
-      <p>Regolamento (UE) 2016/679 (GDPR), in particolare artt. 5, 6, 12-14, 15-22, 28 e 44 e seguenti.</p>
-      <p>D.Lgs. 196/2003, come modificato dal D.Lgs. 101/2018.</p>
-      <p>Art. 122 D.Lgs. 196/2003 e Linee guida del Garante Privacy su cookie e altri strumenti di tracciamento del 10 giugno 2021.</p>
+      <p data-i18n="privacypolicy.refs.note1">Regolamento (UE) 2016/679 (GDPR), in particolare artt. 5, 6, 12-14, 15-22, 28 e 44 e seguenti.</p>
+      <p data-i18n="privacypolicy.refs.note2">D.Lgs. 196/2003, come modificato dal D.Lgs. 101/2018.</p>
+      <p data-i18n="privacypolicy.refs.note3">Art. 122 D.Lgs. 196/2003 e Linee guida del Garante Privacy su cookie e altri strumenti di tracciamento del 10 giugno 2021.</p>
     </div>
     </div>
   </section>
@@ -4358,11 +4412,11 @@
         <div class="footer__logo">
           <img src="../logo/logo.svg" alt="Kelūa" />
         </div>
-        <p class="footer__tagline">Uno spazio che evolve con chi lo attraversa.</p>
+        <p class="footer__tagline" data-i18n="footer.tagline">Uno spazio che evolve con chi lo attraversa.</p>
       </div>
 
-      <nav aria-label="Esplora">
-        <div class="footer__col-title">Esplora</div>
+      <nav data-i18n-aria-label="footer.exploreAria" aria-label="Esplora">
+        <div class="footer__col-title" data-i18n="footer.explore">Esplora</div>
         <div class="footer__col-links">
           <a href="../rituals.html">Rituals</a>
           <a href="../flow.html">Flow</a>
@@ -4370,25 +4424,25 @@
         </div>
       </nav>
 
-      <nav aria-label="Spazio">
-        <div class="footer__col-title">Spazio</div>
+      <nav data-i18n-aria-label="footer.spaceAria" aria-label="Spazio">
+        <div class="footer__col-title" data-i18n="footer.space">Spazio</div>
         <div class="footer__col-links">
-          <a href="../index.html#partnership">Contatti</a>
+          <a href="../index.html#partnership" data-i18n="footer.contact">Contatti</a>
           <a href="../index.html#community">Community</a>
         </div>
       </nav>
 
       <div>
-        <div class="footer__col-title">Seguici</div>
+        <div class="footer__col-title" data-i18n="footer.follow">Seguici</div>
         <div class="footer__social">
-          <a href="https://instagram.com/kelua_ritual" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelūa">
+          <a href="https://instagram.com/kelua_ritual" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.instagramAria" aria-label="Instagram Kelūa">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="5"/>
               <circle cx="12" cy="12" r="4"/>
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
             </svg>
           </a>
-          <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelūa">
+          <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.whatsappAria" aria-label="Community WhatsApp Kelūa">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 20l1.4-4.2A8 8 0 1 1 8.2 18.6L4 20z"/>
               <path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/>
@@ -4404,12 +4458,12 @@
         <a href="../privacy-policy/">Privacy Policy</a>
         <a href="../cookie-policy/">Cookie Policy</a>
         <a href="../termini-condizioni/">Terms &amp; Conditions</a>
-        <a href="../spedizioni-resi/">Spedizioni &amp; Resi</a>
-        <a href="../contatti/">Contatti</a>
-        <button type="button" data-open-cookie-preferences>Gestisci cookie</button>
+        <a href="../spedizioni-resi/" data-i18n="footer.shipping">Spedizioni &amp; Resi</a>
+        <a href="../contatti/" data-i18n="footer.contact">Contatti</a>
+        <button type="button" data-open-cookie-preferences data-i18n="footer.manageCookies">Gestisci cookie</button>
       </div>
       <div class="footer__copy">
-        <span>© 2026 KELUA S.R.L. · Tutti i diritti riservati</span>
+        <span data-i18n="footer.copyright">© 2026 KELUA S.R.L. · Tutti i diritti riservati</span>
         <span>info@kelua.it</span>
       </div>
       <p class="footer__legalinfo">KELUA S.R.L. · P. IVA 18458781004 · REA RM-1785846 · Via Nicola Ricciotti 11, 00195 Roma · <a href="mailto:info@kelua.it">info@kelua.it</a></p>
@@ -4417,29 +4471,29 @@
   </footer>
 
   <!-- ═══ COOKIE CONSENT ═══════════════════════════════════════ -->
-  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Preferenze cookie">
-    <p class="cookie-banner__text">
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" data-i18n-aria-label="cookie.bannerAria" aria-label="Preferenze cookie">
+    <p class="cookie-banner__text" data-i18n-html="cookie.bannerText">
       Usiamo cookie tecnici necessari al funzionamento del sito e, solo previo consenso, cookie analitici, di funzionalità e di profilazione. Puoi accettare, rifiutare o personalizzare le scelte in qualsiasi momento da "Gestisci cookie" in fondo alla pagina. Leggi la <a href="../cookie-policy/">Cookie Policy</a>.
     </p>
     <div class="cookie-banner__actions">
-      <button type="button" class="cookie-banner__reject" id="cookieRejectAll">Rifiuta</button>
-      <button type="button" class="cookie-banner__customize" id="cookieCustomize">Personalizza</button>
-      <button type="button" class="cookie-banner__accept" id="cookieAcceptAll">Accetta tutti</button>
+      <button type="button" class="cookie-banner__reject" id="cookieRejectAll" data-i18n="cookie.reject">Rifiuta</button>
+      <button type="button" class="cookie-banner__customize" id="cookieCustomize" data-i18n="cookie.customize">Personalizza</button>
+      <button type="button" class="cookie-banner__accept" id="cookieAcceptAll" data-i18n="cookie.acceptAll">Accetta tutti</button>
     </div>
   </div>
 
-  <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" aria-label="Gestisci preferenze cookie">
+  <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" data-i18n-aria-label="cookie.modalAria" aria-label="Gestisci preferenze cookie">
     <div class="cookie-modal__panel">
       <div class="cookie-modal__head">
-        <h2 class="cookie-modal__title">Preferenze cookie</h2>
-        <button type="button" class="cookie-modal__close" id="cookieModalClose" aria-label="Chiudi">×</button>
+        <h2 class="cookie-modal__title" data-i18n="cookie.modalTitle">Preferenze cookie</h2>
+        <button type="button" class="cookie-modal__close" id="cookieModalClose" data-i18n-aria-label="common.close" aria-label="Chiudi">×</button>
       </div>
-      <p class="cookie-modal__intro">Scegli quali categorie di cookie e strumenti di tracciamento autorizzare. I cookie strettamente necessari non possono essere disattivati. Dettagli nella <a href="../cookie-policy/">Cookie Policy</a>.</p>
+      <p class="cookie-modal__intro" data-i18n-html="cookie.modalIntro">Scegli quali categorie di cookie e strumenti di tracciamento autorizzare. I cookie strettamente necessari non possono essere disattivati. Dettagli nella <a href="../cookie-policy/">Cookie Policy</a>.</p>
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Strettamente necessari</div>
-          <p class="cookie-category__desc">Indispensabili per sicurezza, sessione, carrello, checkout e altre funzioni tecniche richieste. Sempre attivi.</p>
+          <div class="cookie-category__name" data-i18n="cookie.necessaryName">Strettamente necessari</div>
+          <p class="cookie-category__desc" data-i18n="cookie.necessaryDesc">Indispensabili per sicurezza, sessione, carrello, checkout e altre funzioni tecniche richieste. Sempre attivi.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" checked disabled>
@@ -4449,8 +4503,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Analitici</div>
-          <p class="cookie-category__desc">Misurano l'utilizzo del sito per migliorarne prestazioni e contenuti.</p>
+          <div class="cookie-category__name" data-i18n="cookie.analyticsName">Analitici</div>
+          <p class="cookie-category__desc" data-i18n="cookie.analyticsDesc">Misurano l'utilizzo del sito per migliorarne prestazioni e contenuti.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieAnalytics">
@@ -4460,8 +4514,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Funzionalità</div>
-          <p class="cookie-category__desc">Abilitano funzioni aggiuntive e personalizzazioni non indispensabili.</p>
+          <div class="cookie-category__name" data-i18n="cookie.functionalityName">Funzionalità</div>
+          <p class="cookie-category__desc" data-i18n="cookie.functionalityDesc">Abilitano funzioni aggiuntive e personalizzazioni non indispensabili.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieFunctionality">
@@ -4471,8 +4525,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Pubblicitari e di profilazione</div>
-          <p class="cookie-category__desc">Usati per misurare campagne o mostrare comunicazioni personalizzate.</p>
+          <div class="cookie-category__name" data-i18n="cookie.advertisingName">Pubblicitari e di profilazione</div>
+          <p class="cookie-category__desc" data-i18n="cookie.advertisingDesc">Usati per misurare campagne o mostrare comunicazioni personalizzate.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieAdvertising">
@@ -4481,9 +4535,9 @@
       </div>
 
       <div class="cookie-modal__actions">
-        <button type="button" class="cookie-modal__reject-all" id="cookieModalRejectAll">Rifiuta tutti</button>
-        <button type="button" class="cookie-modal__accept-all" id="cookieModalAcceptAll">Accetta tutti</button>
-        <button type="button" class="cookie-modal__save" id="cookieModalSave">Salva preferenze</button>
+        <button type="button" class="cookie-modal__reject-all" id="cookieModalRejectAll" data-i18n="cookie.rejectAll">Rifiuta tutti</button>
+        <button type="button" class="cookie-modal__accept-all" id="cookieModalAcceptAll" data-i18n="cookie.acceptAll">Accetta tutti</button>
+        <button type="button" class="cookie-modal__save" id="cookieModalSave" data-i18n="cookie.save">Salva preferenze</button>
       </div>
     </div>
   </div>
@@ -4800,5 +4854,7 @@
     });
   })();
   </script>
+  <script src="../i18n.js?v=1"></script>
+  <script src="../i18n-privacypolicy.js?v=1"></script>
 </body>
 </html>

@@ -233,6 +233,49 @@
       transform: translateY(-1px);
     }
 
+    /* Language toggle (IT / EN) */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .lang-toggle button {
+      background: none;
+      border: none;
+      padding: 0.15rem 0.15rem;
+      cursor: pointer;
+      font-family: var(--font-body);
+      color: var(--text);
+      opacity: 0.5;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-toggle button:hover { opacity: 0.9; }
+
+    .lang-toggle button.is-active {
+      opacity: 1;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .lang-toggle__divider {
+      opacity: 0.3;
+      font-size: 0.7rem;
+    }
+
+    .nav__mobile-lang {
+      margin-bottom: 1.2rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid rgba(174, 183, 161, 0.25);
+    }
+
+    .nav__mobile-lang .lang-toggle button { font-size: 0.8rem; }
+
     @media (max-width: 900px) {
       .nav__collab, .nav__join { display: none; }
     }
@@ -569,6 +612,7 @@
     @media (max-width: 768px) {
       .nav__links       { display: none; }
       .nav__hamburger   { display: flex; }
+      .nav__lang        { display: none; }
 
       /* Mobile nav: logo a sinistra · icone social al centro · burger a destra */
       .nav__inner {
@@ -4093,22 +4137,22 @@
 <body>
 
   <!-- ═══ POPUP — PREORDINE PRELANCIO ═══════════════════════════ -->
-  <div class="promo-popup" id="promoPopup" role="dialog" aria-modal="true" aria-label="Offerta di prelancio">
+  <div class="promo-popup" id="promoPopup" role="dialog" aria-modal="true" data-i18n-aria-label="promo.aria" aria-label="Offerta di prelancio">
     <div class="promo-popup__panel">
-      <button type="button" class="promo-popup__close" id="promoPopupClose" aria-label="Chiudi">&times;</button>
+      <button type="button" class="promo-popup__close" id="promoPopupClose" data-i18n-aria-label="common.close" aria-label="Chiudi">&times;</button>
       <div class="promo-popup__media">
         <img src="/selezione/images/kombucha-mix-4-gusti/01.png" alt="Selezione Kombucha Kelūa">
       </div>
       <div class="promo-popup__body">
-        <span class="promo-popup__eyebrow">Prelancio Kelūa</span>
-        <h2 class="promo-popup__title">Sei arrivato al momento giusto.</h2>
-        <p class="promo-popup__text">La nostra Kombucha sta per arrivare. Preordinala in anteprima e ricevi il 10% di sconto: il nostro modo per dare il benvenuto a chi ci scopre adesso.</p>
+        <span class="promo-popup__eyebrow" data-i18n="promo.eyebrow">Prelancio Kelūa</span>
+        <h2 class="promo-popup__title" data-i18n="promo.title">Sei arrivato al momento giusto.</h2>
+        <p class="promo-popup__text" data-i18n="promo.text">La nostra Kombucha sta per arrivare. Preordinala in anteprima e ricevi il 10% di sconto: il nostro modo per dare il benvenuto a chi ci scopre adesso.</p>
         <div class="promo-popup__code">
           <span class="promo-popup__code-value" id="promoCodeValue">PREKOMBUCHA10</span>
-          <button type="button" class="promo-popup__code-copy" id="promoCodeCopy">Copia codice</button>
+          <button type="button" class="promo-popup__code-copy" id="promoCodeCopy" data-i18n="promo.copyCode">Copia codice</button>
         </div>
-        <a href="/selezione.html" class="promo-popup__cta" id="promoPopupCta">Preordina ora →</a>
-        <p class="promo-popup__note">Inserisci il codice al checkout per applicare lo sconto.</p>
+        <a href="/selezione.html" class="promo-popup__cta" id="promoPopupCta" data-i18n="promo.cta">Preordina ora →</a>
+        <p class="promo-popup__note" data-i18n="promo.note">Inserisci il codice al checkout per applicare lo sconto.</p>
       </div>
     </div>
   </div>
@@ -4163,10 +4207,10 @@
     copyBtn.addEventListener('click', function () {
       var text = codeValue.textContent.trim();
       function done() {
-        copyBtn.textContent = 'Copiato \u2713';
+        copyBtn.textContent = window.keluaT ? window.keluaT('promo.copied') : 'Copiato \u2713';
         copyBtn.classList.add('is-copied');
         setTimeout(function () {
-          copyBtn.textContent = 'Copia codice';
+          copyBtn.textContent = window.keluaT ? window.keluaT('promo.copyCode') : 'Copia codice';
           copyBtn.classList.remove('is-copied');
         }, 1600);
       }
@@ -4181,10 +4225,10 @@
 
   <!-- ═══ MARQUEE ═══════════════════════════════════════════════ -->
   <div class="marquee" aria-hidden="false">
-    <a href="../selezione.html" class="marquee__link" aria-label="La nostra Kombucha sta arrivando — preordina ora, vai alla Selezione">
+    <a href="../selezione.html" class="marquee__link" data-i18n-aria-label="marquee.linkAria" aria-label="La nostra Kombucha sta arrivando — preordina ora, vai alla Selezione">
       <div class="marquee__track">
-        <div class="marquee__group"><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span></div>
-        <div class="marquee__group" aria-hidden="true"><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span></div>
+        <div class="marquee__group"><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span></div>
+        <div class="marquee__group" aria-hidden="true"><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span></div>
       </div>
     </a>
   </div>
@@ -4193,7 +4237,7 @@
   <nav class="nav" role="navigation" aria-label="Navigazione principale">
     <div class="nav__inner">
 
-      <a href="../index.html" class="nav__logo" aria-label="Kelūa — torna alla home">
+      <a href="../index.html" class="nav__logo" data-i18n-aria-label="movimento.nav.logoAria" aria-label="Kelūa — torna alla home">
         <img src="../logo/logo.svg" alt="Kelūa" />
       </a>
 
@@ -4204,22 +4248,9 @@
       </ul>
 
       <div class="nav__right">
-        <a href="../index.html#partnership" class="nav__collab">Vuoi Collaborare?</a>
-        <a href="https://instagram.com/kelua_ritual" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelūa">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <circle cx="12" cy="12" r="4.5"/>
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-          </svg>
-        </a>
-        <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelūa">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.2-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/>
-            <path d="M17.47 14.83c-.28-.14-1.64-.81-1.9-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" fill="var(--bg)" stroke="none"/>
-          </svg>
-        </a>
+        <a href="../index.html#partnership" class="nav__collab" data-i18n="nav.collab">Vuoi Collaborare?</a>
         <div class="nav__cart-wrap">
-          <button type="button" class="nav__social nav__cart" id="navCartToggle" aria-label="Carrello" aria-haspopup="true">
+          <button type="button" class="nav__social nav__cart" id="navCartToggle" data-i18n-aria-label="nav.cartAria" aria-label="Carrello" aria-haspopup="true">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="9" cy="21" r="1"/>
               <circle cx="20" cy="21" r="1"/>
@@ -4228,12 +4259,12 @@
             <span class="nav__cart-count" id="navCartCount" hidden>0</span>
           </button>
           <div class="nav__cart-empty" id="navCartEmpty" hidden role="dialog" aria-label="Carrello vuoto">
-            <p>Il tuo carrello è vuoto.</p>
-            <a href="../selezione.html">Scopri la nostra selezione →</a>
+            <p data-i18n="nav.cartEmpty">Il tuo carrello è vuoto.</p>
+            <a href="../selezione.html" data-i18n="nav.cartDiscover">Scopri la nostra selezione →</a>
           </div>
         </div>
         <div class="nav__search-wrap">
-          <button type="button" class="nav__social nav__search" id="navSearchToggle" aria-label="Cerca" aria-haspopup="true">
+          <button type="button" class="nav__social nav__search" id="navSearchToggle" data-i18n-aria-label="nav.searchAria" aria-label="Cerca" aria-haspopup="true">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="11" cy="11" r="7"/>
               <path d="M21 21l-4.35-4.35"/>
@@ -4245,15 +4276,33 @@
                 <circle cx="11" cy="11" r="7"/>
                 <path d="M21 21l-4.35-4.35"/>
               </svg>
-              <input type="text" id="navSearchInput" placeholder="Cerca prodotti, pratiche, eventi…" autocomplete="off">
+              <input type="text" id="navSearchInput" data-i18n-placeholder="nav.searchPlaceholder" placeholder="Cerca prodotti, pratiche, eventi…" autocomplete="off">
             </div>
             <div class="nav__search-results" id="navSearchResults"></div>
           </div>
         </div>
-        <a href="../index.html#community" class="nav__join">Entra nella Community</a>
+        <a href="https://instagram.com/kelua_ritual" class="nav__social" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.instagramAria" aria-label="Instagram Kelūa">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="nav__social" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.whatsappAria" aria-label="Community WhatsApp Kelūa">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.2-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/>
+            <path d="M17.47 14.83c-.28-.14-1.64-.81-1.9-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" fill="var(--bg)" stroke="none"/>
+          </svg>
+        </a>
+        <div class="lang-toggle nav__lang" role="group" aria-label="Cambia lingua / Change language">
+          <button type="button" data-lang-toggle="it">IT</button>
+          <span class="lang-toggle__divider">/</span>
+          <button type="button" data-lang-toggle="en">EN</button>
+        </div>
+        <a href="../index.html#community" class="nav__join" data-i18n="nav.join">Entra nella Community</a>
       </div>
 
-      <button class="nav__hamburger" aria-label="Apri menu" aria-expanded="false" id="hamburger">
+      <button class="nav__hamburger" aria-label="Apri menu" data-i18n-aria-label="nav.openMenuAria" aria-expanded="false" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
@@ -4264,17 +4313,22 @@
 
   <!-- Mobile menu -->
   <div class="nav__mobile" id="mobileMenu" aria-hidden="true">
+    <div class="nav__mobile-lang lang-toggle" role="group" aria-label="Cambia lingua / Change language">
+      <button type="button" data-lang-toggle="it">IT</button>
+      <span class="lang-toggle__divider">/</span>
+      <button type="button" data-lang-toggle="en">EN</button>
+    </div>
     <ul>
       <li><a href="../rituals.html">Rituals</a></li>
       <li><a href="../flow.html">Flow</a></li>
       <li><a href="../essence.html">Essence</a></li>
-      <li><a href="../index.html#partnership">Vuoi Collaborare?</a></li>
-      <li><a href="../index.html#community">Entra nella Community</a></li>
+      <li><a href="../index.html#partnership" data-i18n="nav.collab">Vuoi Collaborare?</a></li>
+      <li><a href="../index.html#community" data-i18n="nav.join">Entra nella Community</a></li>
     </ul>
   </div>
 
   <div class="article-back">
-    <a href="../rituals.html">← Torna a Kelūa Rituals</a>
+    <a href="../rituals.html" data-i18n="movimento.back">← Torna a Kelūa Rituals</a>
   </div>
 
   <section class="article-hero">
@@ -4283,80 +4337,80 @@
         <img src="../images/site/movimento-consapevole.jpg" alt="" loading="eager" style="">
       </div>
       <div class="article-tag-row">
-        <span class="article-pill">Pratiche</span>
-        <span class="article-pill">Corpo · Interocezione · Yoga somatico</span>
+        <span class="article-pill" data-i18n="movimento.hero.pill1">Pratiche</span>
+        <span class="article-pill" data-i18n="movimento.hero.pill2">Corpo · Interocezione · Yoga somatico</span>
       </div>
-      <h1 class="article-title">Movimento Consapevole</h1>
-      <p class="article-subtitle">C'è una differenza enorme tra fare yoga e sentire il proprio corpo</p>
-      <p class="article-hook">Si può fare yoga per anni e restare completamente disconnessi dal proprio corpo. E si può stare fermi cinque minuti e imparare più cose su di sé di quante ne abbia mai insegnate una classe intera.</p>
+      <h1 class="article-title" data-i18n="movimento.hero.title">Movimento Consapevole</h1>
+      <p class="article-subtitle" data-i18n="movimento.hero.subtitle">C'è una differenza enorme tra fare yoga e sentire il proprio corpo</p>
+      <p class="article-hook" data-i18n="movimento.hero.hook">Si può fare yoga per anni e restare completamente disconnessi dal proprio corpo. E si può stare fermi cinque minuti e imparare più cose su di sé di quante ne abbia mai insegnate una classe intera.</p>
     </div>
   </section>
 
   <div class="article-body">
-    <h2>C'è una differenza enorme tra fare yoga e sentire il proprio corpo</h2>
-      <p>Si può fare yoga per anni e restare completamente disconnessi dal proprio corpo. E si può stare fermi cinque minuti, senza fare nulla di visibile dall'esterno, e imparare più cose su di sé di quante ne abbia mai insegnate una classe intera.</p>
-      <p>La differenza non sta nella tecnica che scegli. Sta in dove metti l'attenzione mentre la pratichi.</p>
-      <p>Il movimento consapevole sposta il focus dall'esteriore all'interiore: non quanto sei flessibile, ma cosa senti mentre ti muovi; non la posizione da manuale, ma questa posizione, in questo corpo, oggi. Sembra una sfumatura da poco. Cambia quasi tutto quello che succede dopo.</p>
-    <h2>Memoria somatica e interocezione</h2>
-      <p>Il corpo accumula tutto quello che viviamo: stress, tensioni, emozioni mai del tutto elaborate, abitudini posturali, risposte di allerta ripetute nel tempo. Non li archivia come ricordi, con un inizio e una fine. Li archivia come pattern fisici, una spalla che resta più alta dell'altra, un punto dello stomaco che si contrae sempre nello stesso modo.</p>
-      <p>Il nome tecnico della capacità di percepire questi segnali dall'interno è interocezione, considerata da molti ricercatori una sorta di sesto senso: la percezione del battito cardiaco, della tensione muscolare, delle sensazioni viscerali.</p>
-      <p>Uno studio del 2025, pubblicato come preprint dopo una sperimentazione controllata su un programma di allenamento interocettivo guidato da biofeedback, ha mostrato miglioramenti misurabili nella capacità di percepire il proprio battito cardiaco già dopo cinque giorni di pratica, insieme a un aumento della consapevolezza emotiva. Il modello MABT (Mindful Awareness in Body-Oriented Therapy), sviluppato dalla ricercatrice Cynthia Price, applica lo stesso principio da anni in ambito clinico: insegnare a identificare, accedere e interpretare i segnali interni del corpo migliora concretamente la regolazione delle emozioni.</p>
-      <p>Tradotto: non è una metafora dire che "il corpo ricorda". È una capacità misurabile, che si allena, e che migliora con la pratica regolare quanto un muscolo qualsiasi.</p>
-    <h2>Fare vs sentire</h2>
-      <p>La differenza tra le due modalità è più concreta di quanto sembri sulla carta.</p>
-      <p>Quando l'obiettivo è la forma:</p>
+    <h2 data-i18n="movimento.hero.subtitle">C'è una differenza enorme tra fare yoga e sentire il proprio corpo</h2>
+      <p data-i18n="movimento.s1.p1">Si può fare yoga per anni e restare completamente disconnessi dal proprio corpo. E si può stare fermi cinque minuti, senza fare nulla di visibile dall'esterno, e imparare più cose su di sé di quante ne abbia mai insegnate una classe intera.</p>
+      <p data-i18n="movimento.s1.p2">La differenza non sta nella tecnica che scegli. Sta in dove metti l'attenzione mentre la pratichi.</p>
+      <p data-i18n="movimento.s1.p3">Il movimento consapevole sposta il focus dall'esteriore all'interiore: non quanto sei flessibile, ma cosa senti mentre ti muovi; non la posizione da manuale, ma questa posizione, in questo corpo, oggi. Sembra una sfumatura da poco. Cambia quasi tutto quello che succede dopo.</p>
+    <h2 data-i18n="movimento.s2.title">Memoria somatica e interocezione</h2>
+      <p data-i18n="movimento.s2.p1">Il corpo accumula tutto quello che viviamo: stress, tensioni, emozioni mai del tutto elaborate, abitudini posturali, risposte di allerta ripetute nel tempo. Non li archivia come ricordi, con un inizio e una fine. Li archivia come pattern fisici, una spalla che resta più alta dell'altra, un punto dello stomaco che si contrae sempre nello stesso modo.</p>
+      <p data-i18n="movimento.s2.p2">Il nome tecnico della capacità di percepire questi segnali dall'interno è interocezione, considerata da molti ricercatori una sorta di sesto senso: la percezione del battito cardiaco, della tensione muscolare, delle sensazioni viscerali.</p>
+      <p data-i18n="movimento.s2.p3">Uno studio del 2025, pubblicato come preprint dopo una sperimentazione controllata su un programma di allenamento interocettivo guidato da biofeedback, ha mostrato miglioramenti misurabili nella capacità di percepire il proprio battito cardiaco già dopo cinque giorni di pratica, insieme a un aumento della consapevolezza emotiva. Il modello MABT (Mindful Awareness in Body-Oriented Therapy), sviluppato dalla ricercatrice Cynthia Price, applica lo stesso principio da anni in ambito clinico: insegnare a identificare, accedere e interpretare i segnali interni del corpo migliora concretamente la regolazione delle emozioni.</p>
+      <p data-i18n="movimento.s2.p4">Tradotto: non è una metafora dire che "il corpo ricorda". È una capacità misurabile, che si allena, e che migliora con la pratica regolare quanto un muscolo qualsiasi.</p>
+    <h2 data-i18n="movimento.s3.title">Fare vs sentire</h2>
+      <p data-i18n="movimento.s3.p1">La differenza tra le due modalità è più concreta di quanto sembri sulla carta.</p>
+      <p data-i18n="movimento.s3.p2">Quando l'obiettivo è la forma:</p>
       <ul>
-        <li>Segui le istruzioni dell'insegnante e cerchi di replicarle con precisione</li>
-        <li>Misuri il progresso in gradi di flessibilità o in tenuta della posizione</li>
-        <li>L'attenzione resta fuori: sulla forma, sullo specchio, su chi ti sta accanto in classe</li>
+        <li data-i18n="movimento.s3.list1.item1">Segui le istruzioni dell'insegnante e cerchi di replicarle con precisione</li>
+        <li data-i18n="movimento.s3.list1.item2">Misuri il progresso in gradi di flessibilità o in tenuta della posizione</li>
+        <li data-i18n="movimento.s3.list1.item3">L'attenzione resta fuori: sulla forma, sullo specchio, su chi ti sta accanto in classe</li>
       </ul>
-      <p>Quando l'obiettivo è la sensazione:</p>
+      <p data-i18n="movimento.s3.p3">Quando l'obiettivo è la sensazione:</p>
       <ul>
-        <li>Segui quello che senti, anche quando non coincide con la forma "corretta"</li>
-        <li>Esplori come si sente questa posizione, in questo corpo, oggi, non ieri, non nella classe della settimana scorsa</li>
-        <li>Il progresso non si misura in centimetri: si percepisce come maggiore facilità nel notare cosa succede dentro</li>
+        <li data-i18n="movimento.s3.list2.item1">Segui quello che senti, anche quando non coincide con la forma "corretta"</li>
+        <li data-i18n="movimento.s3.list2.item2">Esplori come si sente questa posizione, in questo corpo, oggi, non ieri, non nella classe della settimana scorsa</li>
+        <li data-i18n="movimento.s3.list2.item3">Il progresso non si misura in centimetri: si percepisce come maggiore facilità nel notare cosa succede dentro</li>
       </ul>
-      <p>Nessuna delle due modalità è superiore in senso assoluto, dipende da cosa stai cercando. Ma se l'obiettivo è tornare in contatto con te stesso più che migliorare una prestazione, una delle due funziona molto meglio dell'altra.</p>
-    <h2>Le tradizioni del movimento somatico</h2>
+      <p data-i18n="movimento.s3.p4">Nessuna delle due modalità è superiore in senso assoluto, dipende da cosa stai cercando. Ma se l'obiettivo è tornare in contatto con te stesso più che migliorare una prestazione, una delle due funziona molto meglio dell'altra.</p>
+    <h2 data-i18n="movimento.s4.title">Le tradizioni del movimento somatico</h2>
     <div class="technique-grid">
       <div class="technique-card">
-        <h3 class="technique-card__title">Yoga somatico</h3>
-        <p class="technique-card__desc">Le stesse posture dello yoga tradizionale, esplorate per come si sentono da dentro invece che per come appaiono da fuori. Rallentato quasi fino a fermarsi, con l'ascolto al centro invece che ai margini.</p>
+        <h3 class="technique-card__title" data-i18n="movimento.technique.yoga.title">Yoga somatico</h3>
+        <p class="technique-card__desc" data-i18n="movimento.technique.yoga.desc">Le stesse posture dello yoga tradizionale, esplorate per come si sentono da dentro invece che per come appaiono da fuori. Rallentato quasi fino a fermarsi, con l'ascolto al centro invece che ai margini.</p>
       </div>
       <div class="technique-card">
-        <h3 class="technique-card__title">Metodo Feldenkrais</h3>
-        <p class="technique-card__desc">Movimenti piccoli, a volte quasi impercettibili dall'esterno, pensati per migliorare la comunicazione tra cervello e muscoli. Il paradosso è che muovendosi meno, spesso, si sente di più.</p>
+        <h3 class="technique-card__title" data-i18n="movimento.technique.feldenkrais.title">Metodo Feldenkrais</h3>
+        <p class="technique-card__desc" data-i18n="movimento.technique.feldenkrais.desc">Movimenti piccoli, a volte quasi impercettibili dall'esterno, pensati per migliorare la comunicazione tra cervello e muscoli. Il paradosso è che muovendosi meno, spesso, si sente di più.</p>
       </div>
       <div class="technique-card">
-        <h3 class="technique-card__title">Hanna Somatics</h3>
-        <p class="technique-card__desc">Lavora sul rilascio della tensione muscolare cronica attraverso una tecnica chiamata pandicolazione, un reset neuromuscolare che riporta il muscolo verso la sua lunghezza naturale. Particolarmente indicato per dolori cronici da tensione accumulata.</p>
+        <h3 class="technique-card__title" data-i18n="movimento.technique.hanna.title">Hanna Somatics</h3>
+        <p class="technique-card__desc" data-i18n="movimento.technique.hanna.desc">Lavora sul rilascio della tensione muscolare cronica attraverso una tecnica chiamata pandicolazione, un reset neuromuscolare che riporta il muscolo verso la sua lunghezza naturale. Particolarmente indicato per dolori cronici da tensione accumulata.</p>
       </div>
       <div class="technique-card">
-        <h3 class="technique-card__title">Pilates consapevole</h3>
-        <p class="technique-card__desc">Il Pilates classico lavora su forza, allineamento e controllo. La versione consapevole aggiunge un livello: ogni esercizio diventa anche un'occasione per notare i pattern abituali del corpo e, se serve, sceglierne uno diverso.</p>
+        <h3 class="technique-card__title" data-i18n="movimento.technique.pilates.title">Pilates consapevole</h3>
+        <p class="technique-card__desc" data-i18n="movimento.technique.pilates.desc">Il Pilates classico lavora su forza, allineamento e controllo. La versione consapevole aggiunge un livello: ogni esercizio diventa anche un'occasione per notare i pattern abituali del corpo e, se serve, sceglierne uno diverso.</p>
       </div>
     </div>
-    <h2>Come iniziare</h2>
-      <p>Non serve un tappetino, una classe, o un abbonamento. Serve un posto dove stare indisturbati per cinque minuti, seduti o sdraiati.</p>
-      <p>Chiudi gli occhi. Porta l'attenzione alle piante dei piedi, senti dove toccano il pavimento o il letto. Muovi lentamente le dita, poi le caviglie, poi le ginocchia, cerchi piccoli e lentissimi, quasi impercettibili.</p>
-      <p>Non è stretching. È una domanda che stai facendo al corpo, e a cui stai aspettando davvero una risposta: ci sei? Come stai oggi?</p>
-      <p>Cinque minuti bastano per notare la differenza tra come sei entrato nell'esercizio e come ne esci.</p>
+    <h2 data-i18n="movimento.s5.title">Come iniziare</h2>
+      <p data-i18n="movimento.s5.p1">Non serve un tappetino, una classe, o un abbonamento. Serve un posto dove stare indisturbati per cinque minuti, seduti o sdraiati.</p>
+      <p data-i18n="movimento.s5.p2">Chiudi gli occhi. Porta l'attenzione alle piante dei piedi, senti dove toccano il pavimento o il letto. Muovi lentamente le dita, poi le caviglie, poi le ginocchia, cerchi piccoli e lentissimi, quasi impercettibili.</p>
+      <p data-i18n="movimento.s5.p3">Non è stretching. È una domanda che stai facendo al corpo, e a cui stai aspettando davvero una risposta: ci sei? Come stai oggi?</p>
+      <p data-i18n="movimento.s5.p4">Cinque minuti bastano per notare la differenza tra come sei entrato nell'esercizio e come ne esci.</p>
     <section class="pull-quote-section">
       <div class="pull-quote-section__inner">
-        <p>Per la maggior parte del tempo viviamo nella mente e ci portiamo dietro il corpo come un bagaglio: lo curiamo quando fa male, lo premiamo quando ci serve una prestazione, lo ignoriamo in tutto il resto della giornata.</p>
-        <p>Il movimento consapevole non promette un corpo più performante. Promette qualcosa di più semplice e più difficile insieme: tornare ad abitare il corpo che hai già, in un posto che ti appartiene da sempre anche quando ti ci senti straniero.</p>
-        <p>E quando riesci davvero a sentirti dentro il corpo, il rumore di fondo nella mente si abbassa da solo, non perché lo hai zittito, ma perché ha smesso di essere l'unico posto in cui vivi.</p>
+        <p data-i18n="movimento.quote.p1">Per la maggior parte del tempo viviamo nella mente e ci portiamo dietro il corpo come un bagaglio: lo curiamo quando fa male, lo premiamo quando ci serve una prestazione, lo ignoriamo in tutto il resto della giornata.</p>
+        <p data-i18n="movimento.quote.p2">Il movimento consapevole non promette un corpo più performante. Promette qualcosa di più semplice e più difficile insieme: tornare ad abitare il corpo che hai già, in un posto che ti appartiene da sempre anche quando ti ci senti straniero.</p>
+        <p data-i18n="movimento.quote.p3">E quando riesci davvero a sentirti dentro il corpo, il rumore di fondo nella mente si abbassa da solo, non perché lo hai zittito, ma perché ha smesso di essere l'unico posto in cui vivi.</p>
       </div>
     </section>
     <div class="article-cta">
-      <div class="article-cta__label">Esplora questa pratica con noi</div>
-      <p>Le nostre sessioni di yoga e pilates integrano principi somatici: sensazione prima della forma, respiro come guida del movimento, pratica come ascolto invece che come prestazione da valutare.</p>
-      <p>Non importa da dove parti. Importa che tu sia curioso di scoprire cosa c'è quando smetti di guardarti da fuori.</p>
-      <a href="../flow.html" class="article-cta__button">Guarda i prossimi eventi KELŪA →</a>
+      <div class="article-cta__label" data-i18n="movimento.cta.label">Esplora questa pratica con noi</div>
+      <p data-i18n="movimento.cta.p1">Le nostre sessioni di yoga e pilates integrano principi somatici: sensazione prima della forma, respiro come guida del movimento, pratica come ascolto invece che come prestazione da valutare.</p>
+      <p data-i18n="movimento.cta.p2">Non importa da dove parti. Importa che tu sia curioso di scoprire cosa c'è quando smetti di guardarti da fuori.</p>
+      <a href="../flow.html" class="article-cta__button" data-i18n="movimento.cta.button">Guarda i prossimi eventi KELŪA →</a>
     </div>
     <div class="article-next">
-      <div class="article-next__label">Prossimo approfondimento</div>
-      <a href="slow-morning.html">Slow Morning →</a>
+      <div class="article-next__label" data-i18n="movimento.next.label">Prossimo approfondimento</div>
+      <a href="slow-morning.html" data-i18n="movimento.next.link">Slow Morning →</a>
     </div>
   </div>
   <!-- ═══ FOOTER ════════════════════════════════════════════ -->
@@ -4367,11 +4421,11 @@
         <div class="footer__logo">
           <img src="../logo/logo.svg" alt="Kelūa" />
         </div>
-        <p class="footer__tagline">Uno spazio che evolve con chi lo attraversa.</p>
+        <p class="footer__tagline" data-i18n="footer.tagline">Uno spazio che evolve con chi lo attraversa.</p>
       </div>
 
-      <nav aria-label="Esplora">
-        <div class="footer__col-title">Esplora</div>
+      <nav data-i18n-aria-label="footer.exploreAria" aria-label="Esplora">
+        <div class="footer__col-title" data-i18n="footer.explore">Esplora</div>
         <div class="footer__col-links">
           <a href="../rituals.html">Rituals</a>
           <a href="../flow.html">Flow</a>
@@ -4379,25 +4433,25 @@
         </div>
       </nav>
 
-      <nav aria-label="Spazio">
-        <div class="footer__col-title">Spazio</div>
+      <nav data-i18n-aria-label="footer.spaceAria" aria-label="Spazio">
+        <div class="footer__col-title" data-i18n="footer.space">Spazio</div>
         <div class="footer__col-links">
-          <a href="../index.html#partnership">Contatti</a>
+          <a href="../index.html#partnership" data-i18n="footer.contact">Contatti</a>
           <a href="../index.html#community">Community</a>
         </div>
       </nav>
 
       <div>
-        <div class="footer__col-title">Seguici</div>
+        <div class="footer__col-title" data-i18n="footer.follow">Seguici</div>
         <div class="footer__social">
-          <a href="https://instagram.com/kelua_ritual" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelūa">
+          <a href="https://instagram.com/kelua_ritual" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.instagramAria" aria-label="Instagram Kelūa">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="5"/>
               <circle cx="12" cy="12" r="4"/>
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
             </svg>
           </a>
-          <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelūa">
+          <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.whatsappAria" aria-label="Community WhatsApp Kelūa">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 20l1.4-4.2A8 8 0 1 1 8.2 18.6L4 20z"/>
               <path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/>
@@ -4413,12 +4467,12 @@
         <a href="../privacy-policy/">Privacy Policy</a>
         <a href="../cookie-policy/">Cookie Policy</a>
         <a href="../termini-condizioni/">Terms &amp; Conditions</a>
-        <a href="../spedizioni-resi/">Spedizioni &amp; Resi</a>
-        <a href="../contatti/">Contatti</a>
-        <button type="button" data-open-cookie-preferences>Gestisci cookie</button>
+        <a href="../spedizioni-resi/" data-i18n="footer.shipping">Spedizioni &amp; Resi</a>
+        <a href="../contatti/" data-i18n="footer.contact">Contatti</a>
+        <button type="button" data-open-cookie-preferences data-i18n="footer.manageCookies">Gestisci cookie</button>
       </div>
       <div class="footer__copy">
-        <span>© 2026 KELUA S.R.L. · Tutti i diritti riservati</span>
+        <span data-i18n="footer.copyright">© 2026 KELUA S.R.L. · Tutti i diritti riservati</span>
         <span>info@kelua.it</span>
       </div>
       <p class="footer__legalinfo">KELUA S.R.L. · P. IVA 18458781004 · REA RM-1785846 · Via Nicola Ricciotti 11, 00195 Roma · <a href="mailto:info@kelua.it">info@kelua.it</a></p>
@@ -4426,29 +4480,29 @@
   </footer>
 
   <!-- ═══ COOKIE CONSENT ═══════════════════════════════════════ -->
-  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Preferenze cookie">
-    <p class="cookie-banner__text">
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" data-i18n-aria-label="cookie.bannerAria" aria-label="Preferenze cookie">
+    <p class="cookie-banner__text" data-i18n-html="cookie.bannerText">
       Usiamo cookie tecnici necessari al funzionamento del sito e, solo previo consenso, cookie analitici, di funzionalità e di profilazione. Puoi accettare, rifiutare o personalizzare le scelte in qualsiasi momento da "Gestisci cookie" in fondo alla pagina. Leggi la <a href="../cookie-policy/">Cookie Policy</a>.
     </p>
     <div class="cookie-banner__actions">
-      <button type="button" class="cookie-banner__reject" id="cookieRejectAll">Rifiuta</button>
-      <button type="button" class="cookie-banner__customize" id="cookieCustomize">Personalizza</button>
-      <button type="button" class="cookie-banner__accept" id="cookieAcceptAll">Accetta tutti</button>
+      <button type="button" class="cookie-banner__reject" id="cookieRejectAll" data-i18n="cookie.reject">Rifiuta</button>
+      <button type="button" class="cookie-banner__customize" id="cookieCustomize" data-i18n="cookie.customize">Personalizza</button>
+      <button type="button" class="cookie-banner__accept" id="cookieAcceptAll" data-i18n="cookie.acceptAll">Accetta tutti</button>
     </div>
   </div>
 
-  <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" aria-label="Gestisci preferenze cookie">
+  <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" data-i18n-aria-label="cookie.modalAria" aria-label="Gestisci preferenze cookie">
     <div class="cookie-modal__panel">
       <div class="cookie-modal__head">
-        <h2 class="cookie-modal__title">Preferenze cookie</h2>
-        <button type="button" class="cookie-modal__close" id="cookieModalClose" aria-label="Chiudi">×</button>
+        <h2 class="cookie-modal__title" data-i18n="cookie.modalTitle">Preferenze cookie</h2>
+        <button type="button" class="cookie-modal__close" id="cookieModalClose" data-i18n-aria-label="common.close" aria-label="Chiudi">×</button>
       </div>
-      <p class="cookie-modal__intro">Scegli quali categorie di cookie e strumenti di tracciamento autorizzare. I cookie strettamente necessari non possono essere disattivati. Dettagli nella <a href="../cookie-policy/">Cookie Policy</a>.</p>
+      <p class="cookie-modal__intro" data-i18n-html="cookie.modalIntro">Scegli quali categorie di cookie e strumenti di tracciamento autorizzare. I cookie strettamente necessari non possono essere disattivati. Dettagli nella <a href="../cookie-policy/">Cookie Policy</a>.</p>
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Strettamente necessari</div>
-          <p class="cookie-category__desc">Indispensabili per sicurezza, sessione, carrello, checkout e altre funzioni tecniche richieste. Sempre attivi.</p>
+          <div class="cookie-category__name" data-i18n="cookie.necessaryName">Strettamente necessari</div>
+          <p class="cookie-category__desc" data-i18n="cookie.necessaryDesc">Indispensabili per sicurezza, sessione, carrello, checkout e altre funzioni tecniche richieste. Sempre attivi.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" checked disabled>
@@ -4458,8 +4512,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Analitici</div>
-          <p class="cookie-category__desc">Misurano l'utilizzo del sito per migliorarne prestazioni e contenuti.</p>
+          <div class="cookie-category__name" data-i18n="cookie.analyticsName">Analitici</div>
+          <p class="cookie-category__desc" data-i18n="cookie.analyticsDesc">Misurano l'utilizzo del sito per migliorarne prestazioni e contenuti.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieAnalytics">
@@ -4469,8 +4523,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Funzionalità</div>
-          <p class="cookie-category__desc">Abilitano funzioni aggiuntive e personalizzazioni non indispensabili.</p>
+          <div class="cookie-category__name" data-i18n="cookie.functionalityName">Funzionalità</div>
+          <p class="cookie-category__desc" data-i18n="cookie.functionalityDesc">Abilitano funzioni aggiuntive e personalizzazioni non indispensabili.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieFunctionality">
@@ -4480,8 +4534,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Pubblicitari e di profilazione</div>
-          <p class="cookie-category__desc">Usati per misurare campagne o mostrare comunicazioni personalizzate.</p>
+          <div class="cookie-category__name" data-i18n="cookie.advertisingName">Pubblicitari e di profilazione</div>
+          <p class="cookie-category__desc" data-i18n="cookie.advertisingDesc">Usati per misurare campagne o mostrare comunicazioni personalizzate.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieAdvertising">
@@ -4490,9 +4544,9 @@
       </div>
 
       <div class="cookie-modal__actions">
-        <button type="button" class="cookie-modal__reject-all" id="cookieModalRejectAll">Rifiuta tutti</button>
-        <button type="button" class="cookie-modal__accept-all" id="cookieModalAcceptAll">Accetta tutti</button>
-        <button type="button" class="cookie-modal__save" id="cookieModalSave">Salva preferenze</button>
+        <button type="button" class="cookie-modal__reject-all" id="cookieModalRejectAll" data-i18n="cookie.rejectAll">Rifiuta tutti</button>
+        <button type="button" class="cookie-modal__accept-all" id="cookieModalAcceptAll" data-i18n="cookie.acceptAll">Accetta tutti</button>
+        <button type="button" class="cookie-modal__save" id="cookieModalSave" data-i18n="cookie.save">Salva preferenze</button>
       </div>
     </div>
   </div>
@@ -4764,5 +4818,7 @@
     });
   })();
   </script>
+  <script src="../i18n.js?v=1"></script>
+  <script src="../i18n-movimento.js?v=1"></script>
 </body>
 </html>

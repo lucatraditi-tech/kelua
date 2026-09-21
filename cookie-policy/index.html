@@ -233,6 +233,49 @@
       transform: translateY(-1px);
     }
 
+    /* Language toggle (IT / EN) */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .lang-toggle button {
+      background: none;
+      border: none;
+      padding: 0.15rem 0.15rem;
+      cursor: pointer;
+      font-family: var(--font-body);
+      color: var(--text);
+      opacity: 0.5;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-toggle button:hover { opacity: 0.9; }
+
+    .lang-toggle button.is-active {
+      opacity: 1;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .lang-toggle__divider {
+      opacity: 0.3;
+      font-size: 0.7rem;
+    }
+
+    .nav__mobile-lang {
+      margin-bottom: 1.2rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid rgba(174, 183, 161, 0.25);
+    }
+
+    .nav__mobile-lang .lang-toggle button { font-size: 0.8rem; }
+
     @media (max-width: 900px) {
       .nav__collab, .nav__join { display: none; }
     }
@@ -569,6 +612,7 @@
     @media (max-width: 768px) {
       .nav__links       { display: none; }
       .nav__hamburger   { display: flex; }
+      .nav__lang        { display: none; }
 
       /* Mobile nav: logo a sinistra · icone social al centro · burger a destra */
       .nav__inner {
@@ -4093,22 +4137,22 @@
 <body>
 
   <!-- ═══ POPUP — PREORDINE PRELANCIO ═══════════════════════════ -->
-  <div class="promo-popup" id="promoPopup" role="dialog" aria-modal="true" aria-label="Offerta di prelancio">
+  <div class="promo-popup" id="promoPopup" role="dialog" aria-modal="true" aria-label="Offerta di prelancio" data-i18n-aria-label="promo.aria">
     <div class="promo-popup__panel">
-      <button type="button" class="promo-popup__close" id="promoPopupClose" aria-label="Chiudi">&times;</button>
+      <button type="button" class="promo-popup__close" id="promoPopupClose" aria-label="Chiudi" data-i18n-aria-label="common.close">&times;</button>
       <div class="promo-popup__media">
         <img src="/selezione/images/kombucha-mix-4-gusti/01.png" alt="Selezione Kombucha Kelūa">
       </div>
       <div class="promo-popup__body">
-        <span class="promo-popup__eyebrow">Prelancio Kelūa</span>
-        <h2 class="promo-popup__title">Sei arrivato al momento giusto.</h2>
-        <p class="promo-popup__text">La nostra Kombucha sta per arrivare. Preordinala in anteprima e ricevi il 10% di sconto: il nostro modo per dare il benvenuto a chi ci scopre adesso.</p>
+        <span class="promo-popup__eyebrow" data-i18n="promo.eyebrow">Prelancio Kelūa</span>
+        <h2 class="promo-popup__title" data-i18n="promo.title">Sei arrivato al momento giusto.</h2>
+        <p class="promo-popup__text" data-i18n="promo.text">La nostra Kombucha sta per arrivare. Preordinala in anteprima e ricevi il 10% di sconto: il nostro modo per dare il benvenuto a chi ci scopre adesso.</p>
         <div class="promo-popup__code">
           <span class="promo-popup__code-value" id="promoCodeValue">PREKOMBUCHA10</span>
-          <button type="button" class="promo-popup__code-copy" id="promoCodeCopy">Copia codice</button>
+          <button type="button" class="promo-popup__code-copy" id="promoCodeCopy" data-i18n="promo.copyCode">Copia codice</button>
         </div>
-        <a href="/selezione.html" class="promo-popup__cta" id="promoPopupCta">Preordina ora →</a>
-        <p class="promo-popup__note">Inserisci il codice al checkout per applicare lo sconto.</p>
+        <a href="/selezione.html" class="promo-popup__cta" id="promoPopupCta" data-i18n="promo.cta">Preordina ora →</a>
+        <p class="promo-popup__note" data-i18n="promo.note">Inserisci il codice al checkout per applicare lo sconto.</p>
       </div>
     </div>
   </div>
@@ -4163,10 +4207,10 @@
     copyBtn.addEventListener('click', function () {
       var text = codeValue.textContent.trim();
       function done() {
-        copyBtn.textContent = 'Copiato \u2713';
+        copyBtn.textContent = window.keluaT ? window.keluaT('promo.copied') : 'Copiato \u2713';
         copyBtn.classList.add('is-copied');
         setTimeout(function () {
-          copyBtn.textContent = 'Copia codice';
+          copyBtn.textContent = window.keluaT ? window.keluaT('promo.copyCode') : 'Copia codice';
           copyBtn.classList.remove('is-copied');
         }, 1600);
       }
@@ -4181,10 +4225,10 @@
 
   <!-- ═══ MARQUEE ═══════════════════════════════════════════════ -->
   <div class="marquee" aria-hidden="false">
-    <a href="../selezione.html" class="marquee__link" aria-label="La nostra Kombucha sta arrivando — preordina ora, vai alla Selezione">
+    <a href="../selezione.html" class="marquee__link" aria-label="La nostra Kombucha sta arrivando — preordina ora, vai alla Selezione" data-i18n-aria-label="marquee.linkAria">
       <div class="marquee__track">
-        <div class="marquee__group"><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span></div>
-        <div class="marquee__group" aria-hidden="true"><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span></div>
+        <div class="marquee__group"><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span></div>
+        <div class="marquee__group" aria-hidden="true"><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span></div>
       </div>
     </a>
   </div>
@@ -4193,7 +4237,7 @@
   <nav class="nav" role="navigation" aria-label="Navigazione principale">
     <div class="nav__inner">
 
-      <a href="../index.html" class="nav__logo" aria-label="Kelūa — torna alla home">
+      <a href="../index.html" class="nav__logo" aria-label="Kelūa — torna alla home" data-i18n-aria-label="cookiepolicy.nav.logoAria">
         <img src="../logo/logo.svg" alt="Kelūa" />
       </a>
 
@@ -4204,22 +4248,9 @@
       </ul>
 
       <div class="nav__right">
-        <a href="../index.html#partnership" class="nav__collab">Vuoi Collaborare?</a>
-        <a href="https://instagram.com/kelua_ritual" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelūa">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <circle cx="12" cy="12" r="4.5"/>
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-          </svg>
-        </a>
-        <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelūa">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.2-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/>
-            <path d="M17.47 14.83c-.28-.14-1.64-.81-1.9-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" fill="var(--bg)" stroke="none"/>
-          </svg>
-        </a>
+        <a href="../index.html#partnership" class="nav__collab" data-i18n="nav.collab">Vuoi Collaborare?</a>
         <div class="nav__cart-wrap">
-          <button type="button" class="nav__social nav__cart" id="navCartToggle" aria-label="Carrello" aria-haspopup="true">
+          <button type="button" class="nav__social nav__cart" id="navCartToggle" aria-label="Carrello" aria-haspopup="true" data-i18n-aria-label="nav.cartAria">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="9" cy="21" r="1"/>
               <circle cx="20" cy="21" r="1"/>
@@ -4228,12 +4259,12 @@
             <span class="nav__cart-count" id="navCartCount" hidden>0</span>
           </button>
           <div class="nav__cart-empty" id="navCartEmpty" hidden role="dialog" aria-label="Carrello vuoto">
-            <p>Il tuo carrello è vuoto.</p>
-            <a href="../selezione.html">Scopri la nostra selezione →</a>
+            <p data-i18n="nav.cartEmpty">Il tuo carrello è vuoto.</p>
+            <a href="../selezione.html" data-i18n="nav.cartDiscover">Scopri la nostra selezione →</a>
           </div>
         </div>
         <div class="nav__search-wrap">
-          <button type="button" class="nav__social nav__search" id="navSearchToggle" aria-label="Cerca" aria-haspopup="true">
+          <button type="button" class="nav__social nav__search" id="navSearchToggle" aria-label="Cerca" aria-haspopup="true" data-i18n-aria-label="nav.searchAria">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="11" cy="11" r="7"/>
               <path d="M21 21l-4.35-4.35"/>
@@ -4245,15 +4276,33 @@
                 <circle cx="11" cy="11" r="7"/>
                 <path d="M21 21l-4.35-4.35"/>
               </svg>
-              <input type="text" id="navSearchInput" placeholder="Cerca prodotti, pratiche, eventi…" autocomplete="off">
+              <input type="text" id="navSearchInput" placeholder="Cerca prodotti, pratiche, eventi…" autocomplete="off" data-i18n-placeholder="nav.searchPlaceholder">
             </div>
             <div class="nav__search-results" id="navSearchResults"></div>
           </div>
         </div>
-        <a href="../index.html#community" class="nav__join">Entra nella Community</a>
+        <a href="https://instagram.com/kelua_ritual" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelūa" data-i18n-aria-label="nav.instagramAria">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelūa" data-i18n-aria-label="nav.whatsappAria">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.2-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/>
+            <path d="M17.47 14.83c-.28-.14-1.64-.81-1.9-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" fill="var(--bg)" stroke="none"/>
+          </svg>
+        </a>
+        <div class="lang-toggle nav__lang" role="group" aria-label="Cambia lingua / Change language">
+          <button type="button" data-lang-toggle="it">IT</button>
+          <span class="lang-toggle__divider">/</span>
+          <button type="button" data-lang-toggle="en">EN</button>
+        </div>
+        <a href="../index.html#community" class="nav__join" data-i18n="nav.join">Entra nella Community</a>
       </div>
 
-      <button class="nav__hamburger" aria-label="Apri menu" aria-expanded="false" id="hamburger">
+      <button class="nav__hamburger" aria-label="Apri menu" aria-expanded="false" id="hamburger" data-i18n-aria-label="nav.openMenuAria">
         <span></span>
         <span></span>
         <span></span>
@@ -4264,21 +4313,26 @@
 
   <!-- Mobile menu -->
   <div class="nav__mobile" id="mobileMenu" aria-hidden="true">
+    <div class="nav__mobile-lang lang-toggle" role="group" aria-label="Cambia lingua / Change language">
+      <button type="button" data-lang-toggle="it">IT</button>
+      <span class="lang-toggle__divider">/</span>
+      <button type="button" data-lang-toggle="en">EN</button>
+    </div>
     <ul>
       <li><a href="../rituals.html">Rituals</a></li>
       <li><a href="../flow.html">Flow</a></li>
       <li><a href="../essence.html">Essence</a></li>
-      <li><a href="../index.html#partnership">Vuoi Collaborare?</a></li>
-      <li><a href="../index.html#community">Entra nella Community</a></li>
+      <li><a href="../index.html#partnership" data-i18n="nav.collab">Vuoi Collaborare?</a></li>
+      <li><a href="../index.html#community" data-i18n="nav.join">Entra nella Community</a></li>
     </ul>
   </div>
 
   <section class="legal">
     <div class="legal__inner">
-      <span class="legal__eyebrow">Documenti legali</span>
-      <h1 class="legal__title">Cookie Policy</h1>
-      <p class="legal__subtitle">Informativa su cookie e altri strumenti di tracciamento utilizzati su www.kelua.it.</p>
-    <div class="legal__card">
+      <span class="legal__eyebrow" data-i18n="cookiepolicy.eyebrow">Documenti legali</span>
+      <h1 class="legal__title" data-i18n="cookiepolicy.title">Cookie Policy</h1>
+      <p class="legal__subtitle" data-i18n="cookiepolicy.subtitle">Informativa su cookie e altri strumenti di tracciamento utilizzati su www.kelua.it.</p>
+    <div class="legal__card" data-i18n-html="cookiepolicy.card">
       KELUA S.R.L.<br>
       Via Nicola Ricciotti 11, 00195 Roma (RM), Italia<br>
       C.F. / P. IVA 18458781004 · REA RM - 1785846<br>
@@ -4286,39 +4340,39 @@
       Capitale sociale: € 10.000,00 sottoscritto
     </div>
     <div class="legal__body">
-      <h2>1. Cosa sono i cookie</h2>
-      <p>I cookie sono piccoli file o informazioni che possono essere memorizzati sul dispositivo dell'utente durante la navigazione. Regole analoghe possono applicarsi ad altri strumenti di tracciamento, quali pixel, local storage, SDK e tecnologie equivalenti.</p>
-      <h2>2. Categorie utilizzate</h2>
-      <h3>Cookie e strumenti strettamente necessari</h3>
-      <p>Sono utilizzati per funzioni indispensabili richieste dall'utente, quali sicurezza, gestione delle preferenze privacy, sessione, carrello, checkout, autenticazione o altre funzioni tecniche necessarie. Quando ricorrono i presupposti di legge, non richiedono consenso preventivo.</p>
-      <h3>Cookie analitici</h3>
-      <p>Possono essere utilizzati per misurare l'utilizzo del sito e migliorarne prestazioni e contenuti. Quando non ricorrono le condizioni che consentono di considerarli equivalenti ai tecnici, vengono attivati soltanto dopo il consenso dell'utente.</p>
-      <h3>Cookie di funzionalità</h3>
-      <p>Consentono funzioni aggiuntive o personalizzazioni non strettamente indispensabili. Se richiedono consenso, restano disattivati fino alla relativa scelta dell'utente.</p>
-      <h3>Cookie pubblicitari e di profilazione</h3>
-      <p>Possono essere utilizzati per misurare campagne, creare pubblici o mostrare comunicazioni personalizzate. Sono attivati esclusivamente dopo il consenso dell'utente.</p>
-      <h2>3. Impostazioni predefinite</h2>
-      <p>Al primo accesso, il sito non deve installare né utilizzare strumenti di tracciamento diversi da quelli strettamente necessari prima che l'utente abbia espresso una scelta valida. La chiusura del banner o il rifiuto mantiene disattivati gli strumenti facoltativi.</p>
-      <h2>4. Banner e gestione del consenso</h2>
-      <p>Quando sono presenti strumenti facoltativi, il banner consente all'utente di rifiutarli, accettarli o personalizzare le preferenze per categoria. I comandi devono essere chiari e facilmente utilizzabili, senza preselezioni che implichino consenso.</p>
-      <p>La scelta viene registrata in modo da poter dimostrare il consenso quando necessario. Le preferenze possono essere modificate o revocate in qualsiasi momento tramite il comando permanente “Gestisci cookie” disponibile sul sito.</p>
-      <h2>5. Elenco aggiornato dei cookie e delle terze parti</h2>
-      <p>L'elenco effettivo e aggiornato degli strumenti installati, con nome, fornitore, categoria, finalità e durata, è disponibile nel pannello “Gestisci cookie”. Tale elenco costituisce parte integrante della presente Cookie Policy e deve essere aggiornato ogni volta che vengono aggiunti, rimossi o modificati servizi di tracciamento.</p>
-      <h2>6. Servizi di terzi</h2>
-      <p>Alcune funzionalità possono essere erogate da fornitori esterni, ad esempio servizi e-commerce, pagamento, analytics, advertising, video, mappe, newsletter o assistenza. Se tali servizi utilizzano strumenti non strettamente necessari, il loro caricamento deve essere subordinato alla categoria di consenso pertinente.</p>
-      <h2>7. Durata e rinnovo della scelta</h2>
-      <p>La durata dei singoli cookie è indicata nel pannello delle preferenze. La richiesta di consenso non viene riproposta in modo ingiustificato dopo un rifiuto, salvo che siano mutate significativamente le condizioni del trattamento, sia impossibile sapere se un cookie sia già memorizzato sul dispositivo o sia trascorso il periodo previsto dalle indicazioni dell'Autorità garante.</p>
-      <h2>8. Browser</h2>
-      <p>L'utente può anche gestire o cancellare i cookie attraverso le impostazioni del proprio browser. La disabilitazione dei cookie strettamente necessari può tuttavia impedire il corretto funzionamento di alcune funzioni richieste, come carrello o checkout.</p>
-      <h2>9. Titolare e diritti</h2>
-      <p>Il Titolare del trattamento è KELUA S.R.L., Via Nicola Ricciotti 11, 00195 Roma (RM), Italia. Per esercitare i diritti privacy o ricevere informazioni: info@kelua.it – PEC kelua@legalmail.it. Per ulteriori dettagli si rinvia alla Privacy Policy.</p>
-      <h2>10. Aggiornamenti</h2>
-      <p>La presente Cookie Policy viene aggiornata in caso di modifiche ai servizi utilizzati o alla normativa applicabile. La versione vigente è quella pubblicata sul sito.</p>
-      <h2>Riferimenti normativi principali</h2>
+      <h2 data-i18n="cookiepolicy.section1.title">1. Cosa sono i cookie</h2>
+      <p data-i18n="cookiepolicy.section1.body">I cookie sono piccoli file o informazioni che possono essere memorizzati sul dispositivo dell'utente durante la navigazione. Regole analoghe possono applicarsi ad altri strumenti di tracciamento, quali pixel, local storage, SDK e tecnologie equivalenti.</p>
+      <h2 data-i18n="cookiepolicy.section2.title">2. Categorie utilizzate</h2>
+      <h3 data-i18n="cookiepolicy.section2.necessaryTitle">Cookie e strumenti strettamente necessari</h3>
+      <p data-i18n="cookiepolicy.section2.necessaryBody">Sono utilizzati per funzioni indispensabili richieste dall'utente, quali sicurezza, gestione delle preferenze privacy, sessione, carrello, checkout, autenticazione o altre funzioni tecniche necessarie. Quando ricorrono i presupposti di legge, non richiedono consenso preventivo.</p>
+      <h3 data-i18n="cookiepolicy.section2.analyticsTitle">Cookie analitici</h3>
+      <p data-i18n="cookiepolicy.section2.analyticsBody">Possono essere utilizzati per misurare l'utilizzo del sito e migliorarne prestazioni e contenuti. Quando non ricorrono le condizioni che consentono di considerarli equivalenti ai tecnici, vengono attivati soltanto dopo il consenso dell'utente.</p>
+      <h3 data-i18n="cookiepolicy.section2.functionalityTitle">Cookie di funzionalità</h3>
+      <p data-i18n="cookiepolicy.section2.functionalityBody">Consentono funzioni aggiuntive o personalizzazioni non strettamente indispensabili. Se richiedono consenso, restano disattivati fino alla relativa scelta dell'utente.</p>
+      <h3 data-i18n="cookiepolicy.section2.advertisingTitle">Cookie pubblicitari e di profilazione</h3>
+      <p data-i18n="cookiepolicy.section2.advertisingBody">Possono essere utilizzati per misurare campagne, creare pubblici o mostrare comunicazioni personalizzate. Sono attivati esclusivamente dopo il consenso dell'utente.</p>
+      <h2 data-i18n="cookiepolicy.section3.title">3. Impostazioni predefinite</h2>
+      <p data-i18n="cookiepolicy.section3.body">Al primo accesso, il sito non deve installare né utilizzare strumenti di tracciamento diversi da quelli strettamente necessari prima che l'utente abbia espresso una scelta valida. La chiusura del banner o il rifiuto mantiene disattivati gli strumenti facoltativi.</p>
+      <h2 data-i18n="cookiepolicy.section4.title">4. Banner e gestione del consenso</h2>
+      <p data-i18n="cookiepolicy.section4.p1">Quando sono presenti strumenti facoltativi, il banner consente all'utente di rifiutarli, accettarli o personalizzare le preferenze per categoria. I comandi devono essere chiari e facilmente utilizzabili, senza preselezioni che implichino consenso.</p>
+      <p data-i18n="cookiepolicy.section4.p2">La scelta viene registrata in modo da poter dimostrare il consenso quando necessario. Le preferenze possono essere modificate o revocate in qualsiasi momento tramite il comando permanente “Gestisci cookie” disponibile sul sito.</p>
+      <h2 data-i18n="cookiepolicy.section5.title">5. Elenco aggiornato dei cookie e delle terze parti</h2>
+      <p data-i18n="cookiepolicy.section5.body">L'elenco effettivo e aggiornato degli strumenti installati, con nome, fornitore, categoria, finalità e durata, è disponibile nel pannello “Gestisci cookie”. Tale elenco costituisce parte integrante della presente Cookie Policy e deve essere aggiornato ogni volta che vengono aggiunti, rimossi o modificati servizi di tracciamento.</p>
+      <h2 data-i18n="cookiepolicy.section6.title">6. Servizi di terzi</h2>
+      <p data-i18n="cookiepolicy.section6.body">Alcune funzionalità possono essere erogate da fornitori esterni, ad esempio servizi e-commerce, pagamento, analytics, advertising, video, mappe, newsletter o assistenza. Se tali servizi utilizzano strumenti non strettamente necessari, il loro caricamento deve essere subordinato alla categoria di consenso pertinente.</p>
+      <h2 data-i18n="cookiepolicy.section7.title">7. Durata e rinnovo della scelta</h2>
+      <p data-i18n="cookiepolicy.section7.body">La durata dei singoli cookie è indicata nel pannello delle preferenze. La richiesta di consenso non viene riproposta in modo ingiustificato dopo un rifiuto, salvo che siano mutate significativamente le condizioni del trattamento, sia impossibile sapere se un cookie sia già memorizzato sul dispositivo o sia trascorso il periodo previsto dalle indicazioni dell'Autorità garante.</p>
+      <h2 data-i18n="cookiepolicy.section8.title">8. Browser</h2>
+      <p data-i18n="cookiepolicy.section8.body">L'utente può anche gestire o cancellare i cookie attraverso le impostazioni del proprio browser. La disabilitazione dei cookie strettamente necessari può tuttavia impedire il corretto funzionamento di alcune funzioni richieste, come carrello o checkout.</p>
+      <h2 data-i18n="cookiepolicy.section9.title">9. Titolare e diritti</h2>
+      <p data-i18n="cookiepolicy.section9.body">Il Titolare del trattamento è KELUA S.R.L., Via Nicola Ricciotti 11, 00195 Roma (RM), Italia. Per esercitare i diritti privacy o ricevere informazioni: info@kelua.it – PEC kelua@legalmail.it. Per ulteriori dettagli si rinvia alla Privacy Policy.</p>
+      <h2 data-i18n="cookiepolicy.section10.title">10. Aggiornamenti</h2>
+      <p data-i18n="cookiepolicy.section10.body">La presente Cookie Policy viene aggiornata in caso di modifiche ai servizi utilizzati o alla normativa applicabile. La versione vigente è quella pubblicata sul sito.</p>
+      <h2 data-i18n="cookiepolicy.references.title">Riferimenti normativi principali</h2>
     </div>    <div class="legal__notes">
-      <p>Art. 122 D.Lgs. 196/2003 (Codice in materia di protezione dei dati personali).</p>
-      <p>Regolamento (UE) 2016/679 (GDPR), in particolare artt. 4(11), 7, 12-13 e 25.</p>
-      <p>Garante per la protezione dei dati personali, Linee guida cookie e altri strumenti di tracciamento del 10 giugno 2021.</p>
+      <p data-i18n="cookiepolicy.references.ref1">Art. 122 D.Lgs. 196/2003 (Codice in materia di protezione dei dati personali).</p>
+      <p data-i18n="cookiepolicy.references.ref2">Regolamento (UE) 2016/679 (GDPR), in particolare artt. 4(11), 7, 12-13 e 25.</p>
+      <p data-i18n="cookiepolicy.references.ref3">Garante per la protezione dei dati personali, Linee guida cookie e altri strumenti di tracciamento del 10 giugno 2021.</p>
     </div>
     </div>
   </section>
@@ -4330,11 +4384,11 @@
         <div class="footer__logo">
           <img src="../logo/logo.svg" alt="Kelūa" />
         </div>
-        <p class="footer__tagline">Uno spazio che evolve con chi lo attraversa.</p>
+        <p class="footer__tagline" data-i18n="footer.tagline">Uno spazio che evolve con chi lo attraversa.</p>
       </div>
 
-      <nav aria-label="Esplora">
-        <div class="footer__col-title">Esplora</div>
+      <nav aria-label="Esplora" data-i18n-aria-label="footer.exploreAria">
+        <div class="footer__col-title" data-i18n="footer.explore">Esplora</div>
         <div class="footer__col-links">
           <a href="../rituals.html">Rituals</a>
           <a href="../flow.html">Flow</a>
@@ -4342,25 +4396,25 @@
         </div>
       </nav>
 
-      <nav aria-label="Spazio">
-        <div class="footer__col-title">Spazio</div>
+      <nav aria-label="Spazio" data-i18n-aria-label="footer.spaceAria">
+        <div class="footer__col-title" data-i18n="footer.space">Spazio</div>
         <div class="footer__col-links">
-          <a href="../index.html#partnership">Contatti</a>
+          <a href="../index.html#partnership" data-i18n="footer.contact">Contatti</a>
           <a href="../index.html#community">Community</a>
         </div>
       </nav>
 
       <div>
-        <div class="footer__col-title">Seguici</div>
+        <div class="footer__col-title" data-i18n="footer.follow">Seguici</div>
         <div class="footer__social">
-          <a href="https://instagram.com/kelua_ritual" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelūa">
+          <a href="https://instagram.com/kelua_ritual" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelūa" data-i18n-aria-label="nav.instagramAria">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="5"/>
               <circle cx="12" cy="12" r="4"/>
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
             </svg>
           </a>
-          <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelūa">
+          <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelūa" data-i18n-aria-label="nav.whatsappAria">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 20l1.4-4.2A8 8 0 1 1 8.2 18.6L4 20z"/>
               <path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/>
@@ -4376,12 +4430,12 @@
         <a href="../privacy-policy/">Privacy Policy</a>
         <a href="../cookie-policy/">Cookie Policy</a>
         <a href="../termini-condizioni/">Terms &amp; Conditions</a>
-        <a href="../spedizioni-resi/">Spedizioni &amp; Resi</a>
-        <a href="../contatti/">Contatti</a>
-        <button type="button" data-open-cookie-preferences>Gestisci cookie</button>
+        <a href="../spedizioni-resi/" data-i18n="footer.shipping">Spedizioni &amp; Resi</a>
+        <a href="../contatti/" data-i18n="footer.contact">Contatti</a>
+        <button type="button" data-open-cookie-preferences data-i18n="footer.manageCookies">Gestisci cookie</button>
       </div>
       <div class="footer__copy">
-        <span>© 2026 KELUA S.R.L. · Tutti i diritti riservati</span>
+        <span data-i18n="footer.copyright">© 2026 KELUA S.R.L. · Tutti i diritti riservati</span>
         <span>info@kelua.it</span>
       </div>
       <p class="footer__legalinfo">KELUA S.R.L. · P. IVA 18458781004 · REA RM-1785846 · Via Nicola Ricciotti 11, 00195 Roma · <a href="mailto:info@kelua.it">info@kelua.it</a></p>
@@ -4389,29 +4443,29 @@
   </footer>
 
   <!-- ═══ COOKIE CONSENT ═══════════════════════════════════════ -->
-  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Preferenze cookie">
-    <p class="cookie-banner__text">
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Preferenze cookie" data-i18n-aria-label="cookie.bannerAria">
+    <p class="cookie-banner__text" data-i18n-html="cookie.bannerText">
       Usiamo cookie tecnici necessari al funzionamento del sito e, solo previo consenso, cookie analitici, di funzionalità e di profilazione. Puoi accettare, rifiutare o personalizzare le scelte in qualsiasi momento da "Gestisci cookie" in fondo alla pagina. Leggi la <a href="../cookie-policy/">Cookie Policy</a>.
     </p>
     <div class="cookie-banner__actions">
-      <button type="button" class="cookie-banner__reject" id="cookieRejectAll">Rifiuta</button>
-      <button type="button" class="cookie-banner__customize" id="cookieCustomize">Personalizza</button>
-      <button type="button" class="cookie-banner__accept" id="cookieAcceptAll">Accetta tutti</button>
+      <button type="button" class="cookie-banner__reject" id="cookieRejectAll" data-i18n="cookie.reject">Rifiuta</button>
+      <button type="button" class="cookie-banner__customize" id="cookieCustomize" data-i18n="cookie.customize">Personalizza</button>
+      <button type="button" class="cookie-banner__accept" id="cookieAcceptAll" data-i18n="cookie.acceptAll">Accetta tutti</button>
     </div>
   </div>
 
-  <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" aria-label="Gestisci preferenze cookie">
+  <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" aria-label="Gestisci preferenze cookie" data-i18n-aria-label="cookie.modalAria">
     <div class="cookie-modal__panel">
       <div class="cookie-modal__head">
-        <h2 class="cookie-modal__title">Preferenze cookie</h2>
-        <button type="button" class="cookie-modal__close" id="cookieModalClose" aria-label="Chiudi">×</button>
+        <h2 class="cookie-modal__title" data-i18n="cookie.modalTitle">Preferenze cookie</h2>
+        <button type="button" class="cookie-modal__close" id="cookieModalClose" aria-label="Chiudi" data-i18n-aria-label="common.close">×</button>
       </div>
-      <p class="cookie-modal__intro">Scegli quali categorie di cookie e strumenti di tracciamento autorizzare. I cookie strettamente necessari non possono essere disattivati. Dettagli nella <a href="../cookie-policy/">Cookie Policy</a>.</p>
+      <p class="cookie-modal__intro" data-i18n-html="cookie.modalIntro">Scegli quali categorie di cookie e strumenti di tracciamento autorizzare. I cookie strettamente necessari non possono essere disattivati. Dettagli nella <a href="../cookie-policy/">Cookie Policy</a>.</p>
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Strettamente necessari</div>
-          <p class="cookie-category__desc">Indispensabili per sicurezza, sessione, carrello, checkout e altre funzioni tecniche richieste. Sempre attivi.</p>
+          <div class="cookie-category__name" data-i18n="cookie.necessaryName">Strettamente necessari</div>
+          <p class="cookie-category__desc" data-i18n="cookie.necessaryDesc">Indispensabili per sicurezza, sessione, carrello, checkout e altre funzioni tecniche richieste. Sempre attivi.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" checked disabled>
@@ -4421,8 +4475,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Analitici</div>
-          <p class="cookie-category__desc">Misurano l'utilizzo del sito per migliorarne prestazioni e contenuti.</p>
+          <div class="cookie-category__name" data-i18n="cookie.analyticsName">Analitici</div>
+          <p class="cookie-category__desc" data-i18n="cookie.analyticsDesc">Misurano l'utilizzo del sito per migliorarne prestazioni e contenuti.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieAnalytics">
@@ -4432,8 +4486,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Funzionalità</div>
-          <p class="cookie-category__desc">Abilitano funzioni aggiuntive e personalizzazioni non indispensabili.</p>
+          <div class="cookie-category__name" data-i18n="cookie.functionalityName">Funzionalità</div>
+          <p class="cookie-category__desc" data-i18n="cookie.functionalityDesc">Abilitano funzioni aggiuntive e personalizzazioni non indispensabili.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieFunctionality">
@@ -4443,8 +4497,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Pubblicitari e di profilazione</div>
-          <p class="cookie-category__desc">Usati per misurare campagne o mostrare comunicazioni personalizzate.</p>
+          <div class="cookie-category__name" data-i18n="cookie.advertisingName">Pubblicitari e di profilazione</div>
+          <p class="cookie-category__desc" data-i18n="cookie.advertisingDesc">Usati per misurare campagne o mostrare comunicazioni personalizzate.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieAdvertising">
@@ -4453,9 +4507,9 @@
       </div>
 
       <div class="cookie-modal__actions">
-        <button type="button" class="cookie-modal__reject-all" id="cookieModalRejectAll">Rifiuta tutti</button>
-        <button type="button" class="cookie-modal__accept-all" id="cookieModalAcceptAll">Accetta tutti</button>
-        <button type="button" class="cookie-modal__save" id="cookieModalSave">Salva preferenze</button>
+        <button type="button" class="cookie-modal__reject-all" id="cookieModalRejectAll" data-i18n="cookie.rejectAll">Rifiuta tutti</button>
+        <button type="button" class="cookie-modal__accept-all" id="cookieModalAcceptAll" data-i18n="cookie.acceptAll">Accetta tutti</button>
+        <button type="button" class="cookie-modal__save" id="cookieModalSave" data-i18n="cookie.save">Salva preferenze</button>
       </div>
     </div>
   </div>
@@ -4772,5 +4826,7 @@
     });
   })();
   </script>
+  <script src="../i18n.js?v=1"></script>
+  <script src="../i18n-cookiepolicy.js?v=1"></script>
 </body>
 </html>

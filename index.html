@@ -233,6 +233,49 @@
       transform: translateY(-1px);
     }
 
+    /* Language toggle (IT / EN) */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .lang-toggle button {
+      background: none;
+      border: none;
+      padding: 0.15rem 0.15rem;
+      cursor: pointer;
+      font-family: var(--font-body);
+      color: var(--text);
+      opacity: 0.5;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-toggle button:hover { opacity: 0.9; }
+
+    .lang-toggle button.is-active {
+      opacity: 1;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .lang-toggle__divider {
+      opacity: 0.3;
+      font-size: 0.7rem;
+    }
+
+    .nav__mobile-lang {
+      margin-bottom: 1.2rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid rgba(174, 183, 161, 0.25);
+    }
+
+    .nav__mobile-lang .lang-toggle button { font-size: 0.8rem; }
+
     @media (max-width: 900px) {
       .nav__collab, .nav__join { display: none; }
     }
@@ -694,6 +737,7 @@
     @media (max-width: 768px) {
       .nav__links       { display: none; }
       .nav__hamburger   { display: flex; }
+      .nav__lang        { display: none; }
 
       /* Mobile nav: logo a sinistra · icone social al centro · burger a destra */
       .nav__inner {
@@ -2649,22 +2693,22 @@
 <body>
 
   <!-- ═══ POPUP — PREORDINE PRELANCIO ═══════════════════════════ -->
-  <div class="promo-popup" id="promoPopup" role="dialog" aria-modal="true" aria-label="Offerta di prelancio">
+  <div class="promo-popup" id="promoPopup" role="dialog" aria-modal="true" data-i18n-aria-label="promo.aria" aria-label="Offerta di prelancio">
     <div class="promo-popup__panel">
-      <button type="button" class="promo-popup__close" id="promoPopupClose" aria-label="Chiudi">&times;</button>
+      <button type="button" class="promo-popup__close" id="promoPopupClose" data-i18n-aria-label="common.close" aria-label="Chiudi">&times;</button>
       <div class="promo-popup__media">
         <img src="/selezione/images/kombucha-mix-4-gusti/01.png" alt="Selezione Kombucha Kelūa">
       </div>
       <div class="promo-popup__body">
-        <span class="promo-popup__eyebrow">Prelancio Kelūa</span>
-        <h2 class="promo-popup__title">Sei arrivato al momento giusto.</h2>
-        <p class="promo-popup__text">La nostra Kombucha sta per arrivare. Preordinala in anteprima e ricevi il 10% di sconto: il nostro modo per dare il benvenuto a chi ci scopre adesso.</p>
+        <span class="promo-popup__eyebrow" data-i18n="promo.eyebrow">Prelancio Kelūa</span>
+        <h2 class="promo-popup__title" data-i18n="promo.title">Sei arrivato al momento giusto.</h2>
+        <p class="promo-popup__text" data-i18n="promo.text">La nostra Kombucha sta per arrivare. Preordinala in anteprima e ricevi il 10% di sconto: il nostro modo per dare il benvenuto a chi ci scopre adesso.</p>
         <div class="promo-popup__code">
           <span class="promo-popup__code-value" id="promoCodeValue">PREKOMBUCHA10</span>
-          <button type="button" class="promo-popup__code-copy" id="promoCodeCopy">Copia codice</button>
+          <button type="button" class="promo-popup__code-copy" id="promoCodeCopy" data-i18n="promo.copyCode">Copia codice</button>
         </div>
-        <a href="/selezione.html" class="promo-popup__cta" id="promoPopupCta">Preordina ora →</a>
-        <p class="promo-popup__note">Inserisci il codice al checkout per applicare lo sconto.</p>
+        <a href="/selezione.html" class="promo-popup__cta" id="promoPopupCta" data-i18n="promo.cta">Preordina ora →</a>
+        <p class="promo-popup__note" data-i18n="promo.note">Inserisci il codice al checkout per applicare lo sconto.</p>
       </div>
     </div>
   </div>
@@ -2719,10 +2763,10 @@
     copyBtn.addEventListener('click', function () {
       var text = codeValue.textContent.trim();
       function done() {
-        copyBtn.textContent = 'Copiato \u2713';
+        copyBtn.textContent = window.keluaT ? window.keluaT('promo.copied') : 'Copiato \u2713';
         copyBtn.classList.add('is-copied');
         setTimeout(function () {
-          copyBtn.textContent = 'Copia codice';
+          copyBtn.textContent = window.keluaT ? window.keluaT('promo.copyCode') : 'Copia codice';
           copyBtn.classList.remove('is-copied');
         }, 1600);
       }
@@ -2737,10 +2781,10 @@
 
   <!-- ═══ MARQUEE ═══════════════════════════════════════════════ -->
   <div class="marquee" aria-hidden="false">
-    <a href="selezione.html" class="marquee__link" aria-label="La nostra Kombucha sta arrivando — preordina ora, vai alla Selezione">
+    <a href="selezione.html" class="marquee__link" data-i18n-aria-label="marquee.linkAria" aria-label="La nostra Kombucha sta arrivando — preordina ora, vai alla Selezione">
       <div class="marquee__track">
-        <div class="marquee__group"><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span></div>
-        <div class="marquee__group" aria-hidden="true"><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span><span>La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta">Preordina ora</span></div>
+        <div class="marquee__group"><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span></div>
+        <div class="marquee__group" aria-hidden="true"><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span><span data-i18n="marquee.text">La nostra Kombucha sta arrivando</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="marquee__cta" data-i18n="marquee.cta">Preordina ora</span></div>
       </div>
     </a>
   </div>
@@ -2749,7 +2793,7 @@
   <nav class="nav" role="navigation" aria-label="Navigazione principale">
     <div class="nav__inner">
 
-      <a href="#hero" class="nav__logo" aria-label="Kelūa — torna in cima">
+      <a href="#hero" class="nav__logo" data-i18n-aria-label="nav.logoAria" aria-label="Kelūa — torna in cima">
         <img src="logo/logo.svg" alt="Kelūa" />
       </a>
 
@@ -2760,22 +2804,9 @@
       </ul>
 
       <div class="nav__right">
-        <a href="#partnership" class="nav__collab">Vuoi Collaborare?</a>
-        <a href="https://instagram.com/kelua_ritual" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelūa">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <circle cx="12" cy="12" r="4.5"/>
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-          </svg>
-        </a>
-        <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="nav__social" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelūa">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.2-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/>
-            <path d="M17.47 14.83c-.28-.14-1.64-.81-1.9-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" fill="var(--bg)" stroke="none"/>
-          </svg>
-        </a>
+        <a href="#partnership" class="nav__collab" data-i18n="nav.collab">Vuoi Collaborare?</a>
         <div class="nav__cart-wrap">
-          <button type="button" class="nav__social nav__cart" id="navCartToggle" aria-label="Carrello" aria-haspopup="true">
+          <button type="button" class="nav__social nav__cart" id="navCartToggle" data-i18n-aria-label="nav.cartAria" aria-label="Carrello" aria-haspopup="true">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="9" cy="21" r="1"/>
               <circle cx="20" cy="21" r="1"/>
@@ -2784,12 +2815,12 @@
             <span class="nav__cart-count" id="navCartCount" hidden>0</span>
           </button>
           <div class="nav__cart-empty" id="navCartEmpty" hidden role="dialog" aria-label="Carrello vuoto">
-            <p>Il tuo carrello è vuoto.</p>
-            <a href="selezione.html">Scopri la nostra selezione →</a>
+            <p data-i18n="nav.cartEmpty">Il tuo carrello è vuoto.</p>
+            <a href="selezione.html" data-i18n="nav.cartDiscover">Scopri la nostra selezione →</a>
           </div>
         </div>
         <div class="nav__search-wrap">
-          <button type="button" class="nav__social nav__search" id="navSearchToggle" aria-label="Cerca" aria-haspopup="true">
+          <button type="button" class="nav__social nav__search" id="navSearchToggle" data-i18n-aria-label="nav.searchAria" aria-label="Cerca" aria-haspopup="true">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="11" cy="11" r="7"/>
               <path d="M21 21l-4.35-4.35"/>
@@ -2801,15 +2832,33 @@
                 <circle cx="11" cy="11" r="7"/>
                 <path d="M21 21l-4.35-4.35"/>
               </svg>
-              <input type="text" id="navSearchInput" placeholder="Cerca prodotti, pratiche, eventi…" autocomplete="off">
+              <input type="text" id="navSearchInput" data-i18n-placeholder="nav.searchPlaceholder" placeholder="Cerca prodotti, pratiche, eventi…" autocomplete="off">
             </div>
             <div class="nav__search-results" id="navSearchResults"></div>
           </div>
         </div>
-        <a href="#community" class="nav__join">Entra nella Community</a>
+        <a href="https://instagram.com/kelua_ritual" class="nav__social" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.instagramAria" aria-label="Instagram Kelūa">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" class="nav__social" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.whatsappAria" aria-label="Community WhatsApp Kelūa">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.2-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/>
+            <path d="M17.47 14.83c-.28-.14-1.64-.81-1.9-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.28-.96.94-.96 2.28 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" fill="var(--bg)" stroke="none"/>
+          </svg>
+        </a>
+        <div class="lang-toggle nav__lang" role="group" aria-label="Cambia lingua / Change language">
+          <button type="button" data-lang-toggle="it">IT</button>
+          <span class="lang-toggle__divider">/</span>
+          <button type="button" data-lang-toggle="en">EN</button>
+        </div>
+        <a href="#community" class="nav__join" data-i18n="nav.join">Entra nella Community</a>
       </div>
 
-      <button class="nav__hamburger" aria-label="Apri menu" aria-expanded="false" id="hamburger">
+      <button class="nav__hamburger" aria-label="Apri menu" data-i18n-aria-label="nav.openMenuAria" aria-expanded="false" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
@@ -2820,12 +2869,17 @@
 
   <!-- Mobile menu -->
   <div class="nav__mobile" id="mobileMenu" aria-hidden="true">
+    <div class="nav__mobile-lang lang-toggle" role="group" aria-label="Cambia lingua / Change language">
+      <button type="button" data-lang-toggle="it">IT</button>
+      <span class="lang-toggle__divider">/</span>
+      <button type="button" data-lang-toggle="en">EN</button>
+    </div>
     <ul>
       <li><a href="rituals.html">Rituals</a></li>
       <li><a href="flow.html">Flow</a></li>
       <li><a href="essence.html">Essence</a></li>
-      <li><a href="#partnership">Vuoi Collaborare?</a></li>
-      <li><a href="#community">Entra nella Community</a></li>
+      <li><a href="#partnership" data-i18n="nav.collab">Vuoi Collaborare?</a></li>
+      <li><a href="#community" data-i18n="nav.join">Entra nella Community</a></li>
     </ul>
   </div>
 
@@ -2834,7 +2888,7 @@
     <div class="hero-track" id="heroTrack">
 
       <!-- Slide 1: Brand -->
-      <div class="hero-slide hero-slide--main" aria-roledescription="slide" aria-label="1 di 2">
+      <div class="hero-slide hero-slide--main" aria-roledescription="slide" data-i18n-aria-label="hero.slide1Aria" aria-label="1 di 2">
 
         <div class="hero__bg" aria-hidden="true">
           <img
@@ -2857,24 +2911,24 @@
             <span class="hero__eyebrow-text">Rituals&nbsp;•&nbsp;Flow&nbsp;•&nbsp;Essence</span>
           </div>
 
-          <h1 class="hero__headline">
+          <h1 class="hero__headline" data-i18n-html="hero.headline">
             Kelūa trasforma il benessere contemporaneo in <em>rituali semplici</em>,
             concreti e vivibili ogni giorno.
           </h1>
 
           <div class="hero__divider" aria-hidden="true"></div>
 
-          <p class="hero__sub">
+          <p class="hero__sub" data-i18n-html="hero.sub">
             Non hai bisogno di più stimoli. Hai bisogno di più <em>allineamento.</em>
           </p>
 
           <div class="hero__ctas">
-            <a href="#community" class="hero__cta">
+            <a href="#community" class="hero__cta" data-i18n="hero.ctaCommunity">
               Entra nella community
             </a>
 
             <a href="rituals.html" class="hero__cta hero__cta--secondary">
-              Scopri la nostra selezione
+              <span data-i18n="hero.ctaDiscover">Scopri la nostra selezione</span>
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6"/>
               </svg>
@@ -2882,7 +2936,7 @@
           </div>
 
           <div class="hero__scroll" aria-hidden="true">
-            <span class="hero__scroll-label">Scorri</span>
+            <span class="hero__scroll-label" data-i18n="hero.scroll">Scorri</span>
             <div class="hero__scroll-line"></div>
           </div>
 
@@ -2890,7 +2944,7 @@
       </div>
 
       <!-- Slide 2: Selezione / Kombucha -->
-      <div class="hero-slide hero-slide--selection" aria-roledescription="slide" aria-label="2 di 2" aria-hidden="true">
+      <div class="hero-slide hero-slide--selection" aria-roledescription="slide" data-i18n-aria-label="hero.slide2Aria" aria-label="2 di 2" aria-hidden="true">
 
         <div class="hero__bg" aria-hidden="true">
           <img
@@ -2914,13 +2968,13 @@
               <span class="hero__eyebrow-text">Kelūa Selection</span>
             </div>
 
-            <h2 class="hero__headline">
+            <h2 class="hero__headline" data-i18n="hero.selectionHeadline">
               La tua Kombucha ti aspetta.
             </h2>
 
             <div class="hero__divider" aria-hidden="true"></div>
 
-            <p class="hero__sub">
+            <p class="hero__sub" data-i18n-html="hero.selectionSub">
               Fermentata in Brasile, senza calorie, mai banale. Preordina ora con il
               10% di sconto — codice <em>PREKOMBUCHA10</em>.
             </p>
@@ -2934,7 +2988,7 @@
             </div>
 
             <div class="hero__ctas">
-              <a href="selezione.html" class="hero__cta" tabindex="-1">
+              <a href="selezione.html" class="hero__cta" tabindex="-1" data-i18n="hero.selectionCta">
                 Scopri la Selezione
               </a>
             </div>
@@ -2945,27 +2999,27 @@
 
     </div>
 
-    <div class="hero-dots" role="tablist" aria-label="Naviga la hero">
-      <button type="button" class="hero-dot is-active" data-index="0" role="tab" aria-selected="true" aria-label="Vai alla slide 1"></button>
-      <button type="button" class="hero-dot" data-index="1" role="tab" aria-selected="false" aria-label="Vai alla slide 2"></button>
+    <div class="hero-dots" role="tablist" data-i18n-aria-label="hero.dotsAria" aria-label="Naviga la hero">
+      <button type="button" class="hero-dot is-active" data-index="0" role="tab" aria-selected="true" data-i18n-aria-label="hero.dot1Aria" aria-label="Vai alla slide 1"></button>
+      <button type="button" class="hero-dot" data-index="1" role="tab" aria-selected="false" data-i18n-aria-label="hero.dot2Aria" aria-label="Vai alla slide 2"></button>
     </div>
   </section>
 
 
   <!-- ═══ TRE DIMENSIONI ══════════════════════════════════════════ -->
-  <section class="dimensions" id="dimensioni" aria-label="Tre dimensioni. Un sistema.">
+  <section class="dimensions" id="dimensioni" data-i18n-aria-label="dimensions.aria" aria-label="Tre dimensioni. Un sistema.">
     <div class="dimensions__inner">
 
-      <h2 class="dimensions__title">Tre dimensioni.<br>Un sistema.</h2>
+      <h2 class="dimensions__title" data-i18n-html="dimensions.title">Tre dimensioni.<br>Un sistema.</h2>
 
       <div class="dimensions__list">
 
         <div class="dimensions__row reveal">
           <div class="dimensions__content">
             <span class="dimensions__label">01 — Rituals</span>
-            <h3 class="dimensions__heading">Ciò che scegli ogni giorno</h3>
-            <p class="dimensions__desc">Risorse, pratiche e prodotti selezionati con intenzione, per gesti quotidiani che hanno cura di te.</p>
-            <a href="rituals.html" class="dimensions__link">Scopri →</a>
+            <h3 class="dimensions__heading" data-i18n="dimensions.rituals.heading">Ciò che scegli ogni giorno</h3>
+            <p class="dimensions__desc" data-i18n="dimensions.rituals.desc">Risorse, pratiche e prodotti selezionati con intenzione, per gesti quotidiani che hanno cura di te.</p>
+            <a href="rituals.html" class="dimensions__link" data-i18n="common.discover">Scopri →</a>
           </div>
           <div class="dimensions__image" aria-hidden="true">
             <img src="images/site/rituals-hero.jpg" alt="" loading="lazy">
@@ -2975,9 +3029,9 @@
         <div class="dimensions__row dimensions__row--reverse reveal">
           <div class="dimensions__content">
             <span class="dimensions__label">02 — Flow</span>
-            <h3 class="dimensions__heading">Momenti da vivere insieme</h3>
-            <p class="dimensions__desc">Eventi, ritiri e workshop. Esperienze condivise che danno ritmo e respiro alla pratica.</p>
-            <a href="flow.html" class="dimensions__link">Scopri →</a>
+            <h3 class="dimensions__heading" data-i18n="dimensions.flow.heading">Momenti da vivere insieme</h3>
+            <p class="dimensions__desc" data-i18n="dimensions.flow.desc">Eventi, ritiri e workshop. Esperienze condivise che danno ritmo e respiro alla pratica.</p>
+            <a href="flow.html" class="dimensions__link" data-i18n="common.discover">Scopri →</a>
           </div>
           <div class="dimensions__image" aria-hidden="true">
             <img src="images/site/flow-hero.jpg" alt="" loading="lazy" style="object-position:center 85%">
@@ -2987,9 +3041,9 @@
         <div class="dimensions__row reveal">
           <div class="dimensions__content">
             <span class="dimensions__label">03 — Essence</span>
-            <h3 class="dimensions__heading">Comprendere, connettere</h3>
-            <p class="dimensions__desc">La filosofia, i valori e la visione che tengono insieme tutto. Il perché dietro ogni scelta Kelūa.</p>
-            <a href="essence.html" class="dimensions__link">Scopri →</a>
+            <h3 class="dimensions__heading" data-i18n="dimensions.essence.heading">Comprendere, connettere</h3>
+            <p class="dimensions__desc" data-i18n="dimensions.essence.desc">La filosofia, i valori e la visione che tengono insieme tutto. Il perché dietro ogni scelta Kelūa.</p>
+            <a href="essence.html" class="dimensions__link" data-i18n="common.discover">Scopri →</a>
           </div>
           <div class="dimensions__image" aria-hidden="true">
             <img src="images/site/essence-hero.jpg" alt="" loading="lazy">
@@ -3001,7 +3055,7 @@
   </section>
 
   <!-- ═══ COMMUNITY ════════════════════════════════════════════ -->
-  <section class="community" id="community" aria-label="Community">
+  <section class="community" id="community" data-i18n-aria-label="community.aria" aria-label="Community">
 
     <div class="community__bg" aria-hidden="true">
       <img src="COMMUNITY/PHOTO-2026-05-25-21-28-59 2.jpg" alt="" loading="lazy" decoding="async" />
@@ -3012,13 +3066,13 @@
 
       <span class="community__tag">Community</span>
 
-      <h2 class="community__title">Non sei l'unico<br>a cercare.</h2>
+      <h2 class="community__title" data-i18n-html="community.title">Non sei l'unico<br>a cercare.</h2>
 
       <div class="community__divider" aria-hidden="true"></div>
 
       <div class="community__body">
-        <p>E non devi farlo da solo.</p>
-        <p>Kelūa è uno spazio condiviso in cui ritrovare chiarezza, connessione e presenza.
+        <p data-i18n="community.body1">E non devi farlo da solo.</p>
+        <p data-i18n="community.body2">Kelūa è uno spazio condiviso in cui ritrovare chiarezza, connessione e presenza.
            Seguici su Instagram e unisciti alla nostra Community WhatsApp —
            per chi vuole vivere con più intenzione, senza uscire dalla realtà.</p>
       </div>
@@ -3029,6 +3083,7 @@
           class="community__instagram"
           target="_blank"
           rel="noopener noreferrer"
+          data-i18n-aria-label="community.instagramAria"
           aria-label="Seguici su Instagram @kelua_ritual"
         >
           <svg viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
@@ -3044,18 +3099,20 @@
           class="community__whatsapp"
           target="_blank"
           rel="noopener noreferrer"
+          data-i18n-aria-label="community.whatsappAria"
           aria-label="Entra nella Community WhatsApp Kelūa"
         >
           <svg viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
           </svg>
-          Community WhatsApp
+          <span data-i18n="community.whatsappLabel">Community WhatsApp</span>
         </a>
 
         <form
           class="community__newsletter-btn"
           id="communityNewsletterForm"
           novalidate
+          data-i18n-aria-label="community.newsletterFormAria"
           aria-label="Iscrizione rapida alla newsletter"
         >
           <svg viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
@@ -3067,16 +3124,18 @@
             type="email"
             id="community-nl-email"
             name="email"
+            data-i18n-placeholder="community.emailPlaceholder"
             placeholder="La tua email"
             required
             autocomplete="email"
+            data-i18n-aria-label="community.emailAria"
             aria-label="Il tuo indirizzo email"
           />
-          <button type="submit" aria-label="Iscriviti alla newsletter">→</button>
+          <button type="submit" data-i18n-aria-label="community.subscribeAria" aria-label="Iscriviti alla newsletter">→</button>
         </form>
       </div>
 
-      <span class="community__nl-confirm" id="communityNlConfirm" role="status" aria-live="polite">
+      <span class="community__nl-confirm" id="communityNlConfirm" role="status" aria-live="polite" data-i18n="community.nlConfirm">
         Grazie — ci vediamo in inbox.
       </span>
 
@@ -3084,20 +3143,20 @@
   </section>
 
   <!-- ═══ PARTNERSHIP ══════════════════════════════════════════ -->
-  <section class="partnership" id="partnership" aria-label="Partnership e B2B">
+  <section class="partnership" id="partnership" data-i18n-aria-label="partnership.aria" aria-label="Partnership e B2B">
     <div class="partnership__inner">
 
       <!-- Left: intro -->
       <div class="partnership__left">
         <span class="partnership__tag">Partnerships &amp; B2B</span>
-        <h2 class="partnership__title">Costruiamo<br>insieme.</h2>
+        <h2 class="partnership__title" data-i18n-html="partnership.title">Costruiamo<br>insieme.</h2>
         <div class="partnership__intro">
-          <p>Non stiamo solo distribuendo prodotti.<br>Stiamo costruendo un ecosistema.</p>
+          <p data-i18n-html="partnership.intro1">Non stiamo solo distribuendo prodotti.<br>Stiamo costruendo un ecosistema.</p>
           <br>
-          <p>Collaboriamo con spazi, brand ed esperienze in linea con la nostra visione.</p>
+          <p data-i18n="partnership.intro2">Collaboriamo con spazi, brand ed esperienze in linea con la nostra visione.</p>
         </div>
         <p class="partnership__contact-line">
-          Oppure scrivici direttamente a<br>
+          <span data-i18n="partnership.contactLine">Oppure scrivici direttamente a</span><br>
           <a href="mailto:info@kelua.it">info@kelua.it</a>
         </p>
       </div>
@@ -3106,17 +3165,18 @@
       <form
         class="partnership__form"
         id="partnershipForm"
+        data-i18n-aria-label="partnership.formAria"
         aria-label="Modulo di contatto Partnership"
         novalidate
       >
         <div class="form-row">
           <div class="form-field">
-            <label for="p-nome">Nome</label>
-            <input type="text" id="p-nome" name="nome" placeholder="Il tuo nome" required />
+            <label for="p-nome" data-i18n="partnership.labelName">Nome</label>
+            <input type="text" id="p-nome" name="nome" data-i18n-placeholder="partnership.placeholderName" placeholder="Il tuo nome" required />
           </div>
           <div class="form-field">
-            <label for="p-azienda">Azienda</label>
-            <input type="text" id="p-azienda" name="azienda" placeholder="Nome azienda" />
+            <label for="p-azienda" data-i18n="partnership.labelCompany">Azienda</label>
+            <input type="text" id="p-azienda" name="azienda" data-i18n-placeholder="partnership.placeholderCompany" placeholder="Nome azienda" />
           </div>
         </div>
 
@@ -3126,28 +3186,29 @@
             <input type="email" id="p-email" name="email" placeholder="email@esempio.it" required />
           </div>
           <div class="form-field">
-            <label for="p-tel">Telefono</label>
+            <label for="p-tel" data-i18n="partnership.labelPhone">Telefono</label>
             <input type="tel" id="p-tel" name="telefono" placeholder="+39 000 000 0000" />
           </div>
         </div>
 
         <div class="form-field form-field--select">
-          <label for="p-tipo">Tipo di richiesta</label>
+          <label for="p-tipo" data-i18n="partnership.labelType">Tipo di richiesta</label>
           <select id="p-tipo" name="tipo" required>
-            <option value="" disabled selected>Seleziona una categoria</option>
-            <option value="ordine-prodotti">Ordine prodotti premium</option>
+            <option value="" disabled selected data-i18n="partnership.optionSelect">Seleziona una categoria</option>
+            <option value="ordine-prodotti" data-i18n="partnership.optionOrder">Ordine prodotti premium</option>
             <option value="partnership">Partnership</option>
-            <option value="eventi-retreat">Eventi / Retreat</option>
-            <option value="sponsorizzazione">Sponsorizzazione</option>
-            <option value="altro">Altro</option>
+            <option value="eventi-retreat" data-i18n="partnership.optionEvents">Eventi / Retreat</option>
+            <option value="sponsorizzazione" data-i18n="partnership.optionSponsor">Sponsorizzazione</option>
+            <option value="altro" data-i18n="partnership.optionOther">Altro</option>
           </select>
         </div>
 
         <div class="form-field">
-          <label for="p-messaggio">Messaggio</label>
+          <label for="p-messaggio" data-i18n="partnership.labelMessage">Messaggio</label>
           <textarea
             id="p-messaggio"
             name="messaggio"
+            data-i18n-placeholder="partnership.placeholderMessage"
             placeholder="Raccontaci la tua idea o la tua richiesta…"
             rows="4"
             required
@@ -3155,7 +3216,7 @@
         </div>
 
         <div class="form-submit">
-          <button type="submit" class="btn--primary">Invia richiesta</button>
+          <button type="submit" class="btn--primary" data-i18n="partnership.submit">Invia richiesta</button>
           <span class="form-status" id="formStatus" role="status" aria-live="polite"></span>
         </div>
       </form>
@@ -3333,7 +3394,7 @@
 
       // Basic validation
       if (!nome || !email || !tipo || !msg) {
-        formStatus.textContent = 'Compila i campi obbligatori.';
+        formStatus.textContent = window.keluaT ? window.keluaT('form.required') : 'Compila i campi obbligatori.';
         formStatus.style.color = '#c0776a';
         formStatus.classList.add('is-visible');
         return;
@@ -3349,16 +3410,16 @@
       })
         .then((response) => {
           if (response.ok) {
-            formStatus.textContent = 'Richiesta inviata — ti risponderemo presto.';
+            formStatus.textContent = window.keluaT ? window.keluaT('form.sent') : 'Richiesta inviata — ti risponderemo presto.';
             formStatus.style.color = '';
             partnershipForm.reset();
           } else {
-            formStatus.textContent = 'Errore nell\'invio. Riprova o scrivici a info@kelua.it.';
+            formStatus.textContent = window.keluaT ? window.keluaT('form.error') : 'Errore nell\'invio. Riprova o scrivici a info@kelua.it.';
             formStatus.style.color = '#c0776a';
           }
         })
         .catch(() => {
-          formStatus.textContent = 'Errore nell\'invio. Riprova o scrivici a info@kelua.it.';
+          formStatus.textContent = window.keluaT ? window.keluaT('form.error') : 'Errore nell\'invio. Riprova o scrivici a info@kelua.it.';
           formStatus.style.color = '#c0776a';
         })
         .finally(() => {
@@ -3424,11 +3485,11 @@
         <div class="footer__logo">
           <img src="logo/logo.svg" alt="Kelūa" />
         </div>
-        <p class="footer__tagline">Uno spazio che evolve con chi lo attraversa.</p>
+        <p class="footer__tagline" data-i18n="footer.tagline">Uno spazio che evolve con chi lo attraversa.</p>
       </div>
 
-      <nav aria-label="Esplora">
-        <div class="footer__col-title">Esplora</div>
+      <nav data-i18n-aria-label="footer.exploreAria" aria-label="Esplora">
+        <div class="footer__col-title" data-i18n="footer.explore">Esplora</div>
         <div class="footer__col-links">
           <a href="rituals.html">Rituals</a>
           <a href="flow.html">Flow</a>
@@ -3436,25 +3497,25 @@
         </div>
       </nav>
 
-      <nav aria-label="Spazio">
-        <div class="footer__col-title">Spazio</div>
+      <nav data-i18n-aria-label="footer.spaceAria" aria-label="Spazio">
+        <div class="footer__col-title" data-i18n="footer.space">Spazio</div>
         <div class="footer__col-links">
-          <a href="#partnership">Contatti</a>
+          <a href="#partnership" data-i18n="footer.contact">Contatti</a>
           <a href="#community">Community</a>
         </div>
       </nav>
 
       <div>
-        <div class="footer__col-title">Seguici</div>
+        <div class="footer__col-title" data-i18n="footer.follow">Seguici</div>
         <div class="footer__social">
-          <a href="https://instagram.com/kelua_ritual" target="_blank" rel="noopener noreferrer" aria-label="Instagram Kelūa">
+          <a href="https://instagram.com/kelua_ritual" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.instagramAria" aria-label="Instagram Kelūa">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="5"/>
               <circle cx="12" cy="12" r="4"/>
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
             </svg>
           </a>
-          <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" target="_blank" rel="noopener noreferrer" aria-label="Community WhatsApp Kelūa">
+          <a href="https://chat.whatsapp.com/ILKqvI13zp22YFjhu8hMjf" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="nav.whatsappAria" aria-label="Community WhatsApp Kelūa">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 20l1.4-4.2A8 8 0 1 1 8.2 18.6L4 20z"/>
               <path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/>
@@ -3470,12 +3531,12 @@
         <a href="privacy-policy/">Privacy Policy</a>
         <a href="cookie-policy/">Cookie Policy</a>
         <a href="termini-condizioni/">Terms &amp; Conditions</a>
-        <a href="spedizioni-resi/">Spedizioni &amp; Resi</a>
-        <a href="contatti/">Contatti</a>
-        <button type="button" data-open-cookie-preferences>Gestisci cookie</button>
+        <a href="spedizioni-resi/" data-i18n="footer.shipping">Spedizioni &amp; Resi</a>
+        <a href="contatti/" data-i18n="footer.contact">Contatti</a>
+        <button type="button" data-open-cookie-preferences data-i18n="footer.manageCookies">Gestisci cookie</button>
       </div>
       <div class="footer__copy">
-        <span>© 2026 KELUA S.R.L. · Tutti i diritti riservati</span>
+        <span data-i18n="footer.copyright">© 2026 KELUA S.R.L. · Tutti i diritti riservati</span>
         <span>info@kelua.it</span>
       </div>
       <p class="footer__legalinfo">KELUA S.R.L. · P. IVA 18458781004 · REA RM-1785846 · Via Nicola Ricciotti 11, 00195 Roma · <a href="mailto:info@kelua.it">info@kelua.it</a></p>
@@ -3483,29 +3544,29 @@
   </footer>
 
   <!-- ═══ COOKIE CONSENT ═══════════════════════════════════════ -->
-  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Preferenze cookie">
-    <p class="cookie-banner__text">
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" data-i18n-aria-label="cookie.bannerAria" aria-label="Preferenze cookie">
+    <p class="cookie-banner__text" data-i18n-html="cookie.bannerText">
       Usiamo cookie tecnici necessari al funzionamento del sito e, solo previo consenso, cookie analitici, di funzionalità e di profilazione. Puoi accettare, rifiutare o personalizzare le scelte in qualsiasi momento da "Gestisci cookie" in fondo alla pagina. Leggi la <a href="cookie-policy/">Cookie Policy</a>.
     </p>
     <div class="cookie-banner__actions">
-      <button type="button" class="cookie-banner__reject" id="cookieRejectAll">Rifiuta</button>
-      <button type="button" class="cookie-banner__customize" id="cookieCustomize">Personalizza</button>
-      <button type="button" class="cookie-banner__accept" id="cookieAcceptAll">Accetta tutti</button>
+      <button type="button" class="cookie-banner__reject" id="cookieRejectAll" data-i18n="cookie.reject">Rifiuta</button>
+      <button type="button" class="cookie-banner__customize" id="cookieCustomize" data-i18n="cookie.customize">Personalizza</button>
+      <button type="button" class="cookie-banner__accept" id="cookieAcceptAll" data-i18n="cookie.acceptAll">Accetta tutti</button>
     </div>
   </div>
 
-  <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" aria-label="Gestisci preferenze cookie">
+  <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" data-i18n-aria-label="cookie.modalAria" aria-label="Gestisci preferenze cookie">
     <div class="cookie-modal__panel">
       <div class="cookie-modal__head">
-        <h2 class="cookie-modal__title">Preferenze cookie</h2>
-        <button type="button" class="cookie-modal__close" id="cookieModalClose" aria-label="Chiudi">×</button>
+        <h2 class="cookie-modal__title" data-i18n="cookie.modalTitle">Preferenze cookie</h2>
+        <button type="button" class="cookie-modal__close" id="cookieModalClose" data-i18n-aria-label="common.close" aria-label="Chiudi">×</button>
       </div>
-      <p class="cookie-modal__intro">Scegli quali categorie di cookie e strumenti di tracciamento autorizzare. I cookie strettamente necessari non possono essere disattivati. Dettagli nella <a href="cookie-policy/">Cookie Policy</a>.</p>
+      <p class="cookie-modal__intro" data-i18n-html="cookie.modalIntro">Scegli quali categorie di cookie e strumenti di tracciamento autorizzare. I cookie strettamente necessari non possono essere disattivati. Dettagli nella <a href="cookie-policy/">Cookie Policy</a>.</p>
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Strettamente necessari</div>
-          <p class="cookie-category__desc">Indispensabili per sicurezza, sessione, carrello, checkout e altre funzioni tecniche richieste. Sempre attivi.</p>
+          <div class="cookie-category__name" data-i18n="cookie.necessaryName">Strettamente necessari</div>
+          <p class="cookie-category__desc" data-i18n="cookie.necessaryDesc">Indispensabili per sicurezza, sessione, carrello, checkout e altre funzioni tecniche richieste. Sempre attivi.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" checked disabled>
@@ -3515,8 +3576,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Analitici</div>
-          <p class="cookie-category__desc">Misurano l'utilizzo del sito per migliorarne prestazioni e contenuti.</p>
+          <div class="cookie-category__name" data-i18n="cookie.analyticsName">Analitici</div>
+          <p class="cookie-category__desc" data-i18n="cookie.analyticsDesc">Misurano l'utilizzo del sito per migliorarne prestazioni e contenuti.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieAnalytics">
@@ -3526,8 +3587,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Funzionalità</div>
-          <p class="cookie-category__desc">Abilitano funzioni aggiuntive e personalizzazioni non indispensabili.</p>
+          <div class="cookie-category__name" data-i18n="cookie.functionalityName">Funzionalità</div>
+          <p class="cookie-category__desc" data-i18n="cookie.functionalityDesc">Abilitano funzioni aggiuntive e personalizzazioni non indispensabili.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieFunctionality">
@@ -3537,8 +3598,8 @@
 
       <div class="cookie-category">
         <div>
-          <div class="cookie-category__name">Pubblicitari e di profilazione</div>
-          <p class="cookie-category__desc">Usati per misurare campagne o mostrare comunicazioni personalizzate.</p>
+          <div class="cookie-category__name" data-i18n="cookie.advertisingName">Pubblicitari e di profilazione</div>
+          <p class="cookie-category__desc" data-i18n="cookie.advertisingDesc">Usati per misurare campagne o mostrare comunicazioni personalizzate.</p>
         </div>
         <label class="cookie-toggle">
           <input type="checkbox" id="cookieAdvertising">
@@ -3547,9 +3608,9 @@
       </div>
 
       <div class="cookie-modal__actions">
-        <button type="button" class="cookie-modal__reject-all" id="cookieModalRejectAll">Rifiuta tutti</button>
-        <button type="button" class="cookie-modal__accept-all" id="cookieModalAcceptAll">Accetta tutti</button>
-        <button type="button" class="cookie-modal__save" id="cookieModalSave">Salva preferenze</button>
+        <button type="button" class="cookie-modal__reject-all" id="cookieModalRejectAll" data-i18n="cookie.rejectAll">Rifiuta tutti</button>
+        <button type="button" class="cookie-modal__accept-all" id="cookieModalAcceptAll" data-i18n="cookie.acceptAll">Accetta tutti</button>
+        <button type="button" class="cookie-modal__save" id="cookieModalSave" data-i18n="cookie.save">Salva preferenze</button>
       </div>
     </div>
   </div>
@@ -3769,11 +3830,13 @@
     }
 
     function renderHint() {
-      results.innerHTML = '<p class="nav__search-hint">Cerca prodotti, pratiche, eventi…</p>' + quickLinksHTML();
+      var hint = window.keluaT ? window.keluaT('nav.searchPlaceholder') : 'Cerca prodotti, pratiche, eventi…';
+      results.innerHTML = '<p class="nav__search-hint">' + esc(hint) + '</p>' + quickLinksHTML();
     }
 
     function renderEmpty(q) {
-      results.innerHTML = '<div class="nav__search-empty"><p>Nessun risultato per «' + esc(q) + '».</p></div>' + quickLinksHTML();
+      var noResults = window.keluaT ? window.keluaT('nav.searchNoResults') : 'Nessun risultato per «{q}».';
+      results.innerHTML = '<div class="nav__search-empty"><p>' + noResults.replace('{q}', esc(q)) + '</p></div>' + quickLinksHTML();
     }
 
     function renderGrouped(matches) {
@@ -3838,5 +3901,6 @@
     });
   })();
   </script>
+  <script src="i18n.js?v=1"></script>
 </body>
 </html>
