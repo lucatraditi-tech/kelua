@@ -377,6 +377,7 @@
       width: 100%;
       min-height: 100svh;
       padding-top: var(--header-offset);
+      padding-bottom: clamp(3rem, 8vh, 4.5rem);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -420,7 +421,7 @@
     .hero-dots {
       position: absolute;
       left: 50%;
-      bottom: clamp(1.5rem, 5vh, 2.5rem);
+      bottom: clamp(0.9rem, 2.5vh, 1.4rem);
       transform: translateX(-50%);
       z-index: 3;
       display: flex;
@@ -483,10 +484,33 @@
     .hero-slide--selection .hero__overlay {
       background: linear-gradient(
         180deg,
-        rgba(20, 22, 26, 0.62) 0%,
-        rgba(20, 22, 26, 0.42) 45%,
-        rgba(20, 22, 26, 0.68) 100%
+        rgba(20, 22, 26, 0.58) 0%,
+        rgba(20, 22, 26, 0.46) 45%,
+        rgba(20, 22, 26, 0.62) 100%
       );
+    }
+
+    /* Pannello scuro dietro al testo — garantisce un contrasto AA
+       affidabile indipendentemente da cosa c'è nella foto sotto */
+    .hero__panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.2rem;
+      background: rgba(20, 22, 26, 0.5);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      border-radius: 16px;
+      padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.5rem, 4vw, 3rem);
+      /* annulla il proprio padding-top così l'eyebrow resta alla stessa
+         distanza dallo spaziatore che ha in slide 1 dal logo */
+      margin-top: calc(-1 * clamp(1.75rem, 4vw, 2.75rem));
+    }
+
+    /* Spaziatore invisibile: replica l'altezza del logo di slide 1,
+       così le due fasce "eyebrow" restano allineate tra le slide */
+    .hero__logo-spacer {
+      visibility: hidden;
     }
 
     .hero__inner {
@@ -2880,35 +2904,42 @@
 
         <div class="hero__inner">
 
-          <div class="hero__eyebrow">
-            <span class="hero__eyebrow-text">Kelūa Selection</span>
+          <div class="hero__logo hero__logo-spacer" aria-hidden="true">
+            <img src="logo/logo.svg" alt="" />
           </div>
 
-          <h2 class="hero__headline">
-            La tua Kombucha ti aspetta.
-          </h2>
+          <div class="hero__panel">
 
-          <div class="hero__divider" aria-hidden="true"></div>
+            <div class="hero__eyebrow">
+              <span class="hero__eyebrow-text">Kelūa Selection</span>
+            </div>
 
-          <p class="hero__sub">
-            Fermentata in Brasile, senza calorie, mai banale. Preordina ora con il
-            10% di sconto — codice <em>PREKOMBUCHA10</em>.
-          </p>
+            <h2 class="hero__headline">
+              La tua Kombucha ti aspetta.
+            </h2>
 
-          <div class="hero-products" aria-hidden="true">
-            <img src="selezione/images/kombucha-ananas-menta/01.png" alt="" loading="lazy">
-            <img src="selezione/images/kombucha-pitaya-maracuja/01.png" alt="" loading="lazy">
-            <img src="selezione/images/kombucha-mandarino-ibisco/01.png" alt="" loading="lazy">
-            <img src="selezione/images/kombucha-fragola-lime/01.png" alt="" loading="lazy">
-            <img src="selezione/images/kombucha-mix-4-gusti/01.png" alt="" loading="lazy">
+            <div class="hero__divider" aria-hidden="true"></div>
+
+            <p class="hero__sub">
+              Fermentata in Brasile, senza calorie, mai banale. Preordina ora con il
+              10% di sconto — codice <em>PREKOMBUCHA10</em>.
+            </p>
+
+            <div class="hero-products" aria-hidden="true">
+              <img src="selezione/images/kombucha-ananas-menta/01.png" alt="" loading="lazy">
+              <img src="selezione/images/kombucha-pitaya-maracuja/01.png" alt="" loading="lazy">
+              <img src="selezione/images/kombucha-mandarino-ibisco/01.png" alt="" loading="lazy">
+              <img src="selezione/images/kombucha-fragola-lime/01.png" alt="" loading="lazy">
+              <img src="selezione/images/kombucha-mix-4-gusti/01.png" alt="" loading="lazy">
+            </div>
+
+            <div class="hero__ctas">
+              <a href="selezione.html" class="hero__cta" tabindex="-1">
+                Scopri la Selezione
+              </a>
+            </div>
+
           </div>
-
-          <div class="hero__ctas">
-            <a href="selezione.html" class="hero__cta" tabindex="-1">
-              Scopri la Selezione
-            </a>
-          </div>
-
         </div>
       </div>
 
@@ -3220,8 +3251,43 @@
         startAutoplay();
       });
 
+      // Swipe orizzontale da trackpad (macOS/desktop) — i due dita a
+      // sinistra/destra generano un evento "wheel" con deltaX, non touch
+      let wheelCooldown = false;
+      hero.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+        if (Math.abs(e.deltaX) < 12) return;
+        e.preventDefault();
+        if (wheelCooldown) return;
+        wheelCooldown = true;
+        goTo(e.deltaX > 0 ? index + 1 : index - 1);
+        startAutoplay();
+        setTimeout(() => { wheelCooldown = false; }, 650);
+      }, { passive: false });
+
+      // Allinea le fasce "eyebrow" tra le slide: i contenuti hanno
+      // altezze diverse (logo/scroll-hint vs pannello/prodotti), quindi
+      // il centraggio verticale li mette a quote diverse. Pareggiamo
+      // l'altezza dei blocchi .hero__inner così restano allineati a
+      // qualsiasi larghezza di schermo, invece di un valore fisso fragile.
+      function alignSlideContent() {
+        const inners = slides.map((s) => s.querySelector('.hero__inner'));
+        inners.forEach((el) => { el.style.minHeight = ''; });
+        const heights = inners.map((el) => el.getBoundingClientRect().height);
+        const max = Math.max(...heights);
+        inners.forEach((el) => { el.style.minHeight = max + 'px'; });
+      }
+
+      let alignTimer = null;
+      window.addEventListener('resize', () => {
+        clearTimeout(alignTimer);
+        alignTimer = setTimeout(alignSlideContent, 150);
+      });
+
       goTo(0);
       startAutoplay();
+      alignSlideContent();
+      window.addEventListener('load', alignSlideContent);
     })();
 
     const hamburger   = document.getElementById('hamburger');
