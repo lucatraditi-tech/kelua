@@ -1,0 +1,12 @@
+User-Agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /checkout
+Disallow: /cassa
+Disallow: /ordine
+Disallow: /newsletter/conferma
+Disallow: /newsletter/disiscrizione
+
+Host: https://kelua.it
+Sitemap: https://kelua.it/sitemap.xml
