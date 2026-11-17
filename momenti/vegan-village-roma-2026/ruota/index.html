@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kelūa · Gira la ruota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --foresta:#344E41; --avorio:#F6F2E9; --inchiostro:#1E2621; --avena:#DDD1BD;
+    --salvia:#A8B8A4; --miele:#DDAA4F; --ocra:#8A6516;
+    --serif:'EB Garamond', Garamond, Georgia, serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--foresta);color:var(--avorio);font-family:var(--serif);-webkit-text-size-adjust:100%}
+  body{min-height:100vh}
+  .wrap{max-width:440px;margin:0 auto;padding:28px 20px 36px}
+  .banner{background:var(--miele);color:var(--inchiostro);font-size:15px;text-align:center;padding:8px 12px;border-radius:10px;margin-bottom:18px}
+  .banner.stand{background:var(--avena)}
+  .top{text-align:center}
+  .logo{width:78px;height:78px;margin:0 auto 14px;color:var(--avorio)}
+  .logo svg{width:100%;height:100%;display:block}
+  .eyebrow{font-size:14px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--avena);margin:0 0 10px}
+  h1{font-weight:500;font-size:36px;line-height:1.08;margin:0 0 10px}
+  h1 em{color:var(--miele);font-weight:500}
+  h1 em .sconto{display:inline-block;font-style:normal;font-weight:700;font-size:.84em;letter-spacing:.05em;text-transform:uppercase;color:var(--inchiostro);background:#E2703A;padding:.06em .24em .02em;border-radius:.16em;line-height:1.05}
+  h1 .nw{white-space:nowrap}
+  .lead{font-size:19px;line-height:1.35;color:var(--avena);margin:0 auto;max-width:330px}
+
+  .wheel-zone{position:relative;width:min(86vw,360px);aspect-ratio:1;margin:26px auto 28px}
+  .disc{position:absolute;inset:0;border-radius:50%;overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,.3)}
+  .rotor{width:100%;height:100%;will-change:transform}
+  .rotor svg{width:100%;height:100%;display:block}
+  .rotor.spin{transition:transform 5.4s cubic-bezier(.12,.62,.1,1)}
+  .pointer{position:absolute;left:50%;top:-16px;width:38px;height:46px;transform:translateX(-50%);z-index:2;filter:drop-shadow(0 3px 4px rgba(0,0,0,.3))}
+  .hub{position:absolute;left:50%;top:50%;width:17%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:var(--avorio);display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+  .hub span{width:22%;aspect-ratio:1;border-radius:50%;background:var(--foresta)}
+
+  .card{background:var(--avorio);color:var(--inchiostro);border-radius:18px;padding:22px 20px 20px}
+  label{display:block;font-size:18px;font-weight:500;margin-bottom:14px}
+  .opt{font-weight:400;font-style:italic;color:#4a564e}
+  input[type=text]{display:block;width:100%;margin-top:6px;padding:12px 14px;font:inherit;font-size:19px;color:var(--inchiostro);
+    background:var(--avorio);border:1.5px solid var(--avena);border-radius:10px;outline:none;-webkit-appearance:none}
+  input:focus{border-color:var(--foresta);box-shadow:0 0 0 3px rgba(52,78,65,.15)}
+  .err{background:#F3E2D8;color:#7a3a22;border-radius:10px;padding:10px 12px;font-size:17px;margin:0 0 12px}
+  .btn{display:block;width:100%;border:0;border-radius:12px;padding:15px 18px;font:inherit;font-size:22px;font-weight:600;
+    background:var(--foresta);color:var(--avorio);cursor:pointer;text-align:center;text-decoration:none;margin-top:4px}
+  .btn[disabled]{opacity:.65;cursor:default}
+  .btn.ghost{background:transparent;color:var(--foresta);border:1.5px solid var(--foresta);font-size:19px;margin-top:12px}
+  .fine{font-size:16px;color:#4a564e;text-align:center;margin:14px 0 0;line-height:1.4}
+  .fine.ok{color:var(--foresta);font-weight:600}
+  .check{display:flex;gap:12px;align-items:flex-start;font-size:17px;font-weight:400;line-height:1.35;
+    margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid var(--avena);cursor:pointer}
+  .check input{flex:none;width:24px;height:24px;margin:0;accent-color:var(--foresta)}
+  .check a{color:var(--foresta)}
+  .check.manca{background:#F3E2D8;border-radius:10px;padding:10px 12px;border-bottom-color:transparent}
+  .check.opz{border-bottom:0;padding-bottom:0;margin-bottom:16px}
+  .campo{display:block;font-size:17px;font-weight:600;margin-bottom:13px}
+  .campo .opt{font-weight:400;font-style:italic;color:#4a564e}
+  .campo input{display:block;width:100%;margin-top:5px;padding:12px 14px;font:inherit;font-size:19px;
+    color:var(--inchiostro);background:var(--avorio);border:1.5px solid var(--avena);border-radius:10px;
+    outline:none;-webkit-appearance:none}
+  .campo input:focus{border-color:var(--foresta);box-shadow:0 0 0 3px rgba(52,78,65,.15)}
+  .campo input[aria-invalid=true]{border-color:#A9583B}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .btn.spento{opacity:.45}
+  .segui{font-size:17px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4a564e;text-align:center;margin:18px 0 8px}
+  .social{display:flex;gap:10px}
+  .social .btn{margin-top:0;font-size:18px;padding:13px 6px}
+  .pros{position:fixed;right:14px;bottom:14px;z-index:9;border:1.5px solid var(--avorio);border-radius:999px;
+    padding:13px 20px;font:inherit;font-size:19px;font-weight:600;background:var(--inchiostro);color:var(--avorio);
+    cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+  @media (max-width:360px){.pros{font-size:17px;padding:11px 16px}}
+  #crm-wrap{margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--avena)}
+  #crm-wrap .fine{margin-top:10px}
+  .linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--foresta);text-decoration:underline;cursor:pointer}
+
+  .result{text-align:center;animation:rise .5s ease both}
+  .result .eyebrow{color:var(--ocra);margin-bottom:6px}
+  .result h2{font-size:32px;line-height:1.12;font-weight:600;color:var(--foresta);margin:0 0 16px}
+  .result h2.grande{font-size:64px;line-height:1;letter-spacing:-.02em;margin-bottom:2px}
+  .sotto{font-size:24px;line-height:1.2;font-weight:500;color:var(--foresta);margin:0 0 14px}
+  .result h2.tenue{color:var(--ocra)}
+  .code{background:var(--foresta);color:var(--avorio);border-radius:14px;padding:14px 12px 16px;margin:0 0 14px}
+  .code small{display:block;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--avena)}
+  .code b{display:block;font-size:34px;letter-spacing:.12em;font-weight:600;margin-top:4px}
+  #r-quando{font-size:26px;letter-spacing:.04em}
+  .dett{font-size:20px;line-height:1.3;margin:-6px 0 16px}
+  .promo{border:1.5px dashed var(--foresta);border-radius:14px;padding:12px;margin:0 0 14px;font-size:18px;line-height:1.35}
+  .note{font-size:18px;line-height:1.35;margin:0 0 8px}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  .foot{text-align:center;color:var(--avena);font-size:16px;margin-top:26px;line-height:1.5}
+  .foot em{color:var(--avorio)}
+
+  .modal{position:fixed;inset:0;background:rgba(30,38,33,.6);display:flex;align-items:flex-end;justify-content:center;z-index:10}
+  .sheet{background:var(--avorio);color:var(--inchiostro);width:100%;max-width:440px;border-radius:18px 18px 0 0;padding:22px 20px 26px;max-height:85vh;overflow:auto}
+  .sheet h3{font-size:26px;font-weight:600;color:var(--foresta);margin:0 0 12px}
+  .sheet ul{list-style:none;padding:0;margin:0 0 14px}
+  .sheet li{display:flex;justify-content:space-between;gap:12px;font-size:18px;padding:8px 0;border-bottom:1px solid var(--avena)}
+  .sheet li b{font-weight:600;white-space:nowrap}
+  .sheet p{font-size:16px;line-height:1.4;margin:0 0 10px;color:#3a463e}
+  [hidden]{display:none!important}
+  @media (max-width:360px){.eyebrow{font-size:13px;letter-spacing:.14em}h1{font-size:32px}.lead{font-size:18px}}
+
+  /* --- Scena: la ruota prende lo schermo, i dati stanno sotto la piega --- */
+  .wrap{max-width:none;padding:0}
+  .scena{min-height:100vh;min-height:100svh;box-sizing:border-box;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;padding:14px 16px 6px;text-align:center}
+  .scena .top{max-width:640px}
+  .scena .logo{width:clamp(44px,7.4svh,78px);height:clamp(44px,7.4svh,78px);margin-bottom:clamp(6px,1.4svh,14px)}
+  .scena .eyebrow{font-size:clamp(11px,1.7svh,15px);margin-bottom:clamp(4px,1svh,10px)}
+  .scena h1{font-size:clamp(26px,5svh,52px);margin-bottom:clamp(4px,1svh,10px)}
+  .scena .lead{font-size:clamp(15px,2.2svh,21px);max-width:min(92vw,520px)}
+  .wheel-zone{width:min(92vw,58svh,660px);margin:clamp(10px,2.6svh,30px) auto clamp(4px,1.2svh,14px)}
+  .giu{background:none;border:0;color:var(--avena);font:inherit;font-size:clamp(14px,1.9svh,17px);
+    padding:8px 14px;cursor:pointer;opacity:.92}
+  .piega{max-width:460px;margin:0 auto;padding:0 20px}
+  .foot.piega{padding-bottom:36px}
+  .banner{max-width:460px;margin:12px auto 0}
+  .esito{align-items:center;padding:16px;background:rgba(30,38,33,.74);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+  .esito .card{width:100%;max-width:440px;max-height:88svh;overflow:auto;border-radius:18px}
+  body.fermo{overflow:hidden}
+  .inapp{margin:10px 0 0;font-size:14px;color:var(--pietra)}
+  .inapp a{color:var(--foresta);text-decoration:underline}
+  .pros{z-index:12}                       /* sopra l'esito, altrimenti resta sotto */
+  @media (min-width:700px){
+    .piega{max-width:540px}
+    .esito .card{max-width:540px}
+    .scena .lead{max-width:620px}
+  }
+  @media (min-width:700px) and (orientation:landscape){
+    .scena{display:grid;grid-template-columns:minmax(240px,1fr) auto;
+      grid-template-areas:"testo ruota" "giu ruota";
+      align-items:center;justify-items:center;gap:0 clamp(14px,2.6vw,44px);
+      padding:12px clamp(14px,2.4vw,40px)}
+    .scena .top{grid-area:testo;max-width:540px}
+    .wheel-zone{grid-area:ruota;width:min(56vw,92svh,780px);margin:0}
+    .giu{grid-area:giu;align-self:start}
+    .scena h1{font-size:clamp(24px,6.4svh,52px)}
+    .scena .lead{font-size:clamp(14px,2.8svh,20px);max-width:520px}
+    .scena .logo{width:clamp(38px,8svh,72px);height:clamp(38px,8svh,72px)}
+  }
+  @media (max-height:620px){
+    .scena .lead{display:none}
+    .scena .logo{width:40px;height:40px}
+  }
+  @media (prefers-reduced-motion:reduce){.rotor.spin{transition-duration:.8s}.result{animation:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="banner" id="demo" hidden>Anteprima: nessun dato viene salvato.</div>
+  <div class="banner stand" id="stand-banner" hidden>Modalità stand</div>
+
+  <div class="scena" id="scena">
+  <header class="top">
+    <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="150 175 690 690" fill="currentColor" role="img" aria-label="Kelūa"><path d="M 681.8 785.8 C 658.5 801.8 634.2 815.3 608.1 825.1 C 593.3 830.7 578.3 835.3 562.7 838.6 C 547.7 841.8 532.7 844.6 517.5 845.7 C 503.1 846.8 488.6 847.6 474.1 846.7 C 454.8 845.5 435.6 843.4 416.8 839.2 C 401.9 835.8 387.2 831.5 372.8 826.1 C 345.7 816.1 320.1 803.1 296.4 786.5 C 273.9 770.8 253.8 752.4 236.1 731.4 C 215.1 706.4 197.7 679.1 184.7 649.1 C 173.4 623 165.7 595.8 161.9 567.7 C 158 538.5 157.4 509.3 160.5 480 C 167.5 413.7 193.3 355.5 235.3 304 C 259.3 274.7 287.4 250.3 319.8 230.8 C 342.6 217 367 207.1 392.4 199.3 C 415.6 192.2 439.3 187.5 463.2 185.2 C 484.2 183.3 505.4 182.9 526.5 185.4 C 534.6 186.4 542.7 187.6 550.7 188.8 C 552.7 189.1 554.6 189.8 556.4 190.5 C 559.8 192 561.2 194.7 560.4 198.2 C 559.6 201.6 556.8 202.4 553.8 202.4 C 541.1 202.4 528.5 202.2 515.8 202.4 C 467 203.4 422.6 218.6 381.9 244.9 C 340.9 271.5 309.7 307.2 287.5 350.7 C 274.9 375.4 267.4 401.7 263.2 429.1 C 260.1 449.2 258.3 469.4 259.4 489.8 C 260.9 519.2 267 547.7 278.2 575 C 294.5 614.6 318.5 648.8 349.2 678.4 C 375.2 703.6 405.2 722.6 439.3 735.2 C 473.5 747.7 508.7 753.7 545 752.7 C 587.7 751.6 627.7 740.5 665 719.6 C 695.2 702.7 721.8 681.3 743.9 654.6 C 758.7 636.8 770.7 617.3 780.1 596.2 C 788.2 578 794.6 559.3 798.5 539.8 C 804.8 508.8 806.2 477.8 802.2 446.1 C 795.6 392.6 774.2 345.8 742.5 303.1 C 740.5 300.4 737.5 298.3 737 294.5 C 739.6 294.3 740.4 296.2 741.5 297.5 C 759.8 319.6 775.7 343.4 788.1 369.3 C 800.9 396.1 810.4 424 816.5 453.2 C 821.9 479.5 823.2 505.9 822.2 532.6 C 821.3 556 817.3 578.9 811.4 601.5 C 798.7 650 775 692.7 742.6 730.8 C 724.8 751.6 704.4 769.8 681.8 785.8 Z M 681.8 785.8 "/><path d="M 668.6 531.6 C 667.5 535.9 666.9 540 661.1 539.4 C 658.1 539.1 657.1 537.7 658.1 535.2 C 666.7 513.6 674.9 491.6 692 474.8 C 703.5 463.4 717.3 456.1 734.3 456.6 C 737.8 456.7 739.3 457.8 739.3 461.5 C 739.2 485.8 739.2 510.1 739.2 534.4 C 739.2 537 738.9 539.1 735.6 539.1 C 731.9 539.2 731.6 537 731.6 534.3 C 731.7 520.8 731.5 507.3 731.7 493.8 C 731.8 489.2 730 487.6 725.8 488.5 C 710.9 491.6 696.7 496.5 683.9 504.8 C 677.1 509.2 675.5 516.9 672 523.4 C 670.7 525.9 669.8 528.6 668.6 531.6 M 687.1 494.2 C 697.7 488.5 709.1 485 720.8 482.4 C 731.8 480 731.8 479.9 731.6 468.6 C 731.6 463.4 730.8 463 725.7 464 C 710.2 467.4 699.3 477.5 689.5 489 C 688.3 490.4 685.8 491.5 687.1 494.2 Z M 687.1 494.2 "/><path d="M 359.3 502.5 C 374.2 511.4 387.2 521.5 393.5 538.5 C 388.6 540.1 385.7 539.6 383 535.1 C 371.3 516 354 505 332 501.4 C 330.5 501.2 329 501.4 327.5 501.4 C 323.8 501.4 322.1 503 322.1 506.9 C 322.3 515.9 322.2 524.9 322.2 533.9 C 322.2 536.9 322.2 539.4 317.8 539.4 C 313.5 539.4 313.7 536.7 313.7 533.8 C 313.7 510.3 313.7 486.8 313.7 463.3 C 313.7 460.6 313.3 457.8 317.4 457.8 C 321.5 457.8 321.4 460.4 321.3 463.2 C 321.3 471.8 321.3 480.4 321.3 490.4 C 327.7 486.5 333 483.2 338.2 479.9 C 348.9 472.9 359.7 466.1 370.2 458.8 C 374.4 456 377.2 457.2 380.5 461.2 C 365.7 472.6 349.8 482.1 334 493.4 C 343.1 495.6 351.2 498.4 359.3 502.5 Z M 359.3 502.5 "/><path d="M 566.2 513.6 C 562.1 506.1 560.9 498.3 560.8 490.2 C 560.7 481.1 560.8 471.9 560.8 462.7 C 560.8 460 561.1 457.8 564.7 457.8 C 568.3 457.7 569.2 459.5 569.3 462.7 C 569.4 473.5 569.4 484.3 570.1 495.1 C 571.2 512.2 585.1 525.5 600.2 529.6 C 605.9 531.2 611.9 531.8 617.9 531.8 C 622.3 531.8 623.8 530.4 623.7 526 C 623.6 505.1 623.7 484.1 623.7 463.1 C 623.7 460.6 623.4 458 627.2 457.8 C 630.7 457.7 632.4 458.6 632.4 462.5 C 632.3 486.8 632.3 511.1 632.3 535.4 C 632.3 538.1 631.7 540.2 628.7 540.3 C 614 540.4 599.3 541.2 585.9 533.5 C 577.6 528.7 571.2 522.1 566.2 513.6 Z M 566.2 513.6 "/><path d="M 448.8 488.8 C 452.2 488.6 453.4 490 453.3 493 C 453.3 496.2 451.4 496.4 449 496.4 C 437.2 496.4 425.4 496.4 413.5 496.4 C 408.2 496.4 407.3 497.6 408.9 502.7 C 412.6 514.7 421.1 522.1 432.5 526.7 C 440.4 529.8 448.7 531.7 457.1 532.6 C 459.4 532.9 460.3 533.8 460.3 536.1 C 460.2 538.5 458.9 539.2 456.8 539.3 C 436.4 540.8 409 528.4 401.7 508 C 400.3 504 399.1 500 399 495.9 C 398.7 484.4 398.9 472.9 398.8 461.4 C 398.8 458.6 400.2 457.6 402.9 457.7 C 419 457.7 435.2 457.7 451.4 457.7 C 453.9 457.6 455.3 458.4 455.4 461.3 C 455.4 464.4 454.1 465.4 451.2 465.4 C 438.5 465.3 425.9 465.5 413.2 465.3 C 408.7 465.2 406.7 466.3 407.2 471.1 C 407.5 475.2 407.4 479.5 407.2 483.6 C 407 487.5 408.4 488.9 412.3 488.9 C 424.3 488.7 436.3 488.8 448.8 488.8 Z M 448.8 488.8 "/><path d="M 481.8 475 C 481.8 470.2 481.8 465.8 481.8 461.5 C 481.7 457.8 484.3 457.8 486.9 457.8 C 489.5 457.7 491.4 458.4 491.4 461.6 C 491.3 469.6 491 477.6 491.4 485.6 C 492 495.8 492.8 506.1 499.2 514.9 C 505.9 524.1 515.8 527.2 526.1 529.7 C 532.3 531.2 538.6 530.7 544.9 530.8 C 547.5 530.9 548.4 532.3 548.3 534.7 C 548.2 536.8 548.5 539.2 545.3 539.3 C 529.3 540 513.7 538.9 499.9 529.3 C 487.8 520.9 482.6 509.1 481.8 495 C 481.5 488.5 481.8 482 481.8 475 Z M 481.8 475 "/><path d="M 598 452.4 C 592.9 452.4 588.2 452.3 583.6 452.4 C 581.4 452.4 579.7 451.9 579.7 449.1 C 579.7 446.4 581.3 445.8 583.6 445.8 C 592.4 445.8 601.2 445.8 609.9 445.8 C 612.4 445.8 614.2 446.4 614.1 449.4 C 614 452.3 612 452.4 609.9 452.4 C 606.1 452.4 602.3 452.4 598 452.4 Z M 598 452.4 "/><path d="M 665 238 C 660.1 241 656.2 240.3 654.2 236.6 C 652.4 233.3 653.7 228.6 656.8 227.1 C 660.5 225.2 665.3 227.1 666.7 230.8 C 667.7 233.5 667 235.7 665 238 Z M 665 238 "/><path d="M 697.5 259.1 C 694.9 262.6 691.8 263.2 688.5 261.7 C 685.9 260.5 684.6 258.1 684.8 255.1 C 684.9 251.9 686.9 250 689.8 249 C 694.4 247.5 700.6 252.1 697.5 259.1 Z M 697.5 259.1 "/><path d="M 715.2 278.5 C 716.9 274.8 719.6 273.1 723.3 274 C 726 274.7 727.9 276.5 728.3 279.5 C 728.8 283.8 726.2 287.1 722.1 287.3 C 717.3 287.6 714.9 284.8 715.2 278.5 Z M 715.2 278.5 "/></svg></div>
+    <p class="eyebrow">Momenti · <span id="evento">Vegan Village Roma</span></p>
+    <h1>Gira la ruota.<br><em>Lo <span class="sconto">sconto</span> <span class="nw">vale subito.</span></em></h1>
+    <p class="lead">Un giro a persona. Se vinci, mostri questa schermata alla cassa dello stand: lo sconto vale subito sul tuo acquisto.</p>
+  </header>
+
+  <section class="wheel-zone" aria-hidden="true">
+    <svg class="pointer" viewBox="0 0 38 46"><path d="M19 43 L5.5 15 A14 14 0 1 1 32.5 15 Z" fill="#DDAA4F" stroke="#F6F2E9" stroke-width="2.5" stroke-linejoin="round"/><circle cx="19" cy="15" r="4.5" fill="#1E2621"/></svg>
+    <div class="disc"><div class="rotor" id="rotor"><svg id="wheel" viewBox="-200 -200 400 400"></svg></div></div>
+    <div class="hub"><span></span></div>
+  </section>
+  <button class="giu" type="button" id="giu">Scorri e lascia i tuoi dati ↓</button>
+  </div>
+
+  <div class="piega">
+  <section class="card" id="step-play">
+    <div id="modulo" hidden>
+      <label class="campo">Nome <span class="opt">(facoltativo)</span>
+        <input type="text" id="nome" autocomplete="given-name" maxlength="60"></label>
+      <label class="campo">Email
+        <input type="email" id="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false"></label>
+      <label class="campo">Telefono
+        <input type="tel" id="telefono" inputmode="tel" autocomplete="tel" placeholder="+39 333 123 4567"></label>
+      <input class="hp" type="text" id="sito" tabindex="-1" autocomplete="off" aria-hidden="true">
+    </div>
+    <label class="check" id="gdpr-wrap">
+      <input type="checkbox" id="gdpr">
+      <span id="gdpr-testo"></span>
+    </label>
+    <label class="check opz" id="mkt-wrap" hidden>
+      <input type="checkbox" id="mkt">
+      <span id="mkt-testo"></span>
+    </label>
+    <div id="crm-wrap" hidden>
+      <a class="btn" id="crm-link" href="https://app.flowpbr.com/f/kelua/vegan-village" target="_blank" rel="noopener">1 · Lascia i tuoi dati</a>
+      <p class="fine" id="crm-nota"></p>
+    </div>
+    <p class="err" id="err" role="alert" hidden></p>
+    <button class="btn" id="btn" type="button">Gira la ruota</button>
+    <p class="fine">Un giro a persona. <button type="button" class="linkbtn" id="open-odds">Premi e probabilità</button></p>
+  </section>
+
+  </div>
+
+  <div class="modal esito" id="esito" hidden>
+  <section class="card result" id="step-result" hidden aria-live="polite">
+    <p class="eyebrow" id="r-eyebrow">Hai vinto</p>
+    <h2 id="r-premio" tabindex="-1"></h2>
+    <p class="sotto" id="r-sotto" hidden></p>
+    <p class="dett" id="r-dett" hidden></p>
+    <div class="code" id="r-quando-wrap"><small>Vinto</small><b id="r-quando"></b></div>
+    <p class="note" id="r-note"></p>
+    <div class="promo" id="r-promo" hidden></div>
+    <a class="btn ghost" id="r-sito" href="https://kelua.it/shop" target="_blank" rel="noopener">Vai su kelua.it/shop</a>
+    <p class="segui">Seguici su</p>
+    <div class="social">
+      <a class="btn ghost" id="r-ig" href="https://www.instagram.com/kelua.life/" target="_blank" rel="noopener">@kelua.life</a>
+      <a class="btn ghost" id="r-ig-gula" href="https://www.instagram.com/gulafit.italia/" target="_blank" rel="noopener">@gulafit.italia</a>
+    </div>
+    <p class="inapp">Hai l'app? Aprila su
+      <a id="r-ig-app" href="instagram://user?username=kelua.life">@kelua.life</a> ·
+      <a id="r-ig-gula-app" href="instagram://user?username=gulafit.italia">@gulafit.italia</a>
+    </p>
+  </section>
+
+  <section class="card result" id="step-closed" hidden>
+    <p class="eyebrow">Grazie</p>
+    <h2>La ruota per ora è ferma.</h2>
+    <p class="note" id="c-promo"></p>
+    <p class="segui">Seguici su</p>
+    <div class="social">
+      <a class="btn ghost" id="c-ig" href="https://www.instagram.com/kelua.life/" target="_blank" rel="noopener">@kelua.life</a>
+      <a class="btn ghost" id="c-ig-gula" href="https://www.instagram.com/gulafit.italia/" target="_blank" rel="noopener">@gulafit.italia</a>
+    </div>
+    <p class="inapp">Hai l'app? Aprila su
+      <a id="c-ig-app" href="instagram://user?username=kelua.life">@kelua.life</a> ·
+      <a id="c-ig-gula-app" href="instagram://user?username=gulafit.italia">@gulafit.italia</a>
+    </p>
+  </section>
+
+  </div>
+
+  <button class="pros" type="button" id="next" hidden>Prossimo cliente →</button>
+
+  <footer class="foot piega"><em>Cose buone, momenti veri.</em><br><span id="titolare">Kelua S.r.l., Roma</span></footer>
+</main>
+
+<div class="modal" id="odds" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="odds-title">
+    <h3 id="odds-title">Premi e probabilità</h3>
+    <ul id="odds-list"></ul>
+    <p>Un giro a persona. Gli sconti valgono solo oggi allo stand, su un acquisto, e non si sommano tra loro. Premi fino a esaurimento: le probabilità cambiano quando un premio finisce.</p>
+    <p>Organizza <span id="odds-titolare">Kelua S.r.l.</span>.</p>
+    <button class="btn" type="button" id="close-odds">Chiudi</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // Colori Kelūa per gli spicchi (fondo, testo). Foresta resta allo sfondo pagina.
+  // Un colore per premio; chi non vince resta su fondo chiaro, in secondo piano
+  var COLORI_VINCITA = [
+    { bg: '#344E41', fg: '#F6F2E9' },  // Foresta
+    { bg: '#DDAA4F', fg: '#1E2621' },  // Miele
+    { bg: '#A8B8A4', fg: '#1E2621' },  // Salvia
+    { bg: '#E8936A', fg: '#1E2621' },  // Albicocca
+    { bg: '#DDD1BD', fg: '#1E2621' }   // Avena
+  ];
+  var COLORE_PERDITA = { bg: '#F6F2E9', fg: '#6B766A' };
+  var COLORE_TOP = { bg: '#E2703A', fg: '#F6F2E9' };   // il premio migliore, acceso
+  var SCONTO = 'Su lattina singola, confezione da 4 o cassa da 12.';
+  var ABBR = 'Abbraccio gratis';
+  var NOTA_ABBR = 'Niente sconto, ma un abbraccio sì: chiedilo a chi vuoi tu. Lo staff Kelūa è disponibile.';
+  // nome, peso, vincente, nota, testo grande: solo per l'anteprima, online comanda il foglio
+  var S4 = 'sulla confezione da 4';
+  var P43 = 'Prendi 4, paghi 3', NOTA43 = '4 lattine a €11,97 invece di €14,99.';
+  var D15 = '-15% ' + S4, NOTA15 = '€12,74 invece di €14,99.';
+  var D10 = '-10% sul tuo acquisto';
+  var DEMO = [[ABBR, 10, false, NOTA_ABBR, ''], [D10, 10, true, SCONTO, '-10%'],
+    [ABBR, 10, false, NOTA_ABBR, ''], [P43, 10, true, NOTA43, 'Prendi 4'],
+    [ABBR, 10, false, NOTA_ABBR, ''], [D15, 10, true, NOTA15, '-15%'],
+    [ABBR, 10, false, NOTA_ABBR, ''], [D10, 10, true, SCONTO, '-10%'],
+    [ABBR, 10, false, NOTA_ABBR, ''], [P43, 10, true, NOTA43, 'Prendi 4'],
+    [ABBR, 10, false, NOTA_ABBR, ''], [D15, 10, true, NOTA15, '-15%']];
+  var KEY_DISP = 'kelua_ruota_dispositivo', KEY_ESITO = 'kelua_ruota_esito_v4', KEY_CRM = 'kelua_ruota_dati_v1';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var rotor = $('rotor'), wheel = $('wheel'), btn = $('btn'), err = $('err');
+  var stato = { spicchi: [], firma: '', rotazione: 0, info: null, staff: false, pin: '', ref: '', fonte: '',
+    occupato: false, crmAttivo: false, crmFatto: false };
+  var isApps = !!(window.google && google.script && google.script.run);
+  // Riempiti solo nella copia ospitata su kelua.it: lì la pagina parla con
+  // Apps Script via fetch, senza cookie Google, e i documenti stanno accanto.
+  var API = 'https://script.google.com/macros/s/AKfycbyfn4Lt9KBnn6_UATlhWTO5xUonERkOVICaxfbjsCOnWsIIfA3mchhRCwOxgGyfVFBu/exec', DOC_PRIVACY = 'https://kelua.it/momenti/vegan-village-roma-2026/privacy.html', DOC_REGOLAMENTO = 'https://kelua.it/momenti/vegan-village-roma-2026/regolamento.html';
+
+  // ---------- Memoria del telefono (un giro per dispositivo, modalità cliente) ----------
+  function leggi(k) { try { return window.localStorage.getItem(k); } catch (e) { return null; } }
+  function scrivi(k, v) { try { window.localStorage.setItem(k, v); } catch (e) {} }
+  function idDispositivo() {
+    var id = leggi(KEY_DISP);
+    if (!id) {
+      id = 'd' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+      scrivi(KEY_DISP, id);
+    }
+    return id;
+  }
+
+  // ---------- Backend (Apps Script o anteprima) ----------
+  function chiama(fn, arg) {
+    if (API) return viaRete(fn, arg);
+    if (isApps) {
+      return new Promise(function (ok, ko) {
+        var r = google.script.run.withSuccessHandler(ok).withFailureHandler(ko);
+        if (arg === undefined) r[fn](); else r[fn](arg);
+      });
+    }
+    return demo[fn](arg);
+  }
+  // Chiamata all'app Apps Script da un altro sito. Il corpo va come testo
+  // semplice: con application/json il browser chiederebbe prima il permesso
+  // (preflight), e Apps Script non risponde a quella domanda.
+  function viaRete(fn, arg) {
+    var ric;
+    if (fn === 'getWheel') {
+      var u = API + (API.indexOf('?') < 0 ? '?' : '&') + 'api=info';
+      if (arg && arg.pin) u += '&staff=' + encodeURIComponent(arg.pin);
+      ric = fetch(u, { cache: 'no-store' });
+    } else {
+      ric = fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ dati: arg || {} }) });
+    }
+    return ric.then(function (r) {
+      if (!r.ok) throw new Error('Il server non risponde (' + r.status + ').');
+      return r.json();
+    }).then(function (o) {
+      if (o && o.errore) throw new Error(o.errore);
+      if (fn === 'getWheel' && o) {
+        if (DOC_PRIVACY) o.privacyUrl = DOC_PRIVACY;
+        if (DOC_REGOLAMENTO) o.regolamentoUrl = DOC_REGOLAMENTO;
+      }
+      return o;
+    });
+  }
+
+  var demo = {
+    base: function (pin) {
+      var tot = DEMO.reduce(function (s, d) { return s + d[1]; }, 0);
+      return { attiva: true, staff: pin === 'demo',
+        spicchi: DEMO.map(function (d) { return d[0]; }), vincenti: DEMO.map(function (d) { return d[2]; }),
+        note: DEMO.map(function (d) { return d[3]; }), grandi: DEMO.map(function (d) { return d[4]; }),
+        probabilita: aggrega(DEMO, tot), migliore: P43,
+        evento: 'Vegan Village Roma', titolare: 'Kelua S.r.l., Roma',
+        validita: 'Mostra questa schermata alla cassa dello stand. Vale oggi, su un solo acquisto di kombucha.',
+        consolazione: 'Fino a Natale hai comunque il 20% su kelua.it con il codice VEGAN20.',
+        sitoUrl: 'https://kelua.it/shop', sitoTesto: 'Vai su kelua.it/shop', instagramUrl: 'https://www.instagram.com/kelua.life/',
+        instagramGulaUrl: 'https://www.instagram.com/gulafit.italia/',
+        moduloInterno: true,
+        marketingTesto: 'Voglio ricevere novità e offerte da Kelūa via email, SMS e WhatsApp.',
+        crmUrl: '', crmTesto: 'Lascia i tuoi dati',
+        crmNota: 'Si apre il modulo Kelūa. Compilalo, poi torna qui: la ruota si sblocca.',
+        privacyUrl: 'Privacy.html', regolamentoUrl: 'Regolamento.html',
+        consensoTesto: 'Ho letto l’{privacy} e accetto il {regolamento}.',
+        privacyTesto: 'informativa privacy', regolamentoTesto: 'regolamento della ruota' };
+    },
+    getWheel: function (o) { return attendi(250).then(function () { return demo.base(o && o.pin); }); },
+    gira: function (d) {
+      return attendi(600).then(function () {
+        var r = demo.base(d.pin);
+        var forza = new URLSearchParams(location.search).get('forza');
+        r.indice = forza !== null ? Number(forza) : Math.floor(Math.random() * r.spicchi.length);
+        r.premio = r.spicchi[r.indice]; r.vincente = r.vincenti[r.indice];
+        r.nota = r.note[r.indice]; r.grande = r.grandi[r.indice]; r.quando = Date.now();
+        return r;
+      });
+    }
+  };
+  function aggrega(righe, tot) {
+    var somma = {}, VALORE = [P43, D15, D10, ABBR];   // dal migliore al peggiore
+    righe.forEach(function (d) { somma[d[0]] = (somma[d[0]] || 0) + d[1]; });
+    return VALORE.filter(function (n) { return n in somma; })
+      .map(function (n) { return { nome: n, pct: Math.round(somma[n] / tot * 1000) / 10 }; });
+  }
+  function quando(ms) {
+    if (!ms) return '';
+    var d = new Date(ms);
+    return d.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' }) + ' · ' +
+      d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+  }
+  function attendi(ms) { return new Promise(function (ok) { setTimeout(ok, ms); }); }
+  function messaggio(e) { return String((e && e.message) || e || 'Errore di rete. Riprova.').replace(/^(Exception|Error):\s*/, ''); }
+
+  // ---------- Ruota ----------
+  function righe(testo, max) {
+    var parole = String(testo).split(/\s+/), out = [], cur = '';
+    parole.forEach(function (p) {
+      if (!cur) cur = p;
+      else if ((cur + ' ' + p).length <= max) cur += ' ' + p;
+      else { out.push(cur); cur = p; }
+    });
+    if (cur) out.push(cur);
+    // non chiudere una riga con una parolina ("a", "da", "di"...): passa alla riga dopo
+    for (var i = 0; i < out.length - 1; i++) {
+      var w = out[i].split(' ');
+      if (w.length > 1 && /^[a-zàèéìòù]{1,2}$/i.test(w[w.length - 1])) { out[i + 1] = w.pop() + ' ' + out[i + 1]; out[i] = w.join(' '); }
+    }
+    return out.slice(0, 3);
+  }
+  // Stesso premio, stesso colore. Chi non vince va sempre su fondo chiaro.
+  // Il premio migliore, così com'è ordinato nel foglio
+  function migliore() { return (stato.info && stato.info.migliore) || ''; }
+
+  function colori(spicchi, vincenti) {
+    var mappa = {}, k = 0, top = migliore();
+    return spicchi.map(function (nome, i) {
+      if (!nome) return i % 2 ? COLORI_VINCITA[0] : COLORE_PERDITA;
+      if (vincenti.length && !vincenti[i]) return COLORE_PERDITA;
+      if (top && nome === top) return COLORE_TOP;
+      if (!(nome in mappa)) mappa[nome] = COLORI_VINCITA[k++ % COLORI_VINCITA.length];
+      return mappa[nome];
+    });
+  }
+
+  // Il testo grande si rimpicciolisce da solo quando è lungo, per restare dentro lo spicchio
+  function dimGrande(t, base) {
+    var L = t.length;
+    return Math.round((L <= 4 ? base : L <= 6 ? base * 0.80 : L <= 9 ? base * 0.62 : base * 0.5) * 10) / 10;
+  }
+  // Quel che resta del nome una volta tolto il testo grande
+  function resto(nome, grande) {
+    var r = nome;
+    if (grande) {
+      var k = nome.toLowerCase().indexOf(grande.toLowerCase());
+      if (k >= 0) r = (nome.slice(0, k) + ' ' + nome.slice(k + grande.length));
+    }
+    return r.replace(/[,;:·]/g, ' ').replace(/\s+/g, ' ').trim()
+      .replace(/^(e|a|di|da|su|in|il|lo|la)\s+/i, '').replace(/\s+(e|a|di|da|su|in|il|lo|la)$/i, '');
+  }
+
+  // Lo spicchio ha spazio per poche righe: oltre, si taglia (il premio intero resta nell'esito)
+  function taglia(ls, max) {
+    if (ls.length <= max) return ls;
+    var out = ls.slice(0, max);
+    out[max - 1] = out[max - 1].replace(/\s+\S*$/, '') + '…';
+    return out;
+  }
+
+  // Fa stare il testo piccolo nelle righe disponibili: se sborda, lascia cadere
+  // la preposizione iniziale ("sulla confezione da 4" -> "confezione da 4")
+  function adatta(t, maxP, maxRighe) {
+    var ls = righe(t, maxP);
+    if (ls.length > maxRighe) {
+      var t2 = t.replace(/^(sulla|sullo|sulle|della|dello|delle|nella|nello|sui|dei|del|nel|sul|con|per|su|di|da|in)\s+/i, '');
+      if (t2 && t2 !== t) ls = righe(t2, maxP);
+    }
+    return taglia(ls, maxRighe);
+  }
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (ch) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]; }); }
+
+  function testo(x, y, fs, peso, fill, t) {
+    return '<text x="0" y="' + y + '" text-anchor="middle" font-family="EB Garamond, Garamond, Georgia, serif"' +
+      ' font-weight="' + peso + '" font-size="' + fs + '" fill="' + fill + '">' + esc(t) + '</text>';
+  }
+
+  function disegna(spicchi, vincenti, grandi) {
+    stato.spicchi = spicchi.slice();
+    vincenti = vincenti || []; grandi = grandi || [];
+    var n = Math.max(spicchi.length, 1), seg = 360 / n, R = 196, out = '';
+    var col = colori(spicchi, vincenti);
+    var base = n <= 6 ? 40 : n <= 8 ? 35 : n <= 10 ? 31 : 27;   // testo grande
+    var fsP = n <= 6 ? 19 : n <= 8 ? 17 : n <= 10 ? 15 : 14;    // testo piccolo
+    var maxP = n <= 6 ? 15 : n <= 8 ? 12 : n <= 10 ? 10 : 9;
+    for (var i = 0; i < n; i++) {
+      var a0 = (i * seg - 90) * Math.PI / 180, a1 = ((i + 1) * seg - 90) * Math.PI / 180;
+      var c = col[i] || COLORE_PERDITA;
+      if (n === 1) out += '<circle r="' + R + '" fill="' + c.bg + '"/>';
+      else out += '<path d="M0 0 L' + (R * Math.cos(a0)).toFixed(2) + ' ' + (R * Math.sin(a0)).toFixed(2) +
+        ' A' + R + ' ' + R + ' 0 ' + (seg > 180 ? 1 : 0) + ' 1 ' + (R * Math.cos(a1)).toFixed(2) + ' ' + (R * Math.sin(a1)).toFixed(2) +
+        ' Z" fill="' + c.bg + '" stroke="#F6F2E9" stroke-width="2"/>';
+      out += '<g transform="rotate(' + (i * seg + seg / 2).toFixed(3) + ')">';
+      var nome = spicchi[i] || '', g = (grandi[i] || '').trim();
+      var top = nome && nome === migliore();            // il premio migliore si vede da lontano
+      if (g) {
+        out += testo(0, -143, dimGrande(g, top ? base * 1.22 : base), 700, c.fg, g);
+        adatta(resto(nome, g), maxP, 2).forEach(function (l, j) {
+          out += testo(0, -112 + j * (fsP + 3), top ? fsP + 2 : fsP, top ? 600 : 500, c.fg, l);
+        });
+      } else if (nome) {
+        adatta(nome, maxP, 3).forEach(function (l, j) {
+          out += testo(0, -140 + j * (fsP + 3), fsP + 1, 500, c.fg, l);
+        });
+      }
+      out += '</g>';
+    }
+    wheel.innerHTML = out;
+  }
+
+  // Rotazione che porta il centro dello spicchio i sotto la freccia (in alto)
+  function rotazionePer(i, giri) {
+    var n = stato.spicchi.length, seg = 360 / n;
+    var jitter = (Math.random() - 0.5) * seg * 0.6;
+    var centro = i * seg + seg / 2 + jitter;
+    var base = Math.ceil(stato.rotazione / 360) * 360 + 360 * giri;
+    return base + (((360 - centro) % 360) + 360) % 360;
+  }
+  function giraRuota(i) {
+    return new Promise(function (ok) {
+      var finale = rotazionePer(i, 6);
+      var fatto = false;
+      function fine() { if (fatto) return; fatto = true; rotor.removeEventListener('transitionend', fine); ok(); }
+      rotor.classList.add('spin');
+      rotor.addEventListener('transitionend', fine);
+      setTimeout(fine, 6200);
+      requestAnimationFrame(function () { rotor.style.transform = 'rotate(' + finale + 'deg)'; });
+      stato.rotazione = finale;
+    });
+  }
+  function posiziona(i) {
+    rotor.classList.remove('spin');
+    var r = rotazionePer(i, 0);
+    rotor.style.transform = 'rotate(' + r + 'deg)';
+    stato.rotazione = r;
+  }
+
+  // Instagram. Dentro la cornice di Google non si può indovinare se l'app c'è:
+  // il pulsante grande apre il profilo sul web (sempre), la riga sotto apre l'app.
+  function utenteIg(url) {
+    var m = String(url || '').match(/instagram\.com\/([^\/?#]+)/i);
+    return m ? m[1] : '';
+  }
+  function legaIg(id, url) {
+    var a = $(id);
+    if (!a) return;
+    if (url) a.href = url;
+    var app = $(id + '-app');
+    if (app) app.href = 'instagram://user?username=' + encodeURIComponent(utenteIg(a.href));
+  }
+
+  // ---------- Pagina ----------
+  function applicaInfo(info) {
+    stato.info = info;
+    $('evento').textContent = info.evento || '';
+    $('titolare').textContent = info.titolare || '';
+    $('odds-titolare').textContent = info.titolare || '';
+    $('c-promo').textContent = info.consolazione || '';
+    if (info.sitoUrl) $('r-sito').href = info.sitoUrl;
+    if (info.sitoTesto) $('r-sito').textContent = info.sitoTesto;
+    legaIg('r-ig', info.instagramUrl);      legaIg('c-ig', info.instagramUrl);
+    legaIg('r-ig-gula', info.instagramGulaUrl); legaIg('c-ig-gula', info.instagramGulaUrl);
+    var ul = $('odds-list'); ul.innerHTML = '';
+    (info.probabilita || []).forEach(function (p) {
+      var li = document.createElement('li');
+      var a = document.createElement('span'); a.textContent = p.nome;
+      var b = document.createElement('b'); b.textContent = String(p.pct).replace('.', ',') + '%';
+      li.appendChild(a); li.appendChild(b); ul.appendChild(li);
+    });
+    consenso(info);
+    stato.modulo = !!info.moduloInterno;
+    $('modulo').hidden = !stato.modulo;
+    $('mkt-wrap').hidden = !stato.modulo;
+    if (info.marketingTesto) $('mkt-testo').textContent = info.marketingTesto;
+    if (info.crmUrl) $('crm-link').href = info.crmUrl;
+    if (info.crmTesto) $('crm-link').textContent = '1 · ' + info.crmTesto;
+    $('crm-nota').textContent = info.crmNota || '';
+    if (info.spicchi) {
+      var firma = info.spicchi.join('|') + '#' + (info.vincenti || []).join('|') + '#' + (info.grandi || []).join('|');
+      if (firma !== stato.firma) { stato.firma = firma; disegna(info.spicchi, info.vincenti, info.grandi); }
+    }
+  }
+
+  // Frase del consenso: {privacy} e {regolamento} diventano due link
+  function consenso(info) {
+    var sp = $('gdpr-testo');
+    if (sp.dataset.fatto) return;
+    var modello = info.consensoTesto || 'Ho letto l’{privacy} e accetto il {regolamento}.';
+    var link = { privacy: [info.privacyUrl, info.privacyTesto || 'informativa privacy'],
+      regolamento: [info.regolamentoUrl, info.regolamentoTesto || 'regolamento della ruota'] };
+    sp.textContent = '';
+    modello.split(/(\{privacy\}|\{regolamento\})/).forEach(function (pezzo) {
+      var k = pezzo === '{privacy}' ? 'privacy' : pezzo === '{regolamento}' ? 'regolamento' : '';
+      if (!k) { sp.appendChild(document.createTextNode(pezzo)); return; }
+      var url = link[k][0], t = link[k][1];
+      if (!url) { sp.appendChild(document.createTextNode(t)); return; }
+      var a = document.createElement('a');
+      a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = t;
+      a.addEventListener('click', function (ev) { ev.stopPropagation(); });   // il link non spunta la casella
+      sp.appendChild(a);
+    });
+    sp.dataset.fatto = '1';
+  }
+
+  // Il modulo contatti viene prima del giro: finché non è compilato la ruota resta bloccata
+  function aggiornaCrm() {
+    var accetta = $('gdpr').checked;
+    var dati = !stato.crmAttivo || stato.crmFatto;
+    $('crm-wrap').hidden = !stato.crmAttivo;
+    $('crm-link').className = !accetta ? 'btn spento' : (stato.crmFatto ? 'btn ghost' : 'btn');
+    $('crm-nota').className = (stato.crmAttivo && stato.crmFatto) ? 'fine ok' : 'fine';
+    if (stato.crmAttivo && stato.crmFatto) $('crm-nota').textContent = 'Fatto. Ora gira la ruota.';
+    else if (stato.info) $('crm-nota').textContent = stato.info.crmNota || '';
+    if (accetta) $('gdpr-wrap').classList.remove('manca');
+    if (!stato.occupato) {
+      btn.disabled = !(accetta && dati);
+      btn.textContent = (stato.crmAttivo ? '2 · ' : '') + 'Gira la ruota';
+    }
+  }
+  function chiediConsenso() {
+    $('gdpr-wrap').classList.add('manca');
+    mostraErrore('Prima metti la spunta: serve per l’informativa privacy e il regolamento.');
+    $('gdpr').focus();
+  }
+  function impostaStaff(on) {
+    stato.staff = !!on;
+    $('stand-banner').hidden = !stato.staff;
+  }
+  function emailOk(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
+  function telOk(t) {
+    var v = String(t || '').replace(/[\s.\-()\/]/g, '');
+    if (v.indexOf('00') === 0) v = '+' + v.slice(2);
+    if (v.charAt(0) !== '+') return /^3\d{8,9}$/.test(v) || /^0\d{5,10}$/.test(v);
+    return /^\+\d{8,15}$/.test(v);
+  }
+  function chiusa() {
+    $('step-play').hidden = true;
+    $('step-result').hidden = true;
+    $('step-closed').hidden = false;
+    apriEsito();
+  }
+
+  // L'esito arriva in sovrimpressione sulla ruota, che resta visibile dietro
+  function apriEsito() {
+    alCentro();
+    $('esito').hidden = false;
+    document.body.classList.add('fermo');
+  }
+  function chiudiEsito() {
+    $('esito').hidden = true;
+    document.body.classList.remove('fermo');
+    alCentro();
+  }
+  // Riporta la ruota a schermo intero
+  function alCentro() {
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    catch (e) { window.scrollTo(0, 0); }
+  }
+  function aiDati() {
+    var d = document.querySelector('.piega');
+    if (!d) return;
+    try { d.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    catch (e) { window.scrollTo(0, d.offsetTop); }
+  }
+  function mostraErrore(t) { err.textContent = t; err.hidden = false; }
+
+  function mostraRisultato(r) {
+    $('step-play').hidden = true;
+    var vince = !!r.vincente;
+    $('r-eyebrow').textContent = r.giaGiocato ? 'Hai già girato la ruota' : (vince ? 'Hai vinto' : 'Niente sconto, ma…');
+    var grande = vince && r.grande ? r.grande : '';
+    $('r-premio').textContent = grande || r.premio || 'Non hai vinto';
+    $('r-premio').className = (grande ? 'grande' : '') + (vince ? '' : ' tenue');
+    $('r-sotto').textContent = grande ? resto(r.premio, grande) : '';
+    $('r-sotto').hidden = !$('r-sotto').textContent;
+    $('r-dett').textContent = r.nota || '';
+    $('r-dett').hidden = !r.nota;
+    $('r-quando').textContent = quando(r.quando);
+    $('r-quando-wrap').hidden = !(vince && r.quando);
+    var info = stato.info || r;
+    $('r-note').textContent = vince ? (info.validita || '') : '';
+    $('r-note').hidden = !vince;
+    $('r-promo').textContent = vince ? '' : (info.consolazione || '');
+    $('r-promo').hidden = vince || !info.consolazione;
+    $('next').hidden = !stato.staff;
+    $('step-result').hidden = false;
+    apriEsito();
+    setTimeout(function () { try { $('r-premio').focus({ preventScroll: true }); } catch (e) {} }, 400);
+  }
+
+  function ricomincia() {
+    chiudiEsito();
+    $('step-result').hidden = true;
+    $('step-closed').hidden = true;
+    $('next').hidden = true;
+    $('step-play').hidden = false;
+    err.hidden = true;
+    stato.occupato = false;
+    stato.crmFatto = false;          // il prossimo cliente accetta e compila di nuovo
+    $('gdpr').checked = false;
+    $('mkt').checked = false;
+    $('gdpr-wrap').classList.remove('manca');
+    ['nome', 'email', 'telefono'].forEach(function (k) {
+      $(k).value = ''; $(k).removeAttribute('aria-invalid');
+    });
+    aggiornaCrm();
+    alCentro();
+  }
+
+  btn.addEventListener('click', function () {
+    if (stato.occupato) return;
+    stato.occupato = true;
+    err.hidden = true;
+    btn.disabled = true; btn.textContent = 'Un attimo…';
+    if (!$('gdpr').checked) { stato.occupato = false; return chiediConsenso(); }
+    var dati = { pin: stato.pin, fonte: stato.fonte, ref: stato.ref,
+      dispositivo: stato.staff ? '' : idDispositivo(), consenso: true, marketing: $('mkt').checked };
+    if (stato.modulo) {
+      dati.nome = $('nome').value.trim();
+      dati.email = $('email').value.trim();
+      dati.telefono = $('telefono').value.trim();
+      dati.sito = $('sito').value;
+      $('email').removeAttribute('aria-invalid'); $('telefono').removeAttribute('aria-invalid');
+      if (!emailOk(dati.email)) { stato.occupato = false; aggiornaCrm(); $('email').setAttribute('aria-invalid', 'true'); $('email').focus(); return mostraErrore('Controlla l’email: sembra non valida.'); }
+      if (!telOk(dati.telefono)) { stato.occupato = false; aggiornaCrm(); $('telefono').setAttribute('aria-invalid', 'true'); $('telefono').focus(); return mostraErrore('Controlla il numero di telefono.'); }
+    }
+    chiama('gira', dati).then(function (r) {
+      applicaInfo(r);
+      if (!stato.staff) scrivi(KEY_ESITO, JSON.stringify({ premio: r.premio, vincente: r.vincente, nota: r.nota, grande: r.grande, quando: r.quando }));
+      if (r.giaGiocato) {
+        if (r.indice >= 0) posiziona(r.indice);
+        mostraRisultato(r);
+        return;
+      }
+      alCentro();
+      return giraRuota(r.indice).then(function () { mostraRisultato(r); });
+    }).catch(function (e) {
+      stato.occupato = false;
+      aggiornaCrm();
+      mostraErrore(messaggio(e));
+    });
+  });
+  $('next').addEventListener('click', ricomincia);
+  $('gdpr').addEventListener('change', function () { err.hidden = true; aggiornaCrm(); });
+  $('crm-link').addEventListener('click', function (ev) {
+    if (!$('gdpr').checked) { ev.preventDefault(); return chiediConsenso(); }
+    stato.crmFatto = true;
+    if (!stato.staff) scrivi(KEY_CRM, '1');
+    aggiornaCrm();
+  });
+
+  $('giu').addEventListener('click', aiDati);
+  $('open-odds').addEventListener('click', function () { $('odds').hidden = false; $('close-odds').focus(); });
+  $('close-odds').addEventListener('click', function () { $('odds').hidden = true; });
+  $('odds').addEventListener('click', function (e) { if (e.target === $('odds')) $('odds').hidden = true; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') $('odds').hidden = true; });
+
+  // ---------- Avvio ----------
+  function avvia(param) {
+    stato.pin = String(param.staff || '').slice(0, 20);
+    stato.ref = String(param.ref || param.id || param.email || param.tel || '').slice(0, 120);
+    stato.fonte = String(param.src || '').slice(0, 40);
+    impostaStaff(!!stato.pin);          // provvisorio, il server conferma il PIN
+
+    if (!stato.pin) {
+      var esito = leggi(KEY_ESITO);
+      if (esito) {
+        try {
+          var e = JSON.parse(esito);
+          e.giaGiocato = true;
+          stato.esitoSalvato = e;
+        } catch (x) {}
+      }
+    }
+
+    chiama('getWheel', { pin: stato.pin }).then(function (info) {
+      applicaInfo(info);
+      impostaStaff(info.staff);
+      if (stato.pin && !info.staff) mostraErrore('PIN dello stand non valido: questa è la modalità cliente.');
+      var daForm = !!stato.ref || stato.fonte === 'form' || String(param.dati || '') === 'ok';
+      stato.crmAttivo = !!info.crmUrl && !daForm;
+      stato.crmFatto = !info.staff && leggi(KEY_CRM) === '1';
+      aggiornaCrm();
+      if (stato.esitoSalvato) {
+        var i = (info.spicchi || []).indexOf(stato.esitoSalvato.premio);
+        if (i >= 0) posiziona(i);
+        mostraRisultato(stato.esitoSalvato);
+        return;
+      }
+      if (!info.attiva) chiusa();
+    }).catch(function (e) { console.error('Avvio della ruota non riuscito:', e); });
+  }
+
+  disegna(DEMO.map(function () { return ''; }));
+  if (!isApps && !API) $('demo').hidden = false;
+  try {
+    if (isApps && google.script.url) {
+      google.script.url.getLocation(function (loc) { avvia((loc && loc.parameter) || {}); });
+    } else {
+      var q = new URLSearchParams(location.search), p = {};
+      q.forEach(function (v, k) { p[k] = v; });
+      avvia(p);
+    }
+  } catch (e) { avvia({}); }
+})();
+</script>
+</body>
+</html>
