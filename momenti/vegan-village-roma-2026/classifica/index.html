@@ -63,6 +63,16 @@
   .spunta a{color:var(--preto);font-weight:700}
   .spunta small{display:block;font-size:12px;opacity:.7;margin-top:3px}
   .minore{background:#fff;border-radius:12px;padding:12px 14px;font-size:14px;display:none}
+  #fortuna{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:20px;
+           background:rgba(29,26,22,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  #fortuna .box{background:var(--bege);border-radius:24px;max-width:440px;width:100%;padding:26px 22px 20px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+  #fortuna .ruota{font-size:56px;line-height:1;margin-bottom:6px}
+  #fortuna h2{font-size:26px;margin:4px 0 8px}
+  #fortuna p{font-size:15px;line-height:1.4;margin:0 0 16px}
+  #fortuna .si{display:block;width:100%;padding:17px;border:0;border-radius:16px;background:var(--laranja);color:#fff;font:inherit;font-weight:800;font-size:19px;cursor:pointer}
+  #fortuna .no{display:block;width:100%;margin-top:10px;padding:13px;border:2px solid var(--preto);border-radius:16px;background:transparent;color:var(--preto);font:inherit;font-weight:700;font-size:16px;cursor:pointer}
+  #fortuna small{display:block;font-size:11.5px;line-height:1.4;opacity:.75;margin-top:14px}
+  #fortuna small a{color:inherit;font-weight:700}
   .errore{background:#fff;border:2px solid var(--rosa);border-radius:12px;padding:10px;margin-top:12px;font-size:14px;display:none}
   @media (min-width:700px){ .grid{grid-template-columns:repeat(4,1fr)} .card img{height:170px} main{max-width:900px} }
 </style>
@@ -89,9 +99,9 @@
     <section id="contatti">
       <h2>4 · I tuoi contatti</h2>
       <p class="hint">Ci servono per contare un voto a persona.</p>
-      <label class="campo"><span>Nome <em>(facoltativo)</em></span><input id="c-nome" type="text" autocomplete="given-name" maxlength="60"></label>
+      <label class="campo"><span>Nome</span><input id="c-nome" type="text" autocomplete="given-name" maxlength="60"></label>
       <label class="campo"><span>Email</span><input id="c-email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120"></label>
-      <label class="campo"><span>Telefono</span><input id="c-tel" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="es. 333 123 4567"></label>
+      <label class="campo"><span>Telefono <em>(facoltativo)</em></span><input id="c-tel" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="es. 333 123 4567"></label>
       <label class="spunta"><input id="c-info" type="checkbox"><span>Ho letto l'<a href="https://kelua.it/momenti/vegan-village-roma-2026/classifica/privacy/" target="_blank" rel="noopener">informativa privacy</a></span></label>
       <label class="spunta"><input id="c-mkt" type="checkbox"><span>Voglio ricevere novità, eventi e offerte di Kelūa via email e WhatsApp<small>Facoltativo: voti lo stesso anche senza.</small></span></label>
     </section>
@@ -123,6 +133,18 @@
   </section>
 </main>
 
+<div id="fortuna" role="dialog" aria-modal="true" aria-labelledby="fortuna-titolo">
+  <div class="box">
+    <div class="ruota" aria-hidden="true">🍀</div>
+    <h2 id="fortuna-titolo">Vuoi tentare la fortuna?</h2>
+    <p>Gira la ruota di Kelūa: si vince una volta su due, con sconti da usare subito allo stand. Usiamo i dati che hai appena inserito, non devi riscriverli.</p>
+    <label class="campo" id="fortuna-tel-box" style="display:none;text-align:left"><span>Il tuo telefono <em>(serve per la ruota: un giro a persona)</em></span><input id="fortuna-tel" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="es. 333 123 4567"></label>
+    <button class="si" id="fortuna-si" type="button">Sì, giro la ruota!</button>
+    <button class="no" id="fortuna-no" type="button">No, grazie</button>
+    <small>Toccando «Sì» accetti il <a href="https://kelua.it/momenti/vegan-village-roma-2026/regolamento.html" target="_blank" rel="noopener">regolamento della ruota</a> e confermi di aver letto la sua <a href="https://kelua.it/momenti/vegan-village-roma-2026/privacy.html" target="_blank" rel="noopener">informativa privacy</a>. Un giro a persona.</small>
+  </div>
+</div>
+
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbwVC_9u_8g6Sn2Qg9Sqhuu5qqhbf84_uz0eb5pqE8J7J6H280749Pv1Ajreek9Gri9Zgg/exec';
 const GUSTI = [
@@ -138,6 +160,10 @@ const qs = new URLSearchParams(location.search);
 const STAND = qs.get('stand') === '1' || window.KB_STAND === true;
 const FONTE = (qs.get('src') || (STAND ? 'tablet' : 'qr')).slice(0,30);
 const CHIAVE = 'kelua_classifica_votato_v1';
+// Ruota a premi: stessa origine (kelua.it), i dati passano in sessionStorage, mai nell'indirizzo
+const RUOTA_URL = 'https://kelua.it/momenti/vegan-village-roma-2026/ruota/';
+const CHIAVE_RUOTA = 'kelua_da_classifica';
+const STAFF = qs.get('staff') || '';      // sul tablet: …/classifica/?stand=1&staff=PIN → la ruota si apre in modalità stand
 
 let ordine = [], genere = null, eta = null, invio = false, timerReset = null;
 const MINORE = 'Meno di 18';
@@ -153,6 +179,7 @@ function contatti(){
     nome: $('#c-nome').value.trim(),
     email: $('#c-email').value.trim().toLowerCase(),
     telefono: telNorm($('#c-tel').value),
+    telScritto: $('#c-tel').value.trim() !== '',
     informativa: $('#c-info').checked,
     marketing: $('#c-mkt').checked
   };
@@ -207,7 +234,8 @@ function aggiorna(){
     $('#c-email').classList.toggle('no', !!$('#c-email').value && !RE_EMAIL.test(c.email));
     $('#c-tel').classList.toggle('no', !!$('#c-tel').value && !c.telefono);
     if (!RE_EMAIL.test(c.email)) manca.push('un’email valida');
-    if (!c.telefono) manca.push('un telefono valido');
+    if (c.nome.length < 2) manca.push('il nome');
+    if (c.telScritto && !c.telefono) manca.push('un telefono valido (o lascialo vuoto)');
     if (!c.informativa) manca.push('la spunta sull’informativa');
   }
   $('#invia').disabled = manca.length > 0 || invio;
@@ -240,17 +268,18 @@ $('#invia').onclick = async () => {
   $('#errore').style.display = 'none';
   try{
     const c = eta === MINORE ? {} : contatti();
-    const r = await api('vota', Object.assign({ordine, genere, eta, fonte: FONTE, pagina: 'v2'}, c));
+    const r = await api('vota', Object.assign({ordine, genere, eta, fonte: FONTE, pagina: 'v3'}, c));
     if (!r || !r.ok){
       const msg = {
         chiusa: 'La votazione è chiusa. Grazie!',
         duplicato: 'Con questa email o questo telefono hai già votato. Grazie!',
-        contatti: 'Controlla email, telefono e la spunta sull’informativa.'
+        contatti: 'Controlla nome, email, telefono e la spunta sull’informativa.'
       };
       throw new Error((r && msg[r.errore]) || 'Non sono riuscito a salvare il voto.');
     }
     if (!STAND){ try{ localStorage.setItem(CHIAVE, JSON.stringify({primo: ordine[0], t: Date.now()})); }catch(e){} }
     mostraEsito(ordine[0], r.classifica, 'Voto registrato');
+    if (eta !== MINORE && c.email) proponiRuota(c);
   }catch(e){
     $('#errore').textContent = (e && e.message) || 'Errore di rete. Riprova tra un attimo.';
     $('#errore').style.display = 'block';
@@ -280,7 +309,34 @@ function mostraEsito(primo, cl, titolo){
   }
 }
 
+function proponiRuota(c){
+  clearTimeout(timerReset);                         // sul tablet: niente azzeramento finché non sceglie
+  $('#fortuna').style.display = 'flex';
+  const serveTel = !c.telefono;
+  $('#fortuna-tel-box').style.display = serveTel ? 'block' : 'none';
+  $('#fortuna-tel').value = ''; $('#fortuna-tel').classList.remove('no');
+  $('#fortuna-si').onclick = () => {
+    let tel = c.telefono;
+    if (serveTel){
+      tel = telNorm($('#fortuna-tel').value);
+      if (!tel){ $('#fortuna-tel').classList.add('no'); $('#fortuna-tel').focus(); return; }
+    }
+    const dati = {nome: c.nome, email: c.email, telefono: tel, marketing: !!c.marketing,
+                  accettaRuota: true, t: Date.now(),
+                  ritorno: STAND ? location.href : ''};   // la ruota torna qui con «Prossimo cliente»
+    try{ sessionStorage.setItem(CHIAVE_RUOTA, JSON.stringify(dati)); }catch(e){}
+    location.href = RUOTA_URL + (STAND && STAFF ? '?staff=' + encodeURIComponent(STAFF) : '');
+  };
+  $('#fortuna-no').onclick = chiudiFortuna;
+  if (STAND) timerReset = setTimeout(reset, 30000);  // nessuna risposta in 30 s: passa al prossimo
+}
+function chiudiFortuna(){
+  $('#fortuna').style.display = 'none';
+  if (STAND){ clearTimeout(timerReset); timerReset = setTimeout(reset, 12000); }
+}
+
 function reset(){
+  $('#fortuna').style.display = 'none';
   clearTimeout(timerReset);
   ordine = []; genere = null; eta = null; invio = false;
   ['#c-nome','#c-email','#c-tel'].forEach(s => { $(s).value = ''; $(s).classList.remove('no'); });

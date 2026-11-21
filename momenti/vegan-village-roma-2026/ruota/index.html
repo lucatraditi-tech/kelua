@@ -170,12 +170,12 @@
     <div class="disc"><div class="rotor" id="rotor"><svg id="wheel" viewBox="-200 -200 400 400"></svg></div></div>
     <div class="hub"><span></span></div>
   </section>
-  <button class="giu" type="button" id="giu">Scorri e lascia i tuoi dati ↓</button>
+  <button class="giu" type="button" id="giu">Scorri e gira la ruota ↓</button>
   </div>
 
   <div class="piega">
   <section class="card" id="step-play">
-    <div id="modulo" hidden>
+    <div id="modulo" hidden style="display:none">
       <label class="campo">Nome <span class="opt">(facoltativo)</span>
         <input type="text" id="nome" autocomplete="given-name" maxlength="60"></label>
       <label class="campo">Email
@@ -184,11 +184,11 @@
         <input type="tel" id="telefono" inputmode="tel" autocomplete="tel" placeholder="+39 333 123 4567"></label>
       <input class="hp" type="text" id="sito" tabindex="-1" autocomplete="off" aria-hidden="true">
     </div>
-    <label class="check" id="gdpr-wrap">
+    <label class="check" id="gdpr-wrap" style="display:none">
       <input type="checkbox" id="gdpr">
       <span id="gdpr-testo"></span>
     </label>
-    <label class="check opz" id="mkt-wrap" hidden>
+    <label class="check opz" id="mkt-wrap" hidden style="display:none">
       <input type="checkbox" id="mkt">
       <span id="mkt-testo"></span>
     </label>
@@ -679,6 +679,7 @@
   }
 
   function ricomincia() {
+    if (window.__keluaRitorno) { location.href = window.__keluaRitorno; return; }
     chiudiEsito();
     $('step-result').hidden = true;
     $('step-closed').hidden = true;
@@ -792,6 +793,44 @@
       avvia(p);
     }
   } catch (e) { avvia({}); }
+
+  // ── Kelūa · arrivo dalla classifica (21/11) ───────────────────────────
+  (function(){
+    var CLASSIFICA = 'https://kelua.it/momenti/vegan-village-roma-2026/classifica/';
+    var d = null;
+    try { d = JSON.parse(sessionStorage.getItem('kelua_da_classifica') || 'null'); } catch(e) {}
+    var valido = d && d.accettaRuota === true && d.email && d.telefono && (Date.now() - d.t) < 20*60*1000;
+    var modulo = document.getElementById('modulo');
+    if (modulo) modulo.style.display = 'none';
+
+    if (!valido) {
+      // Nessun dato dalla classifica: invito a votare prima, ruota bloccata
+      var btn = document.getElementById('btn');
+      if (btn) btn.style.display = 'none';
+      var box = document.createElement('div');
+      box.id = 'vai-classifica';
+      box.style.cssText = 'text-align:center;margin:18px auto;max-width:420px';
+      var staff = new URLSearchParams(location.search).get('staff');
+      var dest = CLASSIFICA + (staff ? '?stand=1&staff=' + encodeURIComponent(staff) : '?src=ruota');
+      box.innerHTML = '<p style="font-size:18px;margin:0 0 12px">Per girare la ruota, prima vota la tua Gula Fit preferita.</p>'
+        + '<a href="' + dest + '" style="display:inline-block;padding:14px 22px;border-radius:14px;background:#344E41;color:#F6F2E9;text-decoration:none;font-weight:600">Vota la classifica →</a>';
+      (btn && btn.parentNode ? btn.parentNode : document.body).insertBefore(box, btn || null);
+      return;
+    }
+
+    // Dati dalla classifica: riempio i campi nascosti come se li avesse scritti il cliente
+    function metti(id, v){ var el = document.getElementById(id); if (!el) return;
+      if (el.type === 'checkbox') el.checked = !!v; else el.value = v || '';
+      el.dispatchEvent(new Event('input', {bubbles:true})); el.dispatchEvent(new Event('change', {bubbles:true})); }
+    metti('nome', d.nome); metti('email', d.email); metti('telefono', d.telefono);
+    metti('gdpr', true);            // accettato nel popup della classifica
+    metti('mkt', !!d.marketing);    // stessa scelta fatta nella classifica
+    if (typeof aggiornaCrm === 'function') { try { aggiornaCrm(); } catch(e) {} }
+    // I dati si usano una volta sola
+    try { sessionStorage.removeItem('kelua_da_classifica'); } catch(e) {}
+    // Sul tablet: «Prossimo cliente →» torna alla classifica
+    if (d.ritorno) { window.__keluaRitorno = d.ritorno; }
+  })();
 })();
 </script>
 </body>
